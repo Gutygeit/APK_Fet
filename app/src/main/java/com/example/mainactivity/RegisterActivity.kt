@@ -1,5 +1,6 @@
 package com.example.mainactivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -13,7 +14,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var register: Button
-
+    private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         register = findViewById(R.id.register)
-
+        change = findViewById(R.id.change)
         auth = FirebaseAuth.getInstance()
 
         register.setOnClickListener {
@@ -45,6 +46,10 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 registerUser(txtEmail, txtPassword)
             }
+        }
+        change.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 

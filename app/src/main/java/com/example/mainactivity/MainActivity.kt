@@ -14,9 +14,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        /*setContentView(R.layout.activity_main)
 
         logout = findViewById(R.id.logout)
 
@@ -25,5 +27,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Logged out", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@MainActivity, StartActivity::class.java))
         }
+
+         */
     }
 }
