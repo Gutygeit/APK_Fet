@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "54264443070",
+    "project_id": "apk-fet",
+    "storage_bucket": "apk-fet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54264443070:android:589df0667391acad5ceeef",
+        "android_client_info": {
+          "package_name": "com.example.mainactivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54264443070-a2t9funtlvcnid9rtr6loq2gmljsa7gv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mainactivity",
+            "certificate_hash": "bea14a3bd134ad1b161f57a8cbdd455a29fcd2d5"
+          }
+        },
+        {
+          "client_id": "54264443070-igaj3arc66458r0s1gnpki22b8bolsvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRRTmGJm3R8MrLRGiT-rEfeREuGwiqDvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54264443070-igaj3arc66458r0s1gnpki22b8bolsvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
