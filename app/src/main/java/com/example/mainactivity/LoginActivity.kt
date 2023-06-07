@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.mainactivity.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -15,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var login: Button
     private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +58,14 @@ class LoginActivity : AppCompatActivity() {
                     "Login Successful!",
                     Toast.LENGTH_SHORT
                 ).show()
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                /*val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                startActivity(intent)*/
+                binding = ActivityMainBinding.inflate(layoutInflater)
+                setContentView(binding.root)
+                val navView: BottomNavigationView = binding.navView
+                val navController = findNavController(R.id.nav_host_fragment_activity_main)
+                navView.setupWithNavController(navController)
                 finish()
             } else {
                 Toast.makeText(
