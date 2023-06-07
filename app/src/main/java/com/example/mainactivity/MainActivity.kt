@@ -15,12 +15,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var logout: Button
-
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        auth = FirebaseAuth.getInstance()
+        if(auth.currentUser==null){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
