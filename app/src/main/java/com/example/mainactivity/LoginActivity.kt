@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var login: Button
-
+    private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
 
@@ -21,10 +21,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
-        login = findViewById(R.id.login)
-
+        login = findViewById(R.id.register)
+        change = findViewById(R.id.change)
         auth = FirebaseAuth.getInstance()
 
         login.setOnClickListener {
@@ -32,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
             val txtPassword = password.text.toString()
 
             loginUser(txtEmail, txtPassword)
+        }
+        change.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -48,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     "Login Successful!",
                     Toast.LENGTH_SHORT
                 ).show()
-                val intent = Intent(this@LoginActivity, StartActivity::class.java)
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
