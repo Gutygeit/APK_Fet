@@ -22,12 +22,14 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         super.onCreate(savedInstanceState)
-        /*setContentView(R.layout.activity_main)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
+
+        /*setContentView(R.layout.activity_main)
 
         logout = findViewById(R.id.logout)
 
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(this@MainActivity, "Logged out", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@MainActivity, StartActivity::class.java))
-        }
-         */
+        }*/
+
+
     }
 }
