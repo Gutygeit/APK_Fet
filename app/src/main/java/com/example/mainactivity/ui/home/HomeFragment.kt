@@ -74,22 +74,18 @@ class HomeFragment : Fragment() {
         postList = arrayListOf<Post>()
 
         textPosts = arrayOf(
-            "zoe is sus",
-            "gauthier is sus",
-            "monsieur Dion est gentil <3",
-            "ich liebe reifen essen",
-            "zoe is sus",
-            "gauthier is sus",
-            "monsieur Dion est gentil <3",
-            "ich liebe reifen essen",
-            "zoe is sus",
-            "gauthier is sus",
-            "monsieur Dion est gentil <3",
-            "ich liebe reifen essen",
-            "zoe is sus",
-            "gauthier is sus",
-            "monsieur Dion est gentil <3",
-            "ich liebe reifen essen"
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- "
         )
 
         for(i in textPosts.indices){
