@@ -1,21 +1,25 @@
 package com.example.mainactivity
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterFragment : Fragment() {
 
     private lateinit var email: EditText
     private lateinit var password: EditText
@@ -26,70 +30,70 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
-    // Dans RegisterActivity
-    val loginActivity = LoginActivity()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view =  inflater.inflate(R.layout.fragment_register, container, false)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-
-        email = findViewById(R.id.email)
-        password = findViewById(R.id.password)
-        confirmPassword = findViewById(R.id.password2)
-        prenom = findViewById(R.id.prenom)
-        nom = findViewById(R.id.nom)
-        register = findViewById(R.id.register)
-        change = findViewById(R.id.change)
+        email = view.findViewById(R.id.email)
+        password = view.findViewById(R.id.password)
+        confirmPassword = view.findViewById(R.id.password2)
+        prenom = view.findViewById(R.id.prenom)
+        nom = view.findViewById(R.id.nom)
+        register = view.findViewById(R.id.register)
+        change = view.findViewById(R.id.change)
         auth = FirebaseAuth.getInstance()
 
-        register.setOnClickListener {
+        change.setOnClickListener{
+            view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+        register.setOnClickListener{
             val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
             val txtPassword2 = confirmPassword.text.toString()
 
             if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) //Vérification que les champs ne sont pas vides
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Champs vides !",
                     Toast.LENGTH_SHORT
                 ).show()
-             else if (txtPassword.length < 6)  //Vérification que le mot de passe est assez long
+            else if (txtPassword.length < 6)  //Vérification que le mot de passe est assez long
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Mot de passe trop court !",
                     Toast.LENGTH_SHORT
                 ).show()
-             else if (txtPassword != txtPassword2)  //Vérification que les deux mots de passe sont identiques
+            else if (txtPassword != txtPassword2)  //Vérification que les deux mots de passe sont identiques
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Les mots de passe ne correspondent pas !",
                     Toast.LENGTH_SHORT
                 ).show()
 
             else if (!isValidEmail(txtEmail)) //Vérification que l'adresse mail est valide
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Adresse mail uha attendue !",
                     Toast.LENGTH_SHORT
                 ).show()
-
             else registerUser(txtEmail, txtPassword)
+        }
 
-        }
-        change.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
+        return view
     }
 
     private fun registerUser(email: String, password: String) {
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this@RegisterActivity
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+            requireActivity()
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Compte enregistré avec succès !",
                     Toast.LENGTH_SHORT,
                 ).show()
@@ -106,10 +110,10 @@ class RegisterActivity : AppCompatActivity() {
                 db.collection("User")
                     .add(data)
                     .addOnSuccessListener { documentReference ->
-                        Log.d(TAG, "Document généré avec ID: ${documentReference.id}")
+                        Log.d(ContentValues.TAG, "Document généré avec ID: ${documentReference.id}")
                     }
                     .addOnFailureListener { e ->
-                        Log.w(TAG, "Erreur lors de l'ajout du Document", e)
+                        Log.w(ContentValues.TAG, "Erreur lors de l'ajout du Document", e)
                     }
 
                 //TESTS SUR L'UPDATE DES DONNEES
@@ -121,12 +125,12 @@ class RegisterActivity : AppCompatActivity() {
 
                 //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
                 Handler().postDelayed({
-                    loginActivity.loginUser(email, password)
+                   loginUser(email, password)
                 }, 2000)
 
             } else {
                 Toast.makeText(
-                    this@RegisterActivity,
+                    activity,
                     "Enregistrement échoué !",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -140,4 +144,26 @@ class RegisterActivity : AppCompatActivity() {
         return emailRegex.matches(email)
     }
 
+    fun loginUser(email: String, password: String) {
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
+            requireActivity()
+        ) { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(
+                    activity,
+                    "Connexion réussie !",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    activity,
+                    "Connexion échouée !",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 }

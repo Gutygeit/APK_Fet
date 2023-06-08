@@ -21,7 +21,7 @@ import android.widget.Toast
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainactivity.LoginActivity
+import com.example.mainactivity.WelcomeActivity
 import com.example.mainactivity.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -99,7 +99,7 @@ class AccountFragment : Fragment() {
         deconnect = binding.deconnect
         deconnect.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(activity, LoginActivity::class.java)
+            val intent = Intent(activity, WelcomeActivity::class.java)
             startActivity(intent)
 
         }
