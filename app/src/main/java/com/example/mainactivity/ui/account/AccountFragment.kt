@@ -125,6 +125,8 @@ class AccountFragment : Fragment() {
             val docRef = Firebase.firestore.collection("User")
             docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener { result ->
                 for (document in result) {
+                    val desertRef = storageRef.child(document.data["PP"].toString())
+                    desertRef.delete()
                     docRef.document(document.id).update("PP", "images/${file.lastPathSegment}.jpeg")
                 }
             }
@@ -134,8 +136,7 @@ class AccountFragment : Fragment() {
             uploadTask.addOnFailureListener {
 
             }.addOnSuccessListener { taskSnapshot ->
-                //val desertRef = storageRef.child("images/tele.jpeg")
-                //desertRef.delete()
+
             }
 
         }
