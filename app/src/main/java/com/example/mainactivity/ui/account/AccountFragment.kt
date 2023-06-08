@@ -65,7 +65,6 @@ class AccountFragment : Fragment() {
         binding.imageViewpp.setOnClickListener{
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
-            ppclicked()
         }
 
         deconnect = binding.deconnect
@@ -84,16 +83,25 @@ class AccountFragment : Fragment() {
         _binding = null
     }
 
-    fun ppclicked(){
-        val textView: TextView = binding.textAccount
-        textView.text = "clicked ?"
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
+            val storage = Firebase.storage("gs://apk-fet.appspot.com")
+            val storageRef = storage.reference
             imageUri = data?.data
             binding.imageViewpp.setImageURI(imageUri)
+
+            var file = imageUri!!
+            val riversRef = storageRef.child("images/${file.lastPathSegment}")
+            var uploadTask = riversRef.putFile(file)
+            uploadTask.addOnFailureListener {
+
+            }.addOnSuccessListener { taskSnapshot ->
+                val desertRef = storageRef.child("images/tele.jpeg")
+                desertRef.delete()
+            }
+
         }
     }
 }
