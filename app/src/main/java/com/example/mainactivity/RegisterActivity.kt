@@ -17,6 +17,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var email: EditText
     private lateinit var password: EditText
+    private lateinit var confirmPassword: EditText
     private lateinit var prenom: EditText
     private lateinit var nom: EditText
     private lateinit var register: Button
@@ -30,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
+        confirmPassword = findViewById(R.id.password2)
         prenom = findViewById(R.id.prenom)
         nom = findViewById(R.id.nom)
         register = findViewById(R.id.register)
@@ -39,20 +41,30 @@ class RegisterActivity : AppCompatActivity() {
         register.setOnClickListener {
             val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
+            val txtPassword2 = confirmPassword.text.toString()
 
-            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
+            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) { //Vérification que les champs ne sont pas vides
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Empty Credentials!",
+                    "Champs vides !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword.length < 6) {
+            } else if (txtPassword.length < 6) { //Vérification que le mot de passe est assez long
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Password too short!",
+                    "Mot de passe trop court !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
+            } else if (txtPassword != txtPassword2) { //Vérification que les deux mots de passe sont identiques
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Les mots de passe ne correspondent pas !",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
+            else {
                 registerUser(txtEmail, txtPassword)
             }
         }
@@ -69,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Registering Successful!",
+                    "Compte enregistré avec succès !",
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -94,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Registration Failed!",
+                    "Enregistrement échoué !",
                     Toast.LENGTH_SHORT
                 ).show()
             }
