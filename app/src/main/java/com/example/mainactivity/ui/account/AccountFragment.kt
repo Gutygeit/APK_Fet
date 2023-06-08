@@ -2,6 +2,7 @@ package com.example.mainactivity.ui.account
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +18,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mainactivity.LoginActivity
 import com.example.mainactivity.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -29,9 +37,9 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 class AccountFragment : Fragment() {
-
+    private lateinit var auth: FirebaseAuth
     private var _binding: FragmentAccountBinding? = null
-
+    private var pp:String = ""
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -44,16 +52,37 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth = FirebaseAuth.getInstance()
 
-        val StoRef = FirebaseStorage.getInstance().reference.child("images/tele.jpeg")
-        val localfile = File.createTempFile("tempimage","jpeg")
-        StoRef.getFile(localfile).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            binding.imageViewpp.setImageBitmap(bitmap)
-        }.addOnFailureListener{
-            Toast.makeText(getActivity(), "This is my Toast message!",
-                Toast.LENGTH_LONG).show();
+
+        val docRef = Firebase.firestore.collection("User")
+        docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
+            result->
+            for (document in result){
+                val gg = document.data["PP"].toString()
+                gg?.let {
+                    // Assign the value to the global pp variable
+                    pp = it
+
+                    Thread.sleep(1000)
+                    Toast.makeText(getActivity(),pp ,
+                        Toast.LENGTH_LONG).show();
+                    val StoRef = FirebaseStorage.getInstance().reference.child(pp)
+                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1],)
+                    StoRef.getFile(localfile).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                        binding.imageViewpp.setImageBitmap(bitmap)
+                    }.addOnFailureListener{
+                        Toast.makeText(getActivity(), "This is my Toast message!",
+                            Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
         }
+
+
+
+
 
         val accountViewModel =
             ViewModelProvider(this).get(AccountViewModel::class.java)
@@ -91,17 +120,27 @@ class AccountFragment : Fragment() {
             val storageRef = storage.reference
             imageUri = data?.data
             binding.imageViewpp.setImageURI(imageUri)
-
             var file = imageUri!!
-            val riversRef = storageRef.child("images/${file.lastPathSegment}")
+
+            val docRef = Firebase.firestore.collection("User")
+            docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener { result ->
+                for (document in result) {
+                    docRef.document(document.id).update("PP", "images/${file.lastPathSegment}.jpeg")
+                }
+            }
+
+            val riversRef = storageRef.child("images/${file.lastPathSegment}.jpeg")
             var uploadTask = riversRef.putFile(file)
             uploadTask.addOnFailureListener {
 
             }.addOnSuccessListener { taskSnapshot ->
-                val desertRef = storageRef.child("images/tele.jpeg")
-                desertRef.delete()
+                //val desertRef = storageRef.child("images/tele.jpeg")
+                //desertRef.delete()
             }
 
         }
     }
+
+
+
 }
