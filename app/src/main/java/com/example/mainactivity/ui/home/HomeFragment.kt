@@ -24,6 +24,12 @@ class HomeFragment : Fragment() {
     private lateinit var postList : ArrayList<Post>
 
     lateinit var  textPosts : Array<String>
+    lateinit var  users : Array<String>
+    lateinit var  roles : Array<String>
+    lateinit var  tags : Array<String>
+    lateinit var  imgUsers : Array<String>
+    lateinit var  imgPosts : Array<String>
+
 
     private var _binding: FragmentHomeBinding? = null
     private var feedlayout: LinearLayout? =null
@@ -76,20 +82,38 @@ class HomeFragment : Fragment() {
         textPosts = arrayOf(
             "test message \n\n\n\n -------------------------- ",
             "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
-            "test message \n\n\n\n -------------------------- ",
             "test message \n\n\n\n -------------------------- "
         )
 
+        users = arrayOf(
+            "Zoe ",
+            "Dion",
+            "Gauthier"
+        )
+        roles = arrayOf(
+            "Etudiants",
+            "Prof",
+            "Administration"
+        )
+
+        tags = arrayOf(
+            "Examin",
+            "Cours",
+            "Stage"
+        )
+        imgUsers = arrayOf(
+            "img1",
+            "img2",
+            "img3"
+        )
+        imgPosts = arrayOf(
+            "imgPosts 1",
+            "imgPosts 2",
+            "imgPosts 3"
+        )
+
         for(i in textPosts.indices){
-            val post = Post(textPosts[i])
+            val post = Post(textPosts[i],roles[i],tags[i], imgPosts[i],users[i], imgUsers[i])
             postList.add(post)
         }
 
