@@ -17,11 +17,17 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var email: EditText
     private lateinit var password: EditText
+    private lateinit var confirmPassword: EditText
     private lateinit var prenom: EditText
     private lateinit var nom: EditText
     private lateinit var register: Button
     private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
+
+    // Dans RegisterActivity
+    val loginActivity = LoginActivity()
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +36,7 @@ class RegisterActivity : AppCompatActivity() {
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
+        confirmPassword = findViewById(R.id.password2)
         prenom = findViewById(R.id.prenom)
         nom = findViewById(R.id.nom)
         register = findViewById(R.id.register)
@@ -39,20 +46,30 @@ class RegisterActivity : AppCompatActivity() {
         register.setOnClickListener {
             val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
+            val txtPassword2 = confirmPassword.text.toString()
 
-            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
+            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) { //Vérification que les champs ne sont pas vides
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Empty Credentials!",
+                    "Champs vides !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword.length < 6) {
+            } else if (txtPassword.length < 6) { //Vérification que le mot de passe est assez long
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Password too short!",
+                    "Mot de passe trop court !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
+            } else if (txtPassword != txtPassword2) { //Vérification que les deux mots de passe sont identiques
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Les mots de passe ne correspondent pas !",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
+            else {
                 registerUser(txtEmail, txtPassword)
             }
         }
@@ -62,23 +79,25 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(username: String, password: String) {
+    private fun registerUser(email: String, password: String) {
 
-        auth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this@RegisterActivity
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this@RegisterActivity
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Registering Successful!",
-                    Toast.LENGTH_SHORT
+                    "Compte enregistré avec succès !",
+                    Toast.LENGTH_SHORT,
                 ).show()
+
+                loginActivity.loginUser(email, password)
 
                 //Ajout des données de l'utilisateur dans firestore
                 val db = Firebase.firestore
                 val data = hashMapOf(
                     "Mail" to auth.currentUser?.email.toString(),
-                    "FirstName" to "PrénomDuFormulaire",
-                    "LastName" to "NomDuFormulaire",
+                    "FirstName" to prenom.text.toString(),
+                    "LastName" to nom.text.toString(),
                     "Role" to db.collection("Role").document("role_Student")
                 )
                 //ID généré automatiquement
@@ -94,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Registration Failed!",
+                    "Enregistrement échoué !",
                     Toast.LENGTH_SHORT
                 ).show()
             }
