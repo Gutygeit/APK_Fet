@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             loginUser(txtEmail, txtPassword)
         }
         change.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
