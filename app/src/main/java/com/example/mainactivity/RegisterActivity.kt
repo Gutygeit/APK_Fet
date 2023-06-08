@@ -1,13 +1,17 @@
 package com.example.mainactivity
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -63,6 +67,25 @@ class RegisterActivity : AppCompatActivity() {
                     "Registering Successful!",
                     Toast.LENGTH_SHORT
                 ).show()
+
+                //Ajout des données de l'utilisateur dans firestore
+                val db = Firebase.firestore
+                val data = hashMapOf(
+                    "Mail" to auth.currentUser?.email.toString(),
+                    "FirstName" to "PrénomDuFormulaire",
+                    "LastName" to "NomDuFormulaire",
+                    "Role" to db.collection("Role").document("role_Student")
+                )
+                //ID généré automatiquement
+                db.collection("User")
+                    .add(data)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "Document généré avec ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Erreur lors de l'ajout du Document", e)
+                    }
+
             } else {
                 Toast.makeText(
                     this@RegisterActivity,
