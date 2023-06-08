@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
@@ -28,8 +29,6 @@ class RegisterActivity : AppCompatActivity() {
 
     // Dans RegisterActivity
     val loginActivity = LoginActivity()
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +91,6 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT,
                 ).show()
 
-                loginActivity.loginUser(email, password)
-
                 //Ajout des données de l'utilisateur dans firestore
                 val db = Firebase.firestore
                 val data = hashMapOf(
@@ -114,9 +111,15 @@ class RegisterActivity : AppCompatActivity() {
 
                 //TESTS SUR L'UPDATE DES DONNEES
                 val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
-                ref.update("FirstName", "NouveauPrénom")
-                ref.update("LastName", "NouveauNom")
-                ref.update("Role", "NouveauRole")
+                ref.update("FirstName", "GIGA")
+                ref.update("LastName", "GOGIGA")
+                ref.update("Role", "GAGAGIGO")
+                println("IL SEST PASSE DES CHOSES")
+
+                //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
+                Handler().postDelayed({
+                    loginActivity.loginUser(email, password)
+                }, 2000)
 
             } else {
                 Toast.makeText(
