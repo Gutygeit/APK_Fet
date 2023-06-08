@@ -16,14 +16,6 @@
             android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Dark.NoActionBar">
