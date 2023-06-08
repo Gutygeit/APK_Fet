@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -50,30 +49,34 @@ class RegisterActivity : AppCompatActivity() {
             val txtPassword = password.text.toString()
             val txtPassword2 = confirmPassword.text.toString()
 
-            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) { //Vérification que les champs ne sont pas vides
+            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) //Vérification que les champs ne sont pas vides
                 Toast.makeText(
                     this@RegisterActivity,
                     "Champs vides !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword.length < 6) { //Vérification que le mot de passe est assez long
+             else if (txtPassword.length < 6)  //Vérification que le mot de passe est assez long
                 Toast.makeText(
                     this@RegisterActivity,
                     "Mot de passe trop court !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword != txtPassword2) { //Vérification que les deux mots de passe sont identiques
+             else if (txtPassword != txtPassword2)  //Vérification que les deux mots de passe sont identiques
                 Toast.makeText(
                     this@RegisterActivity,
                     "Les mots de passe ne correspondent pas !",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
 
+            else if (!isValidEmail(txtEmail)) //Vérification que l'adresse mail est valide
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Adresse mail uha attendue !",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            else {
-                registerUser(txtEmail, txtPassword)
-            }
+            else registerUser(txtEmail, txtPassword)
+
         }
         change.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
@@ -128,4 +131,10 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@uha\\.fr$")
+        return emailRegex.matches(email)
+    }
+
 }
