@@ -4,13 +4,13 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -28,8 +28,6 @@ class RegisterActivity : AppCompatActivity() {
 
     // Dans RegisterActivity
     val loginActivity = LoginActivity()
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,30 +48,34 @@ class RegisterActivity : AppCompatActivity() {
             val txtPassword = password.text.toString()
             val txtPassword2 = confirmPassword.text.toString()
 
-            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) { //Vérification que les champs ne sont pas vides
+            if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) //Vérification que les champs ne sont pas vides
                 Toast.makeText(
                     this@RegisterActivity,
                     "Champs vides !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword.length < 6) { //Vérification que le mot de passe est assez long
+             else if (txtPassword.length < 6)  //Vérification que le mot de passe est assez long
                 Toast.makeText(
                     this@RegisterActivity,
                     "Mot de passe trop court !",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (txtPassword != txtPassword2) { //Vérification que les deux mots de passe sont identiques
+             else if (txtPassword != txtPassword2)  //Vérification que les deux mots de passe sont identiques
                 Toast.makeText(
                     this@RegisterActivity,
                     "Les mots de passe ne correspondent pas !",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
 
+            else if (!isValidEmail(txtEmail)) //Vérification que l'adresse mail est valide
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Adresse mail uha attendue !",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            else {
-                registerUser(txtEmail, txtPassword)
-            }
+            else registerUser(txtEmail, txtPassword)
+
         }
         change.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
@@ -91,8 +93,6 @@ class RegisterActivity : AppCompatActivity() {
                     "Compte enregistré avec succès !",
                     Toast.LENGTH_SHORT,
                 ).show()
-
-                loginActivity.loginUser(email, password)
 
                 //Ajout des données de l'utilisateur dans firestore
                 val db = Firebase.firestore
@@ -114,9 +114,15 @@ class RegisterActivity : AppCompatActivity() {
 
                 //TESTS SUR L'UPDATE DES DONNEES
                 val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
-                ref.update("FirstName", "NouveauPrénom")
-                ref.update("LastName", "NouveauNom")
-                ref.update("Role", "NouveauRole")
+                ref.update("FirstName", "GIGA")
+                ref.update("LastName", "GOGIGA")
+                ref.update("Role", "GAGAGIGO")
+                println("IL SEST PASSE DES CHOSES")
+
+                //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
+                Handler().postDelayed({
+                    loginActivity.loginUser(email, password)
+                }, 2000)
 
             } else {
                 Toast.makeText(
@@ -128,4 +134,10 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@uha\\.fr$")
+        return emailRegex.matches(email)
+    }
+
 }
