@@ -1,4 +1,3 @@
 package com.example.mainactivity.data
 
-data class feedData {
-}
+data class Post (var text : String)

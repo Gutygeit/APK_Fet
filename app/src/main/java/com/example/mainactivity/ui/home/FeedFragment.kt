@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainactivity.databinding.FeedBinding
+import com.example.mainactivity.databinding.PostBinding
 
 class FeedFragment : Fragment() {
 
-    private var _binding: FeedBinding? = null
+    private var _binding: PostBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,10 +25,10 @@ class FeedFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(FeedViewModel::class.java)
 
-        _binding = FeedBinding.inflate(inflater, container, false)
+        _binding = PostBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textFeed
+        val textView: TextView = binding.textPost
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
