@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -109,6 +111,12 @@ class RegisterActivity : AppCompatActivity() {
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Erreur lors de l'ajout du Document", e)
                     }
+
+                //TESTS SUR L'UPDATE DES DONNEES
+                val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
+                ref.update("FirstName", "NouveauPrénom")
+                ref.update("LastName", "NouveauNom")
+                ref.update("Role", "NouveauRole")
 
             } else {
                 Toast.makeText(
