@@ -1,10 +1,13 @@
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">APK\'Fet</string>
     <string name="title_home">Home</string>
     <string name="title_message">Message</string>
     <string name="title_account">Account</string>
+
+
     <string name="connexion_message">Se connecter</string>
     <string name="register_message">Enregistrez-vous !</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
