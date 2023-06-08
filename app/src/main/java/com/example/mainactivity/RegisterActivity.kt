@@ -24,6 +24,11 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
+    // Dans RegisterActivity
+    val loginActivity = LoginActivity()
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +79,18 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(username: String, password: String) {
+    private fun registerUser(email: String, password: String) {
 
-        auth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this@RegisterActivity
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this@RegisterActivity
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
                     this@RegisterActivity,
                     "Compte enregistré avec succès !",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT,
                 ).show()
+
+                loginActivity.loginUser(email, password)
 
                 //Ajout des données de l'utilisateur dans firestore
                 val db = Firebase.firestore

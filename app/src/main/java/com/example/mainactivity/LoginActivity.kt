@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun loginUser(email: String, password: String) {
+    fun loginUser(email: String, password: String) {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
             this@LoginActivity
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Toast.makeText(
                     this@LoginActivity,
-                    "Login Successful!",
+                    "Connexion réussie !",
                     Toast.LENGTH_SHORT
                 ).show()
                 /*val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this@LoginActivity,
-                    "Authentication Failed!",
+                    "Connexion échouée !",
                     Toast.LENGTH_SHORT
                 ).show()
             }
