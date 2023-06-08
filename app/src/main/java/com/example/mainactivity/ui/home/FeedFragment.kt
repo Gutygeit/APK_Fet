@@ -1,22 +1,18 @@
 package com.example.mainactivity.ui.home
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainactivity.databinding.FragmentHomeBinding
+import com.example.mainactivity.databinding.FeedBinding
 
+class FeedFragment : Fragment() {
 
-class HomeFragment : Fragment() {
+    private var _binding: FeedBinding? = null
 
-    private var _binding: FragmentHomeBinding? = null
-    private var feedlayout: LinearLayout? =null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -27,29 +23,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(FeedViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FeedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textFeed
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        */
-
-        feedlayout = binding.linearLayoutFeed
-        var feedFrag = FeedFragment()
-
-
-
-
-
-
-
         return root
-
     }
 
     override fun onDestroyView() {
