@@ -96,8 +96,8 @@ class RegisterActivity : AppCompatActivity() {
                 val db = Firebase.firestore
                 val data = hashMapOf(
                     "Mail" to auth.currentUser?.email.toString(),
-                    "FirstName" to "PrénomDuFormulaire",
-                    "LastName" to "NomDuFormulaire",
+                    "FirstName" to prenom.text.toString(),
+                    "LastName" to nom.text.toString(),
                     "Role" to db.collection("Role").document("role_Student")
                 )
                 //ID généré automatiquement
