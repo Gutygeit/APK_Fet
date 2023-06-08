@@ -5,4 +5,6 @@
     <string name="title_account">Account</string>
     <string name="connexion_message">Se connecter</string>
     <string name="register_message">Enregistrez-vous !</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
