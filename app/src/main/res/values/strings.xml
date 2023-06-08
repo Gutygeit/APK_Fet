@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">APK\'Fet</string>
     <string name="title_home">Home</string>
     <string name="title_message">Message</string>
     <string name="title_account">Account</string>
-    <string name="connexion_message">Se connecter</string>
-    <string name="register_message">Enregistrez-vous !</string>
+    <string name="connexion_message">Se Connecter</string>
+    <string name="register_message">Créer un compte</string>
 </resources>
