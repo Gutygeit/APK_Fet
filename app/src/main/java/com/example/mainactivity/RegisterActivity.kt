@@ -17,9 +17,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var email: EditText
     private lateinit var password: EditText
+    private lateinit var prenom: EditText
+    private lateinit var nom: EditText
     private lateinit var register: Button
     private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,8 @@ class RegisterActivity : AppCompatActivity() {
 
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
+        prenom = findViewById(R.id.prenom)
+        nom = findViewById(R.id.nom)
         register = findViewById(R.id.register)
         change = findViewById(R.id.change)
         auth = FirebaseAuth.getInstance()
