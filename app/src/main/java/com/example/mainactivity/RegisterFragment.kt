@@ -39,13 +39,8 @@ class RegisterFragment : Fragment() {
         val nom = view.findViewById<EditText>(R.id.nom)
 
         val register = view.findViewById<Button>(R.id.register)
-        val change = view.findViewById<Button>(R.id.change)
 
         auth = FirebaseAuth.getInstance()
-
-        change.setOnClickListener{
-            view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }
 
         register.setOnClickListener{
             val txtEmail = email.text.toString()
