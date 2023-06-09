@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         if(auth.currentUser==null){
             val intent = Intent(this, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            this.finish()
         }
         super.onCreate(savedInstanceState)
 
