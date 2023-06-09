@@ -1,18 +1,18 @@
 package com.example.mainactivity
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +30,7 @@ class RegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_register, container, false)
+
 
         val email = view.findViewById<EditText>(R.id.email)
         val password = view.findViewById<EditText>(R.id.password)
@@ -73,56 +74,67 @@ class RegisterFragment : Fragment() {
                     "Les mots de passe ne sont pas les mêmes",
                     Toast.LENGTH_SHORT
                 ).show()
-            else registerUser(txtEmail, txtPassword, txtPrenom, txtNom)
+            else registerUser(txtEmail, txtPassword, txtPrenom, txtNom, view.findNavController())
         }
 
         return view
     }
 
-    private fun registerUser(email: String, password: String, prenom: String, nom: String) {
+    private fun registerUser(email: String, password: String, prenom: String, nom: String, navController: NavController) {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
         ) { task ->
             if (task.isSuccessful) {
-                Toast.makeText(
-                    activity,
-                    "Compte enregistré avec succès !",
-                    Toast.LENGTH_SHORT,
-                ).show()
+                val user = auth.currentUser
+                user?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
+                    if (verificationTask.isSuccessful) {
+                        Toast.makeText(
+                            activity,
+                            "Un e-mail de confirmation a été envoyé à votre adresse e-mail.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
 
-                //Ajout des données de l'utilisateur dans firestore.
-                val db = Firebase.firestore
-                val data = hashMapOf(
-                    "Mail" to auth.currentUser?.email.toString(),
-                    "FirstName" to prenom,
-                    "LastName" to nom,
-                    "PP" to "images/tele.jpeg",
-                    "Role" to db.collection("Role").document("role_Student")
-                )
-                //ID généré automatiquement
-                db.collection("User")
-                    .add(data)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d(ContentValues.TAG, "Document généré avec ID: ${documentReference.id}")
+                        //Ajout des données de l'utilisateur dans Firestore.
+                        val db = Firebase.firestore
+                        val data = hashMapOf(
+                            "Mail" to auth.currentUser?.email.toString(),
+                            "FirstName" to prenom,
+                            "LastName" to nom,
+                            "PP" to "images/tele.jpeg",
+                            "Role" to db.collection("Role").document("role_Student")
+                        )
+                        //ID généré automatiquement
+                        db.collection("User")
+                            .add(data)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d(ContentValues.TAG, "Document généré avec ID: ${documentReference.id}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(ContentValues.TAG, "Erreur lors de l'ajout du Document", e)
+                            }
+
+                        //TESTS SUR L'UPDATE DES DONNEES
+                        val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
+                        ref.update("FirstName", "GIGA")
+                        ref.update("LastName", "GOGIGA")
+                        ref.update("Role", "GAGAGIGO")
+                        println("IL S'EST PASSE DES CHOSES")
+                        val doc  = FirebaseFirestore.getInstance().collection("User").whereEqualTo("Mail",auth.currentUser?.email.toString())
+
+                        //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
+                        Handler().postDelayed({
+                            navController.navigate(R.id.action_registerFragment_to_loginFragment)
+                        }, 2000)
+
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            "Erreur lors de l'envoi de l'e-mail de confirmation.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    .addOnFailureListener { e ->
-                        Log.w(ContentValues.TAG, "Erreur lors de l'ajout du Document", e)
-                    }
-
-                //TESTS SUR L'UPDATE DES DONNEES
-                val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
-                ref.update("FirstName", "GIGA")
-                ref.update("LastName", "GOGIGA")
-                ref.update("Role", "GAGAGIGO")
-                println("IL SEST PASSE DES CHOSES")
-                val doc  = FirebaseFirestore.getInstance().collection("User").whereEqualTo("Mail",auth.currentUser?.email.toString())
-
-
-                //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
-                Handler().postDelayed({
-                   loginUser(email, password)
-                }, 2000)
+                }
 
             } else {
                 Toast.makeText(
@@ -138,31 +150,5 @@ class RegisterFragment : Fragment() {
     private fun isValidEmail(email: String): Boolean {
         val emailRegex = Regex("^[A-Za-z0-9._%+-]+@uha\\.fr$")
         return emailRegex.matches(email)
-    }
-
-    fun loginUser(email: String, password: String) {
-
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
-            requireActivity()
-        ) { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(
-                    activity,
-                    "Connecté à $email",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                requireActivity().finish()
-            } else {
-                Toast.makeText(
-                    activity,
-                    "Identifiants incorrects",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 }
