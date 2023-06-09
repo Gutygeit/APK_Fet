@@ -98,7 +98,7 @@ class RegisterFragment : Fragment() {
                     Toast.LENGTH_SHORT,
                 ).show()
 
-                //Ajout des données de l'utilisateur dans firestore
+                //Ajout des données de l'utilisateur dans firestore.
                 val db = Firebase.firestore
                 val data = hashMapOf(
                     "Mail" to auth.currentUser?.email.toString(),
