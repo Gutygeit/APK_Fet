@@ -182,7 +182,12 @@ class AccountFragment : Fragment() {
             docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener { result ->
                 for (document in result) {
                     val desertRef = storageRef.child(document.data["PP"].toString())
-                    desertRef.delete()
+                    if (document.data["PP"].toString().contentEquals("images/tele.jpeg"))
+                        Toast.makeText(getActivity(), "Image de base non supprimée",
+                            Toast.LENGTH_LONG).show();
+                    else{
+                        desertRef.delete()
+                    }
                     docRef.document(document.id).update("PP", "images/${file.lastPathSegment}.jpeg")
                 }
             }
