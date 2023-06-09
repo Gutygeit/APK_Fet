@@ -82,6 +82,10 @@ class HomeFragment : Fragment() {
 
         postList = arrayListOf<Post>()
 
+        for(i in textPosts.indices){
+            val post = Post(textPosts[i],roles[i],tags[i], imgPosts[i],users[i], imgUsers[i])
+            postList.add(post)
+        }
         textPosts = arrayOf(
             "",
             Math.random().toString() +
@@ -93,6 +97,8 @@ class HomeFragment : Fragment() {
             "test message \n\n\n\n -------------------------- ",
             "test message \n\n\n\n -------------------------- "
         )
+
+
 
         users = arrayOf(
             "",
