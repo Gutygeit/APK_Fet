@@ -1,23 +1,22 @@
 package com.example.mainactivity.ui.home
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() {
+
 
     private lateinit var adapter: PostAdapter
     private lateinit var recyclerView: RecyclerView
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
 
-        dataInitializeOf()
+        dataInitialize()
         val LayoutManager = LinearLayoutManager(context)
         recyclerView = binding.recyclerFeed;
         recyclerView.layoutManager = LayoutManager
@@ -59,54 +58,85 @@ class HomeFragment : Fragment() {
         adapter = PostAdapter(postList)
         recyclerView.adapter = adapter
 
-                /*
-                val textView: TextView = binding.textHome
-                homeViewModel.text.observe(viewLifecycleOwner) {
-                    textView.text = it
-                }
-                */
 
 
+        binding.swipe.getViewTreeObserver().addOnScrollChangedListener(OnScrollChangedListener {
+            println(binding.scrollFeed.scrollY)
+            binding.swipe.isEnabled = binding.scrollFeed.scrollY == 0
+            })
 
-
-
+        binding.swipe.setOnRefreshListener {
+            dataInitialize()
+            adapter = PostAdapter(postList)
+            recyclerView.adapter = adapter
+            binding.swipe.isRefreshing = false
+        }
 
         return root
 
     }
 
 
-    private fun dataInitializeOf(){
+    private fun dataInitialize(){
+
+
         postList = arrayListOf<Post>()
 
         textPosts = arrayOf(
+            "",
+            Math.random().toString() +
             "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            "test message \n\n\n\n -------------------------- ",
+            Math.random().toString() +
+                    "test message \n\n\n\n -------------------------- ",
             "test message \n\n\n\n -------------------------- ",
             "test message \n\n\n\n -------------------------- "
         )
 
         users = arrayOf(
+            "",
+            "Zoe ",
+            "Dion",
+            "Gauthier",
             "Zoe ",
             "Dion",
             "Gauthier"
         )
         roles = arrayOf(
+            "",
+            "Etudiants",
+            "Prof",
+            "Administration",
             "Etudiants",
             "Prof",
             "Administration"
         )
 
         tags = arrayOf(
+            "",
+            "Examin",
+            "Cours",
+            "Stage",
             "Examin",
             "Cours",
             "Stage"
+
         )
         imgUsers = arrayOf(
+            "",
+            "img1",
+            "img2",
+            "img3",
             "img1",
             "img2",
             "img3"
         )
         imgPosts = arrayOf(
+            "",
+            "imgPosts 1",
+            "imgPosts 2",
+            "imgPosts 3",
             "imgPosts 1",
             "imgPosts 2",
             "imgPosts 3"
