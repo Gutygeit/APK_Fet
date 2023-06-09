@@ -3,12 +3,5 @@
     <style name="Theme.Apkfet" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_500</item>
-        <item name="colorOnPrimary">@color/purple_500</item>
-        <item name="colorSecondary">@color/purple_500</item>
-        <item name="colorSecondaryVariant">@color/purple_500</item>
-        <item name="colorOnSecondary">@color/purple_500</item>
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
     </style>
 </resources>
