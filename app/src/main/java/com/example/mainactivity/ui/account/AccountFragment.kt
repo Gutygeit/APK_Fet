@@ -99,6 +99,11 @@ class AccountFragment : Fragment() {
         deconnect = binding.deconnect
         deconnect.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
+            Toast.makeText(
+                activity,
+                "Déconnexion réussie",
+                Toast.LENGTH_SHORT
+            ).show()
             val intent = Intent(activity, WelcomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
