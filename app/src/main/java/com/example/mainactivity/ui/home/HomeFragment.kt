@@ -53,14 +53,9 @@ class HomeFragment : Fragment() {
 
         dataInitialize()
 
-        binding.swipe.getViewTreeObserver().addOnScrollChangedListener(OnScrollChangedListener {
-            println(binding.scrollFeed.scrollY)
-            binding.swipe.isEnabled = binding.scrollFeed.scrollY == 0
-            binding.swipe.isRefreshing = false
-            })
-
         binding.swipe.setOnRefreshListener {
             dataInitialize()
+            binding.swipe.isRefreshing = false
 
         }
         return root
