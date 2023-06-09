@@ -96,7 +96,7 @@ class RegisterFragment : Fragment() {
                     Toast.LENGTH_SHORT,
                 ).show()
 
-                //Ajout des données de l'utilisateur dans firestore
+                //Ajout des données de l'utilisateur dans firestore.
                 val db = Firebase.firestore
                 val data = hashMapOf(
                     "Mail" to auth.currentUser?.email.toString(),
@@ -121,6 +121,8 @@ class RegisterFragment : Fragment() {
                 ref.update("LastName", "GOGIGA")
                 ref.update("Role", "GAGAGIGO")
                 println("IL SEST PASSE DES CHOSES")
+                val doc  = FirebaseFirestore.getInstance().collection("User").whereEqualTo("Mail",auth.currentUser?.email.toString())
+
 
                 //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
                 Handler().postDelayed({
@@ -144,6 +146,7 @@ class RegisterFragment : Fragment() {
     }
 
     fun loginUser(email: String, password: String) {
+
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
         ) { task ->
