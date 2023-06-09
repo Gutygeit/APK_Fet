@@ -27,4 +27,15 @@
         android:text="Se deconnecter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewpp"
+        android:layout_width="229dp"
+        android:layout_height="223dp"
+        android:onClick="parent"
+        android:text="pp"
+        app:layout_constraintBottom_toTopOf="@+id/text_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>
