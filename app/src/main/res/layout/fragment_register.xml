@@ -33,7 +33,8 @@
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextSizeCheck" />
 
         <!--- <EditText -->
 
@@ -70,7 +71,7 @@
             tools:ignore="HardcodedText" />
 
         <EditText
-            android:id="@+id/password2"
+            android:id="@+id/confirmPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -99,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.500"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password2"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPassword"
             tools:ignore="HardcodedText" />
 
         <EditText
@@ -128,6 +129,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="16dp"
             android:text="S'enregistrer"
+            android:textColor="#EA80FC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Retour à la page de connexion"
+            android:textColor="#EA80FC"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
