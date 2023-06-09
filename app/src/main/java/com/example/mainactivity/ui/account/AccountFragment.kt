@@ -100,7 +100,10 @@ class AccountFragment : Fragment() {
         deconnect.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(activity, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            requireActivity().finish()
 
         }
 
