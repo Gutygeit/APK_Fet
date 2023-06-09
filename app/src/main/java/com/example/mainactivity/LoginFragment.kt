@@ -56,20 +56,29 @@ class LoginFragment : Fragment() {
             requireActivity()
         ) { task ->
             if (task.isSuccessful) {
-                Toast.makeText(
-                    activity,
-                    "Connecté à $email",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                requireActivity().finish()
+                val user = auth.currentUser
+                if (user != null && user.isEmailVerified) {
+                    Toast.makeText(
+                        activity,
+                        "Connecté à $email",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(activity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    requireActivity().finish()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Veuillez vérifier votre adresse e-mail avant de vous connecter.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 Toast.makeText(
                     activity,
-                    "Identifiants incorrects",
+                    "Identifiants inconnus ou incorrects",
                     Toast.LENGTH_SHORT
                 ).show()
             }
