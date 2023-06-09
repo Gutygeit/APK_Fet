@@ -104,6 +104,7 @@ class RegisterFragment : Fragment() {
                     "Mail" to auth.currentUser?.email.toString(),
                     "FirstName" to prenom.text.toString(),
                     "LastName" to nom.text.toString(),
+                    "PP" to "images/tele.jpeg",
                     "Role" to db.collection("Role").document("role_Student")
                 )
                 //ID généré automatiquement
@@ -122,6 +123,8 @@ class RegisterFragment : Fragment() {
                 ref.update("LastName", "GOGIGA")
                 ref.update("Role", "GAGAGIGO")
                 println("IL SEST PASSE DES CHOSES")
+                val doc  = FirebaseFirestore.getInstance().collection("User").whereEqualTo("Mail",auth.currentUser?.email.toString())
+
 
                 //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
                 Handler().postDelayed({
