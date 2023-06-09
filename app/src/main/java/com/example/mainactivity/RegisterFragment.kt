@@ -154,6 +154,8 @@ class RegisterFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(activity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             } else {
                 Toast.makeText(
