@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
         val email = view.findViewById<EditText>(R.id.email)
         val password = view.findViewById<EditText>(R.id.password)
 
-        val login = view.findViewById<Button>(R.id.register)
+        val login = view.findViewById<Button>(R.id.login)
         val change = view.findViewById<Button>(R.id.change)
 
         auth = FirebaseAuth.getInstance()
