@@ -14,10 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
 
-    private lateinit var email: EditText
-    private lateinit var password: EditText
-    private lateinit var login: Button
-    private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -27,35 +23,42 @@ class LoginFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_login, container, false)
 
-        email = view.findViewById(R.id.email)
-        password = view.findViewById(R.id.password)
-        login = view.findViewById(R.id.register)
-        change = view.findViewById(R.id.change)
+        val email = view.findViewById<EditText>(R.id.email)
+        val password = view.findViewById<EditText>(R.id.password)
+
+        val login = view.findViewById<Button>(R.id.register)
+        val change = view.findViewById<Button>(R.id.change)
+
         auth = FirebaseAuth.getInstance()
-
-        login.setOnClickListener {
-            val txtEmail = email.text.toString()
-            val txtPassword = password.text.toString()
-
-            loginUser(txtEmail, txtPassword)
-        }
 
         change.setOnClickListener {
             view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        login.setOnClickListener {
+            if (email.text.toString() != "" && password.text.toString() != "") {
+                loginUser(email.text.toString(), password.text.toString())
+                email.text = null
+                password.text = null
+            } else {
+                Toast.makeText(
+                    activity,
+                    "Veuillez remplir les champs",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
         return view
     }
 
     fun loginUser(email: String, password: String) {
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
                     activity,
-                    "Connexion réussie !",
+                    "Connecté à $email",
                     Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(activity, MainActivity::class.java)
@@ -63,7 +66,7 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(
                     activity,
-                    "Connexion échouée !",
+                    "Identifiants incorrects",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -21,13 +21,6 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
 
-    private lateinit var email: EditText
-    private lateinit var password: EditText
-    private lateinit var confirmPassword: EditText
-    private lateinit var prenom: EditText
-    private lateinit var nom: EditText
-    private lateinit var register: Button
-    private lateinit var change: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -38,55 +31,60 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_register, container, false)
 
-        email = view.findViewById(R.id.email)
-        password = view.findViewById(R.id.password)
-        confirmPassword = view.findViewById(R.id.password2)
-        prenom = view.findViewById(R.id.prenom)
-        nom = view.findViewById(R.id.nom)
-        register = view.findViewById(R.id.register)
-        change = view.findViewById(R.id.change)
+        val email = view.findViewById<EditText>(R.id.email)
+        val password = view.findViewById<EditText>(R.id.password)
+        val confirmPassword = view.findViewById<EditText>(R.id.confirmPassword)
+
+        val prenom = view.findViewById<EditText>(R.id.prenom)
+        val nom = view.findViewById<EditText>(R.id.nom)
+
+        val register = view.findViewById<Button>(R.id.register)
+        val change = view.findViewById<Button>(R.id.change)
+
         auth = FirebaseAuth.getInstance()
 
         change.setOnClickListener{
             view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
+
         register.setOnClickListener{
             val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
-            val txtPassword2 = confirmPassword.text.toString()
+            val txtConfirmPassword = confirmPassword.text.toString()
+            val txtPrenom = prenom.text.toString()
+            val txtNom = nom.text.toString()
 
             if (TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) //Vérification que les champs ne sont pas vides
                 Toast.makeText(
                     activity,
-                    "Champs vides !",
+                    "Veuillez remplir les champs",
+                    Toast.LENGTH_SHORT
+                ).show()
+            else if (!isValidEmail(txtEmail)) //Vérification que l'adresse mail est valide
+                Toast.makeText(
+                    activity,
+                    "Une adresse UHA est requise",
                     Toast.LENGTH_SHORT
                 ).show()
             else if (txtPassword.length < 6)  //Vérification que le mot de passe est assez long
                 Toast.makeText(
                     activity,
-                    "Mot de passe trop court !",
+                    "Le mot de passe doit contenir au moins 6 caractères",
                     Toast.LENGTH_SHORT
                 ).show()
-            else if (txtPassword != txtPassword2)  //Vérification que les deux mots de passe sont identiques
+            else if (txtPassword != txtConfirmPassword)  //Vérification que les deux mots de passe sont identiques
                 Toast.makeText(
                     activity,
-                    "Les mots de passe ne correspondent pas !",
+                    "Les mots de passe ne sont pas les mêmes",
                     Toast.LENGTH_SHORT
                 ).show()
-
-            else if (!isValidEmail(txtEmail)) //Vérification que l'adresse mail est valide
-                Toast.makeText(
-                    activity,
-                    "Adresse mail uha attendue !",
-                    Toast.LENGTH_SHORT
-                ).show()
-            else registerUser(txtEmail, txtPassword)
+            else registerUser(txtEmail, txtPassword, txtPrenom, txtNom)
         }
 
         return view
     }
 
-    private fun registerUser(email: String, password: String) {
+    private fun registerUser(email: String, password: String, prenom: String, nom: String) {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
@@ -102,8 +100,9 @@ class RegisterFragment : Fragment() {
                 val db = Firebase.firestore
                 val data = hashMapOf(
                     "Mail" to auth.currentUser?.email.toString(),
-                    "FirstName" to prenom.text.toString(),
-                    "LastName" to nom.text.toString(),
+                    "FirstName" to prenom,
+                    "LastName" to nom,
+                    "PP" to "images/tele.jpeg",
                     "Role" to db.collection("Role").document("role_Student")
                 )
                 //ID généré automatiquement
@@ -145,14 +144,13 @@ class RegisterFragment : Fragment() {
     }
 
     fun loginUser(email: String, password: String) {
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
                     activity,
-                    "Connexion réussie !",
+                    "Connecté à $email",
                     Toast.LENGTH_SHORT
                 ).show()
                 val intent = Intent(activity, MainActivity::class.java)
@@ -160,7 +158,7 @@ class RegisterFragment : Fragment() {
             } else {
                 Toast.makeText(
                     activity,
-                    "Connexion échouée !",
+                    "Identifiants incorrects",
                     Toast.LENGTH_SHORT
                 ).show()
             }
