@@ -1,2 +1,5 @@
 package com.example.mainactivity.data
-data class Post (var text : String, var role : String, var tag : String, var imgPost : String, var user : String, var imgUser : String)
+
+import android.graphics.Bitmap
+
+data class Post (var Auteur : String, var Content : String, var ProfileP : Bitmap,var Image:Bitmap, var Tag : String)
