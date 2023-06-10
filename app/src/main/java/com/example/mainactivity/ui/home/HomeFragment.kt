@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +19,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
-import kotlin.concurrent.thread
 
 
 class HomeFragment : Fragment() {
@@ -58,6 +56,20 @@ class HomeFragment : Fragment() {
             binding.swipe.isRefreshing = false
 
         }
+        binding.topBtn.setOnClickListener{
+            binding.recyclerFeed.scrollToPosition(0)
+        }
+
+        binding.filter.setOnClickListener{
+            if(binding.filterFragment.isVisible) {
+                binding.filterFragment.isVisible = false
+                dataInitialize()
+            }
+            else{
+                binding.filterFragment.isVisible = true
+            }
+        }
+
         return root
     }
 
