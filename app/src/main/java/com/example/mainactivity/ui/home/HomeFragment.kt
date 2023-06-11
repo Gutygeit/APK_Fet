@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
@@ -26,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: PostAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var postList : ArrayList<Post>
+    private lateinit var model : FilterViewModel
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +51,9 @@ class HomeFragment : Fragment() {
         recyclerView = binding.recyclerFeed;
         recyclerView.layoutManager = LayoutManager
         recyclerView.setHasFixedSize(true)
+
+        model = ViewModelProvider(requireActivity()).get(FilterViewModel::class.java)
+
 
         dataInitialize()
 
@@ -70,6 +76,8 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+
         return root
     }
 
@@ -78,6 +86,15 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         postList = arrayListOf<Post>()
 
+        if(model.getList().isEmpty()){
+            Toast.makeText(getActivity(), "c'est vide !",
+                Toast.LENGTH_LONG).show()
+        }
+
+        else{
+            Toast.makeText(getActivity(), model.getList()[0],
+                Toast.LENGTH_LONG).show()
+        }
 
         val postRef = Firebase.firestore.collection("Post")
         postRef.get().addOnSuccessListener{
