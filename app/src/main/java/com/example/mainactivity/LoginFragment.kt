@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -29,10 +30,16 @@ class LoginFragment : Fragment() {
 
         val login = view.findViewById<Button>(R.id.login)
         val change = view.findViewById<Button>(R.id.change)
+        val recovery = view.findViewById<TextView>(R.id.recovery)
 
         auth = FirebaseAuth.getInstance()
+
         change.setOnClickListener {
             view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        recovery.setOnClickListener {
+            view.findNavController().navigate(R.id.action_loginFragment_to_recoveryFragment)
         }
 
         login.setOnClickListener {
@@ -78,7 +85,7 @@ class LoginFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         activity,
-                        "Veuillez vérifier votre adresse e-mail avant de vous connecter.",
+                        "Veuillez vérifier votre adresse e-mail avant de vous connecter",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
