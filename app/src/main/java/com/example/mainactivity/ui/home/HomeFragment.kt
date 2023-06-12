@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +20,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
-import kotlin.concurrent.thread
 
 
 class HomeFragment : Fragment() {
@@ -28,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: PostAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var postList : ArrayList<Post>
+    private lateinit var model : FilterViewModel
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +52,9 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LayoutManager
         recyclerView.setHasFixedSize(true)
 
+        model = ViewModelProvider(requireActivity()).get(FilterViewModel::class.java)
+
+
         dataInitialize()
 
         binding.swipe.setOnRefreshListener {
@@ -58,6 +62,22 @@ class HomeFragment : Fragment() {
             binding.swipe.isRefreshing = false
 
         }
+        binding.topBtn.setOnClickListener{
+            binding.recyclerFeed.scrollToPosition(0)
+        }
+
+        binding.filter.setOnClickListener{
+            if(binding.filterFragment.isVisible) {
+                binding.filterFragment.isVisible = false
+                dataInitialize()
+            }
+            else{
+                binding.filterFragment.isVisible = true
+            }
+        }
+
+
+
         return root
     }
 
@@ -66,6 +86,15 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         postList = arrayListOf<Post>()
 
+        if(model.getList().isEmpty()){
+            Toast.makeText(getActivity(), "c'est vide !",
+                Toast.LENGTH_LONG).show()
+        }
+
+        else{
+            Toast.makeText(getActivity(), model.getList()[0],
+                Toast.LENGTH_LONG).show()
+        }
 
         val postRef = Firebase.firestore.collection("Post")
         postRef.get().addOnSuccessListener{
