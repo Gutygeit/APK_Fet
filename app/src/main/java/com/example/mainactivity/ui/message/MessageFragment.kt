@@ -110,8 +110,6 @@ class MessageFragment : Fragment() {
                     db.collection("Post").add(data)
                 }
             imageView.setVisibility(View.INVISIBLE)
-            binding.textInputEditTextMessage.setText("")
-
         }
 
         return root
