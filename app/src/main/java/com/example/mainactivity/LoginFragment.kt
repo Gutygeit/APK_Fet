@@ -51,6 +51,13 @@ class LoginFragment : Fragment() {
         return view
     }
 
+    /**
+     * Fonction permettant de connecter l'utilisateur à l'application à condition que le mot de passe soit correct
+     * et l'adresse mail soit vérifiée
+     * @param email : adresse mail de l'utilisateur
+     * @param password : mot de passe de l'utilisateur
+     * @return : rien
+     */
     fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
             requireActivity()
