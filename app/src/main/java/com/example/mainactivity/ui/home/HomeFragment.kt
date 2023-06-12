@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 
 
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-
+    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,15 +87,6 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         postList = arrayListOf<Post>()
 
-        if(model.getList().isEmpty()){
-            Toast.makeText(getActivity(), "c'est vide !",
-                Toast.LENGTH_LONG).show()
-        }
-
-        else{
-            Toast.makeText(getActivity(), model.getList()[0],
-                Toast.LENGTH_LONG).show()
-        }
 
         val postRef = Firebase.firestore.collection("Post")
         postRef.get().addOnSuccessListener{
@@ -105,7 +97,7 @@ class HomeFragment : Fragment() {
                         .document(id_auteur)
                     docRef.get().addOnSuccessListener { result ->
                         val gg = result.data?.get("PP")?.toString()
-                            val StoRef = FirebaseStorage.getInstance().reference.child(gg.toString())
+                            val StoRef = storage.reference.child(gg.toString())
                             val localfile = File.createTempFile(
                                 gg!!.split("/").get(1).split(".").get(0),
                                 gg.split("/").get(1).split(".").get(1),
@@ -116,7 +108,7 @@ class HomeFragment : Fragment() {
                                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                                 if (!(image.contentEquals(""))) {
                                     val StoRef2 =
-                                        FirebaseStorage.getInstance().reference.child(image.toString())
+                                        storage.reference.child(image.toString())
                                     val localfile2 = File.createTempFile(
                                         image!!.split("/").get(1).split(".").get(0),
                                         image.split("/").get(1).split(".").get(1),
@@ -125,7 +117,7 @@ class HomeFragment : Fragment() {
                                         val bitmap2 =
                                             BitmapFactory.decodeFile(localfile2.absolutePath)
                                         val post = Post(
-                                            document.data["Auteur"].toString(),
+                                            result.data?.get("FirstName")?.toString()!!,
                                             document.data["Content"].toString(),
                                             bitmap,
                                             bitmap2,
@@ -138,10 +130,10 @@ class HomeFragment : Fragment() {
                                 }
                                 else{
                                     val post = Post(
-                                        document.data["Auteur"].toString(),
+                                        result.data?.get("FirstName")?.toString()!!,
                                         document.data["Content"].toString(),
                                         bitmap,
-                                        bitmap,
+                                        null,
                                         document.data["Tag"].toString()
                                     )
                                     postList.add(post)

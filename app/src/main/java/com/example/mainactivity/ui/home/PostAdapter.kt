@@ -20,12 +20,10 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: PostAdapter.ViewHolder, position: Int) {
         val currentItem = listPost[position]
-
         holder.textPost.text = currentItem.Content
         holder.imgPost.setImageBitmap(currentItem.Image)
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
         holder.user.text = currentItem.Auteur
-        holder.role.text = "gg"
         holder.tag.text = currentItem.Tag
 
     }
@@ -40,7 +38,6 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         val imgPost : ImageView = itemView.findViewById(R.id.imgPost)
         val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
         val user : TextView = itemView.findViewById(R.id.user)
-        val role : TextView = itemView.findViewById(R.id.role)
         val tag : TextView = itemView.findViewById(R.id.tag)
     }
 
