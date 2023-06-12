@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.util.DisplayMetrics
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
@@ -80,7 +81,7 @@ class MessageFragment : Fragment() {
         }
 
         binding.buttonSendMessage.setOnClickListener{
-
+            if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
                     Toast.makeText(getActivity(), result.documents[0].id,
@@ -98,8 +99,7 @@ class MessageFragment : Fragment() {
                         riversRef.putFile(imageUri!!)
                     }
                     else {
-                        Toast.makeText(getActivity(), "Sans image",
-                            Toast.LENGTH_LONG).show();
+
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
                             "Content" to binding.textInputEditTextMessage.text.toString(),
@@ -109,7 +109,13 @@ class MessageFragment : Fragment() {
                     }
                     db.collection("Post").add(data)
                 }
-            imageView.setVisibility(View.INVISIBLE)
+                imageView.setVisibility(View.INVISIBLE)
+            }
+            else{
+                Toast.makeText(getActivity(), "Certains champs sont vides",
+                    Toast.LENGTH_LONG).show();
+            }
+
         }
 
         return root

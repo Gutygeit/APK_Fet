@@ -20,7 +20,6 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: PostAdapter.ViewHolder, position: Int) {
         val currentItem = listPost[position]
-
         holder.textPost.text = currentItem.Content
         holder.imgPost.setImageBitmap(currentItem.Image)
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
