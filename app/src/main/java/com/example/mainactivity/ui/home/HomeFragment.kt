@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private var feedlayout: LinearLayout? =null
     // This property is only valid between onCreateView and
-    // onDestroyView.
+    // onDestroyView.i
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
     val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
