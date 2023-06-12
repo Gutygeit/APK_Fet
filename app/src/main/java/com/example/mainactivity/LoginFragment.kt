@@ -21,6 +21,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view =  inflater.inflate(R.layout.fragment_login, container, false)
 
         val email = view.findViewById<EditText>(R.id.email)
@@ -30,7 +31,6 @@ class LoginFragment : Fragment() {
         val change = view.findViewById<Button>(R.id.change)
 
         auth = FirebaseAuth.getInstance()
-
         change.setOnClickListener {
             view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }

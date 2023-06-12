@@ -87,10 +87,10 @@ class AccountFragment : Fragment() {
 
                     Thread.sleep(250)
 
+                    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com").reference.child(pp)
 
-                    val StoRef = FirebaseStorage.getInstance().reference.child(pp)
-                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1],)
-                    StoRef.getFile(localfile).addOnSuccessListener {
+                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1])
+                    storage.getFile(localfile).addOnSuccessListener {
                         val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                         binding.imageViewpp.setImageBitmap(bitmap)
                     }.addOnFailureListener{
@@ -172,7 +172,7 @@ class AccountFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
-            val storage = Firebase.storage("gs://apk-fet.appspot.com")
+            val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
             val storageRef = storage.reference
             imageUri = data?.data
             binding.imageViewpp.setImageURI(imageUri)
