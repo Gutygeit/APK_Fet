@@ -15,7 +15,14 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.util.DisplayMetrics
+import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.mainactivity.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class MessageFragment : Fragment() {
 
@@ -26,6 +33,9 @@ class MessageFragment : Fragment() {
     private lateinit var imageViewMessage: ImageView
     private val pickImage = 100
     private var imageUri: Uri? = null
+    private lateinit var auth: FirebaseAuth
+    val storage = Firebase.storage("gs://apk-fet.appspot.com")
+
 
     override fun onResume(){
         super.onResume()
@@ -39,9 +49,11 @@ class MessageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth = FirebaseAuth.getInstance()
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        val db = Firebase.firestore
+        var user = auth.currentUser
         val buttonAddPicture: Button = binding.buttonAddPicture
         val imageView: ImageView = binding.imageViewMessage
 
@@ -67,6 +79,41 @@ class MessageFragment : Fragment() {
             startActivityForResult(gallery, pickImage)
         }
 
+        binding.buttonSendMessage.setOnClickListener{
+
+                val docRef = Firebase.firestore.collection("User")
+                docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
+                    Toast.makeText(getActivity(), result.documents[0].id,
+                        Toast.LENGTH_LONG).show();
+                    var data = hashMapOf<String,Any>()
+                    if(binding.imageViewMessage.drawable != null){
+                        val storageRef = storage.reference
+                        data = hashMapOf(
+                            "Auteur" to result.documents[0].id,
+                            "Content" to binding.textInputEditTextMessage.text.toString(),
+                            "Tag" to binding.autoCompleteTextView.text.toString(),
+                            "Image" to "images/${imageUri!!.lastPathSegment}.jpeg",
+                            "Date" to FieldValue.serverTimestamp())
+                        val riversRef = storageRef.child("images/${imageUri!!.lastPathSegment}.jpeg")
+                        riversRef.putFile(imageUri!!)
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Sans image",
+                            Toast.LENGTH_LONG).show();
+                        data = hashMapOf(
+                            "Auteur" to result.documents[0].id,
+                            "Content" to binding.textInputEditTextMessage.text.toString(),
+                            "Tag" to binding.autoCompleteTextView.text.toString(),
+                            "Image" to "",
+                            "Date" to FieldValue.serverTimestamp())
+                    }
+                    db.collection("Post").add(data)
+                }
+            imageView.setVisibility(View.INVISIBLE)
+            binding.textInputEditTextMessage.setText("")
+
+        }
+
         return root
     }
 
@@ -80,6 +127,7 @@ class MessageFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             binding.imageViewMessage.setImageURI(imageUri)
+            binding.imageViewMessage.setVisibility(View.VISIBLE)
         }
     }
 }
