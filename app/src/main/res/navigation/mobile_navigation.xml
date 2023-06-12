@@ -15,11 +15,19 @@
         android:id="@+id/navigation_home"
         android:name="com.example.mainactivity.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_zoomPostFragment"
+            app:destination="@id/zoomPostFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.mainactivity.ui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/zoomPostFragment"
+        android:name="com.example.mainactivity.ui.home.ZoomPostFragment"
+        android:label="ZoomPostFragment" />
 </navigation>

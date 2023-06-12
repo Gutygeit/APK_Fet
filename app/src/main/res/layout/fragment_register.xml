@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Inscrivez-vous :"
+                    android:textColor="#FFE7FF"
                     android:textSize="34sp" />
             </LinearLayout>
 
@@ -50,6 +51,7 @@
                     android:ems="10"
                     android:hint="Prénom"
                     android:inputType="text"
+                    android:textColor="#FFE7FF"
                     android:textSize="20sp" />
 
                 <Space
@@ -63,6 +65,7 @@
                     android:ems="10"
                     android:hint="Nom"
                     android:inputType="text"
+                    android:textColor="#FFE7FF"
                     android:textSize="20sp" />
 
                 <Space
@@ -76,6 +79,7 @@
                     android:ems="10"
                     android:hint="E-mail (@uha.fr)"
                     android:inputType="textEmailAddress"
+                    android:textColor="#FFE7FF"
                     android:textSize="20sp" />
 
                 <Space
@@ -89,6 +93,7 @@
                     android:ems="10"
                     android:hint="Mot de passe"
                     android:inputType="textPassword"
+                    android:textColor="#FFE7FF"
                     android:textSize="20sp" />
 
                 <Space
@@ -102,6 +107,7 @@
                     android:ems="10"
                     android:hint="Mot de passe"
                     android:inputType="textPassword"
+                    android:textColor="#FFE7FF"
                     android:textSize="20sp" />
             </LinearLayout>
 
