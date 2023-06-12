@@ -7,7 +7,7 @@
     <color name="colorPrimaryVariant">#805D85</color>
     <color name="colorSecondary">#00C9BE</color>
     <color name="colorSecondaryVariant">#C1FCF6</color>
-    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorSurface">#E64E2E53</color>
     <color name="colorError">#A72B79</color>
     <color name="colorOnPrimary">#FFE7FF</color>
     <color name="colorOnSecondary">#334B49</color>
