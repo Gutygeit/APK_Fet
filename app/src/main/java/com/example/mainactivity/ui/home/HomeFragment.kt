@@ -110,29 +110,45 @@ class HomeFragment : Fragment() {
                                 gg!!.split("/").get(1).split(".").get(0),
                                 gg.split("/").get(1).split(".").get(1),
                             )
-                            Toast.makeText(getActivity(), gg,
-                            Toast.LENGTH_LONG).show()
+
                             StoRef.getFile(localfile).addOnSuccessListener {
                                 val image = document.data["Image"].toString()
                                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                val StoRef2 = FirebaseStorage.getInstance().reference.child(image.toString())
-                                val localfile2 = File.createTempFile(
-                                    image!!.split("/").get(1).split(".").get(0),
-                                    image.split("/").get(1).split(".").get(1),
-                                )
-                                StoRef2.getFile(localfile2).addOnSuccessListener {
-                                    val bitmap2 = BitmapFactory.decodeFile(localfile2.absolutePath)
+                                if (!(image.contentEquals(""))) {
+                                    val StoRef2 =
+                                        FirebaseStorage.getInstance().reference.child(image.toString())
+                                    val localfile2 = File.createTempFile(
+                                        image!!.split("/").get(1).split(".").get(0),
+                                        image.split("/").get(1).split(".").get(1),
+                                    )
+                                    StoRef2.getFile(localfile2).addOnSuccessListener {
+                                        val bitmap2 =
+                                            BitmapFactory.decodeFile(localfile2.absolutePath)
+                                        val post = Post(
+                                            document.data["Auteur"].toString(),
+                                            document.data["Content"].toString(),
+                                            bitmap,
+                                            bitmap2,
+                                            document.data["Tag"].toString()
+                                        )
+                                        postList.add(post)
+                                        adapter = PostAdapter(postList)
+                                        recyclerView.adapter = adapter
+                                    }
+                                }
+                                else{
                                     val post = Post(
                                         document.data["Auteur"].toString(),
                                         document.data["Content"].toString(),
                                         bitmap,
-                                        bitmap2,
+                                        bitmap,
                                         document.data["Tag"].toString()
                                     )
                                     postList.add(post)
                                     adapter = PostAdapter(postList)
                                     recyclerView.adapter = adapter
                                 }
+
                             }.addOnFailureListener {
                                 Toast.makeText(getActivity(),"Failed" ,
                                     Toast.LENGTH_LONG).show();
