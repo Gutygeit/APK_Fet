@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
                                         result.data?.get("FirstName")?.toString()!!,
                                         document.data["Content"].toString(),
                                         bitmap,
-                                        bitmap,
+                                        null,
                                         document.data["Tag"].toString()
                                     )
                                     postList.add(post)
