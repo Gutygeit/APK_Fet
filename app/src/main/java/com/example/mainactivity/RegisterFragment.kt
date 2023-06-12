@@ -80,6 +80,15 @@ class RegisterFragment : Fragment() {
         return view
     }
 
+    /**
+     * Fonction permettant de créer un compte utilisateur à condition que l'adresse mail ne soit pas déjà utilisée et que le mot de passe soit assez long et identique à la confirmation.
+     * @param email Adresse mail de l'utilisateur.
+     * @param password Mot de passe de l'utilisateur.
+     * @param prenom Prénom de l'utilisateur.
+     * @param nom Nom de l'utilisateur.
+     * @param navController Contrôleur de navigation.
+     * @return Unit.
+     */
     private fun registerUser(email: String, password: String, prenom: String, nom: String, navController: NavController) {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
@@ -147,6 +156,11 @@ class RegisterFragment : Fragment() {
 
     }
 
+    /**
+     * Fonction permettant de vérifier que l'adresse mail est bien une adresse UHA.
+     * @param email Adresse mail de l'utilisateur.
+     * @return Boolean.
+     */
     private fun isValidEmail(email: String): Boolean {
         val emailRegex = Regex("^[A-Za-z0-9._%+-]+@uha\\.fr$")
         return emailRegex.matches(email)
