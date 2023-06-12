@@ -104,15 +104,36 @@ class RegisterFragment : Fragment() {
                             "PP" to "images/tele.jpeg",
                             "Role" to db.collection("Role").document("role_Student")
                         )
+                        val datatags = hashMapOf(
+                            "Entre Etudiants" to true,
+                            "BDE" to true,
+                            "Gaming" to true,
+                            "Cours" to true,
+                            "Examens" to true,
+                            "Emploi du temps" to true,
+                            "Alternance" to true,
+                            "Sport" to true
+                            )
+
                         //ID généré automatiquement
                         db.collection("User")
                             .add(data)
                             .addOnSuccessListener { documentReference ->
                                 Log.d(ContentValues.TAG, "Document généré avec ID: ${documentReference.id}")
+
+                                // Ajout de la sous-collection datatags à l'user
+                                documentReference.collection("Tags").document().set(datatags)
+                                    .addOnSuccessListener {
+                                        Log.d(ContentValues.TAG, "Sous-collection datatags ajoutée")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.w(ContentValues.TAG, "Erreur lors de l'ajout de la sous-collection", e)
+                                    }
                             }
                             .addOnFailureListener { e ->
                                 Log.w(ContentValues.TAG, "Erreur lors de l'ajout du Document", e)
                             }
+
 
                         //TESTS SUR L'UPDATE DES DONNEES
                         val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
