@@ -2,6 +2,7 @@ package com.example.mainactivity.ui.home
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.SyncStateContract.Helpers.update
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,10 +70,34 @@ class HomeFragment : Fragment() {
 
         binding.filter.setOnClickListener{
             if(binding.filterFragment.isVisible) {
+                model.getList()
+                val userRef = Firebase.firestore.collection("User")
+                    .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
+                    .addOnSuccessListener { userGotten ->
+                        for (document in userGotten) {
+                            Firebase.firestore.collection("User").document(document.id)
+                                .collection("Tags").get().addOnSuccessListener { tags ->
+                                    for (tag in tags) {
+                                        for (tagdata in tag.data) {
+                                            if(!(tagdata.key.toString() in model.getList())){
+                                                Firebase.firestore.collection("User").document(document.id)
+                                                    .collection("Tags").document(tag.id).update(tagdata.key.toString(), false)
+                                            }
+                                            else {
+                                                Firebase.firestore.collection("User").document(document.id)
+                                                    .collection("Tags").document(tag.id).update(tagdata.key.toString(), true)
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                    }
                 binding.filterFragment.isVisible = false
+                Thread.sleep(5000)
                 dataInitialize()
             }
             else{
+
                 binding.filterFragment.isVisible = true
             }
         }
@@ -83,81 +108,124 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun dataInitialize(){
+    private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
         postList = arrayListOf<Post>()
+        var tagList = arrayListOf<String>()
 
+        val userRef = Firebase.firestore.collection("User")
+            .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
+            .addOnSuccessListener { userGotten ->
+                for (document in userGotten) {
+                    val tagRef = Firebase.firestore.collection("User").document(document.id)
+                        .collection("Tags").get().addOnSuccessListener { tags ->
+                        for (tag in tags) {
+                            for (tagdata in tag.data) {
+                                if (tagdata.value as Boolean) {
+                                    tagList.add(tagdata.key.toString())
 
-        val postRef = Firebase.firestore.collection("Post")
-        postRef.get().addOnSuccessListener{
-                result->
-                for (document in result) {
-                    val id_auteur = document.data["Auteur"].toString()
-                    val docRef = Firebase.firestore.collection("User")
-                        .document(id_auteur)
-                    docRef.get().addOnSuccessListener { result ->
-                        val gg = result.data?.get("PP")?.toString()
-                            val StoRef = storage.reference.child(gg.toString())
-                            val localfile = File.createTempFile(
-                                gg!!.split("/").get(1).split(".").get(0),
-                                gg.split("/").get(1).split(".").get(1),
-                            )
+                                    val postRef = Firebase.firestore.collection("Post")
+                                    postRef.get().addOnSuccessListener { result ->
+                                        for (document in result) {
+                                            Toast.makeText(
+                                                getActivity(), (document.data["Tag"].toString() in tagList).toString(),
+                                                Toast.LENGTH_LONG
+                                            ).show();
 
-                            StoRef.getFile(localfile).addOnSuccessListener {
-                                val image = document.data["Image"].toString()
-                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                if (!(image.contentEquals(""))) {
-                                    val StoRef2 =
-                                        storage.reference.child(image.toString())
-                                    val localfile2 = File.createTempFile(
-                                        image!!.split("/").get(1).split(".").get(0),
-                                        image.split("/").get(1).split(".").get(1),
-                                    )
-                                    StoRef2.getFile(localfile2).addOnSuccessListener {
-                                        val bitmap2 =
-                                            BitmapFactory.decodeFile(localfile2.absolutePath)
-                                        val post = Post(
-                                            result.data?.get("FirstName")?.toString()!!,
-                                            document.data["Content"].toString(),
-                                            bitmap,
-                                            bitmap2,
-                                            document.data["Tag"].toString()
-                                        )
-                                        postList.add(post)
-                                        adapter = PostAdapter(postList)
-                                        recyclerView.adapter = adapter
+                                            if (document.data["Tag"].toString() in tagList) {
+
+                                                val id_auteur = document.data["Auteur"].toString()
+                                                val docRef = Firebase.firestore.collection("User")
+                                                    .document(id_auteur)
+                                                docRef.get().addOnSuccessListener { result ->
+                                                    val gg = result.data?.get("PP")?.toString()
+                                                    val StoRef =
+                                                        storage.reference.child(gg.toString())
+                                                    val localfile = File.createTempFile(
+                                                        gg!!.split("/").get(1).split(".").get(0),
+                                                        gg.split("/").get(1).split(".").get(1),
+                                                    )
+
+                                                    StoRef.getFile(localfile).addOnSuccessListener {
+                                                        val image =
+                                                            document.data["Image"].toString()
+                                                        val bitmap =
+                                                            BitmapFactory.decodeFile(localfile.absolutePath)
+                                                        if (!(image.contentEquals(""))) {
+                                                            val StoRef2 =
+                                                                storage.reference.child(image.toString())
+                                                            val localfile2 = File.createTempFile(
+                                                                image!!.split("/").get(1).split(".")
+                                                                    .get(0),
+                                                                image.split("/").get(1).split(".")
+                                                                    .get(1),
+                                                            )
+                                                            StoRef2.getFile(localfile2)
+                                                                .addOnSuccessListener {
+                                                                    val bitmap2 =
+                                                                        BitmapFactory.decodeFile(
+                                                                            localfile2.absolutePath
+                                                                        )
+                                                                    val post = Post(
+                                                                        result.data?.get("FirstName")
+                                                                            ?.toString()!!,
+                                                                        document.data["Content"].toString(),
+                                                                        bitmap,
+                                                                        bitmap2,
+                                                                        document.data["Tag"].toString()
+                                                                    )
+
+                                                                    postList.add(post)
+                                                                    adapter = PostAdapter(postList)
+                                                                    recyclerView.adapter = adapter
+                                                                }
+                                                        } else {
+                                                            val post = Post(
+                                                                result.data?.get("FirstName")
+                                                                    ?.toString()!!,
+                                                                document.data["Content"].toString(),
+                                                                bitmap,
+                                                                null,
+                                                                document.data["Tag"].toString()
+                                                            )
+                                                            postList.add(post)
+                                                            adapter = PostAdapter(postList)
+                                                            recyclerView.adapter = adapter
+                                                        }
+
+                                                    }.addOnFailureListener {
+                                                        Toast.makeText(
+                                                            getActivity(), "Failed",
+                                                            Toast.LENGTH_LONG
+                                                        ).show();
+                                                    }
+
+                                                }.addOnFailureListener {
+                                                    Toast.makeText(
+                                                        getActivity(), "Failed",
+                                                        Toast.LENGTH_LONG
+                                                    ).show();
+                                                }
+                                            }
+                                        }
+
+                                    }.addOnFailureListener {
+                                        Toast.makeText(
+                                            getActivity(), "Failed",
+                                            Toast.LENGTH_LONG
+                                        ).show();
                                     }
-                                }
-                                else{
-                                    val post = Post(
-                                        result.data?.get("FirstName")?.toString()!!,
-                                        document.data["Content"].toString(),
-                                        bitmap,
-                                        null,
-                                        document.data["Tag"].toString()
-                                    )
-                                    postList.add(post)
-                                    adapter = PostAdapter(postList)
-                                    recyclerView.adapter = adapter
+
                                 }
 
-                            }.addOnFailureListener {
-                                Toast.makeText(getActivity(),"Failed" ,
-                                    Toast.LENGTH_LONG).show();
                             }
-
-                    }.addOnFailureListener{
-                        Toast.makeText(getActivity(),"Failed" ,
-                            Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
 
-        }.addOnFailureListener {
-            Toast.makeText(getActivity(),"Failed" ,
-                Toast.LENGTH_LONG).show();
-        }
-    }
 
+            }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
