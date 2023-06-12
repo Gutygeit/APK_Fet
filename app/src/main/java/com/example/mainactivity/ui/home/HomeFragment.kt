@@ -1,5 +1,6 @@
 package com.example.mainactivity.ui.home
 
+import android.app.DownloadManager.Query
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.SyncStateContract.Helpers.update
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.i
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
+    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,11 +92,10 @@ class HomeFragment : Fragment() {
                         }
                     }
                 binding.filterFragment.isVisible = false
-                Thread.sleep(5000)
+                Thread.sleep(1000)
                 dataInitialize()
             }
             else{
-
                 binding.filterFragment.isVisible = true
             }
         }
@@ -111,31 +111,29 @@ class HomeFragment : Fragment() {
         postList = arrayListOf<Post>()
         var tagList = arrayListOf<String>()
 
-        val userRef = Firebase.firestore.collection("User")
+        Firebase.firestore.collection("User")
             .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
             .addOnSuccessListener { userGotten ->
                 for (document in userGotten) {
-                    val tagRef = Firebase.firestore.collection("User").document(document.id)
+                    Firebase.firestore.collection("User").document(document.id)
                         .collection("Tags").get().addOnSuccessListener { tags ->
                         for (tag in tags) {
                             for (tagdata in tag.data) {
                                 if (tagdata.value as Boolean) {
                                     tagList.add(tagdata.key.toString())
-
-                                    val postRef = Firebase.firestore.collection("Post")
+                                }
+                            }
+                        }
+                                    val postRef = Firebase.firestore.collection("Post").orderBy("Date",
+                                    com.google.firebase.firestore.Query.Direction.ASCENDING)
                                     postRef.get().addOnSuccessListener { result ->
                                         for (document in result) {
-                                            Toast.makeText(
-                                                getActivity(), (document.data["Tag"].toString() in tagList).toString(),
-                                                Toast.LENGTH_LONG
-                                            ).show();
-
                                             if (document.data["Tag"].toString() in tagList) {
-
                                                 val id_auteur = document.data["Auteur"].toString()
                                                 val docRef = Firebase.firestore.collection("User")
                                                     .document(id_auteur)
                                                 docRef.get().addOnSuccessListener { result ->
+
                                                     val gg = result.data?.get("PP")?.toString()
                                                     val StoRef =
                                                         storage.reference.child(gg.toString())
@@ -213,11 +211,6 @@ class HomeFragment : Fragment() {
                                             Toast.LENGTH_LONG
                                         ).show();
                                     }
-
-                                }
-
-                            }
-                        }
                     }
                 }
 
