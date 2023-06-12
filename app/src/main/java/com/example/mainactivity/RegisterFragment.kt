@@ -144,13 +144,6 @@ class RegisterFragment : Fragment() {
                             }
 
 
-                        //TESTS SUR L'UPDATE DES DONNEES
-                        val ref = FirebaseFirestore.getInstance().collection("User").document("Test")
-                        ref.update("FirstName", "GIGA")
-                        ref.update("LastName", "GOGIGA")
-                        ref.update("Role", "GAGAGIGO")
-                        println("IL S'EST PASSE DES CHOSES")
-                        val doc  = FirebaseFirestore.getInstance().collection("User").whereEqualTo("Mail",auth.currentUser?.email.toString())
 
                         //Delai pour que le serveur ait le temps de traiter les données avant de changer de page
                         Handler().postDelayed({
