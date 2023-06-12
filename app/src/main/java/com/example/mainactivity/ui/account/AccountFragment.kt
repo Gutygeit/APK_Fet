@@ -85,7 +85,7 @@ class AccountFragment : Fragment() {
                     binding.prenom.setText(p)
                     binding.nom.setText(n)
 
-                    Thread.sleep(1000)
+                    Thread.sleep(250)
 
 
                     val StoRef = FirebaseStorage.getInstance().reference.child(pp)
@@ -94,7 +94,7 @@ class AccountFragment : Fragment() {
                         val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                         binding.imageViewpp.setImageBitmap(bitmap)
                     }.addOnFailureListener{
-                        Toast.makeText(getActivity(), "This is my Toast message!",
+                        Toast.makeText(getActivity(), "Failed to load image!",
                             Toast.LENGTH_LONG).show();
                     }
                 }
