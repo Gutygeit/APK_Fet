@@ -35,7 +35,7 @@ class MessageFragment : Fragment() {
     private val pickImage = 100
     private var imageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
-    val storage = Firebase.storage("gs://apk-fet.appspot.com")
+    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
 
 
     override fun onResume(){
@@ -84,8 +84,6 @@ class MessageFragment : Fragment() {
             if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
-                    Toast.makeText(getActivity(), result.documents[0].id,
-                        Toast.LENGTH_LONG).show();
                     var data = hashMapOf<String,Any>()
                     if(binding.imageViewMessage.drawable != null){
                         val storageRef = storage.reference
@@ -115,9 +113,7 @@ class MessageFragment : Fragment() {
                 Toast.makeText(getActivity(), "Certains champs sont vides",
                     Toast.LENGTH_LONG).show();
             }
-
         }
-
         return root
     }
 

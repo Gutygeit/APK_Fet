@@ -153,8 +153,7 @@ class AccountFragment : Fragment() {
                         docRef.document(document.id).update("LastName", txtNom.toString())
 
                 }
-                    Toast.makeText(getActivity(), txtPrenom,
-                        Toast.LENGTH_LONG).show();
+
                     //val intent = Intent(activity, MainActivity::class.java)
                     //startActivity(intent)
             }
