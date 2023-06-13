@@ -1,4 +1,4 @@
-package com.example.mainactivity.ui.home
+package com.example.mainactivity.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,33 +12,48 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
+class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.post, parent, false)
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: PostAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = listPost[position]
         holder.textPost.text = currentItem.Content
         holder.imgPost.setImageBitmap(currentItem.Image)
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
+        holder.likeButton.setImageResource(if (currentItem.isLiked) R.drawable.ic_like_filled else R.drawable.ic_like_empty)
+        holder.likeCount.text = currentItem.likeCount.toString()
 
+        holder.likeButton.setOnClickListener {
+            currentItem.isLiked = !currentItem.isLiked
+            if (currentItem.isLiked) {
+                currentItem.likeCount++
+            } else {
+                currentItem.likeCount--
+            }
+            notifyItemChanged(position)
+        }
     }
 
     override fun getItemCount(): Int {
         return listPost.size
     }
 
-
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val textPost : TextView = itemView.findViewById(R.id.textPost)
-        val imgPost : ImageView = itemView.findViewById(R.id.imgPost)
-        val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
-        val user : TextView = itemView.findViewById(R.id.user)
-        val tag : TextView = itemView.findViewById(R.id.tag)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textPost: TextView = itemView.findViewById(R.id.textPost)
+        val imgPost: ImageView = itemView.findViewById(R.id.imgPost)
+        val imgUser: ImageView = itemView.findViewById(R.id.imgUser)
+        val user: TextView = itemView.findViewById(R.id.user)
+        val tag: TextView = itemView.findViewById(R.id.tag)
+        val likeButton: ImageView = itemView.findViewById(R.id.likeButton)
+        val likeCount: TextView = itemView.findViewById(R.id.likeCount)
     }
-
 }
+
+
+
+
