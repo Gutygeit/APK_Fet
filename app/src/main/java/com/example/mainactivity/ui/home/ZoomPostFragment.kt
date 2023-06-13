@@ -11,9 +11,23 @@ import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 
 
+/**
+ * This class is used to create a zoom post fragment.
+ * @property post The post.
+ * @constructor Creates a zoom post fragment.
+ * @param post The post.
+ * @return Nothing.
+ */
 class ZoomPostFragment : Fragment() {
     private lateinit var post: Post
 
+    /**
+     * This function is used to create the view.
+     * @param inflater The layout inflater.
+     * @param container The view group container.
+     * @param savedInstanceState The saved instance state.
+     * @return The view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
