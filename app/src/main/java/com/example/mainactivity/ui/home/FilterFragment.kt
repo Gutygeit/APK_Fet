@@ -16,7 +16,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
+/**
+ * This class is used to create a filter fragment.
+ * @property _binding The binding.
+ * @property tagList The list of tags.
+ * @property auth The authentication.
+ * @constructor Creates a filter fragment.
+ * @return Nothing.
+ */
 class FilterFragment: Fragment() {
 
     //private lateinit var adapter: PostAdapter
@@ -31,7 +38,13 @@ class FilterFragment: Fragment() {
     //private lateinit var auth: FirebaseAuth
 
 
-
+    /**
+     * This function is used to create the view.
+     * @param inflater The layout inflater.
+     * @param container The view group container.
+     * @param savedInstanceState The saved instance state.
+     * @return The view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

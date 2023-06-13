@@ -4,6 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mainactivity.data.Post
 
+/**
+ * This class is used to create a filter view model.
+ * @property listTag The list of tags.
+ * @constructor Creates a filter view model.
+ * @return Nothing.
+ */
 class FilterViewModel : ViewModel() {
 
     //val allTag = arrayListOf<String>() // à remplir via la bdd (en fonction du user)

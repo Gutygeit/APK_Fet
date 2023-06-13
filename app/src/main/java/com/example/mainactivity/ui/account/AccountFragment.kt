@@ -29,6 +29,24 @@ import com.google.firebase.storage.ktx.storage
 import java.io.File
 
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [AccountFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ * @param pp : String that contains the path of the profile picture
+ * @param auth : FirebaseAuth that contains the current user information (mail, password, etc.)
+ * @param _binding : FragmentAccountBinding that contains the binding of the fragment
+ * @param binding : FragmentAccountBinding that contains the binding of the fragment
+ * @param deconnect : Button that allows the user to disconnect
+ * @param confirmer : Button that allows the user to confirm the changes he made
+ * @param admin : Button that allows the user to access the admin fragment
+ * @param pickImage : Int that contains the code of the image picked
+ * @param imageUri : Uri that contains the uri of the image picked
+ * @param prenom : EditText that contains the first name of the user
+ * @param nom : EditText that contains the last name of the user
+ * @param isChangingPp : Boolean that indicates if the user is changing his profile picture
+ * @return A new instance of fragment AccountFragment.
+ */
 class AccountFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var _binding: FragmentAccountBinding? = null
@@ -47,6 +65,13 @@ class AccountFragment : Fragment() {
     private lateinit var nom: EditText
     private var isChangingPp : Boolean = false
 
+    /**
+     * This function is called when the user wants to change his profile picture
+     * @param requestCode : Int that contains the code of the image picked
+     * @param resultCode : Int that contains the code of the result
+     * @param data : Intent that contains the data of the image picked
+     * @return A new instance of fragment AccountFragment.
+     */
     @SuppressLint("WrongThread", "MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -208,6 +233,10 @@ class AccountFragment : Fragment() {
         return root
     }
 
+    /**
+     * When the view is destroyed, the binding is set to null
+     * to avoid memory leaks
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
