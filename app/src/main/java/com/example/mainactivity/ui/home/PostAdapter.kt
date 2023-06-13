@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,7 +14,12 @@ import com.example.mainactivity.data.Post
 
 
 class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+
+    private var navController: NavController? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        navController = Navigation.findNavController(parent.context as AppCompatActivity, R.id.nav_host_fragment_activity_main)
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.post, parent, false)
         return ViewHolder(itemView)
     }
@@ -29,26 +33,18 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
 
-        var navController: NavController? = null
 
         holder.apply {
-
             with(holder.itemView) {
                 itemView.setOnClickListener {
-                    Toast.makeText(
-                        holder.itemView.context,
-                        "Veuillez remplir les champs",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     navController = Navigation.findNavController(itemView)
-                    navController!!.navigate(R.id.action_navigation_home_to_zoomPostFragment)
-
+                    val action = HomeFragmentDirections.actionNavigationHomeToZoomPostFragment(currentItem)
+                    navController?.navigate(action)
                 }
-
             }
-
         }
     }
+
 
     override fun getItemCount(): Int {
         return listPost.size
