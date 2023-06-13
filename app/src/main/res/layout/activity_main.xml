@@ -21,6 +21,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
+        app:labelVisibilityMode="selected"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorSurface"
