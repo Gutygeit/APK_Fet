@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+
 
 class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +26,17 @@ class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<
         holder.tag.text = currentItem.Tag
         holder.likeButton.setImageResource(if (currentItem.isLiked) R.drawable.ic_like_filled else R.drawable.ic_like_empty)
         holder.likeCount.text = currentItem.likeCount.toString()
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            if (context is AppCompatActivity) {
+                val zoomedPostFragment = ZoomPostFragment.newInstance(currentItem)
+                context.supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, zoomedPostFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
 
         holder.likeButton.setOnClickListener {
             currentItem.isLiked = !currentItem.isLiked
@@ -54,6 +64,4 @@ class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<
     }
 }
 
-
-
-
+}

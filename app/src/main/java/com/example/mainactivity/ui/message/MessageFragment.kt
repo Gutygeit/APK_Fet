@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MessageFragment : Fragment() {
 
@@ -35,14 +36,49 @@ class MessageFragment : Fragment() {
     private val pickImage = 100
     private var imageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
-    val storage = Firebase.storage("gs://apk-fet.appspot.com")
+    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
+    private val db = FirebaseFirestore.getInstance()
 
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
-        val tags = resources.getStringArray(R.array.tags)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, tags)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        val tagList = mutableListOf<String>()
+        db.collection("User")
+            .whereEqualTo("Mail", auth.currentUser?.email.toString())
+            .get()
+            .addOnSuccessListener { userGotten ->
+                for (document in userGotten) {
+                    db.collection("User")
+                        .document(document.id)
+                        .collection("Tags")
+                        .get()
+                        .addOnSuccessListener { tags ->
+                            for (tag in tags) {
+                                for (tagData in tag.data) {
+                                    if (tagData.value as Boolean) {
+                                        tagList.add(tagData.key.toString())
+                                    }
+                                }
+                            }
+                            // Update the adapter with the retrieved tags
+                            val arrayAdapter = ArrayAdapter(
+                                requireContext(),
+                                R.layout.dropdown_item,
+                                tagList
+                            )
+                            binding.autoCompleteTextView.setAdapter(arrayAdapter)
+                        }
+                        .addOnFailureListener { exception ->
+                            // Handle any errors that occur during retrieval
+                            // For example, you can display an error message
+                            Toast.makeText(
+                                requireContext(),
+                                "Failed to retrieve tags: ${exception.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+            }
     }
 
     override fun onCreateView(
@@ -84,8 +120,6 @@ class MessageFragment : Fragment() {
             if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
-                    Toast.makeText(getActivity(), result.documents[0].id,
-                        Toast.LENGTH_LONG).show();
                     var data = hashMapOf<String,Any>()
                     if(binding.imageViewMessage.drawable != null){
                         val storageRef = storage.reference
@@ -115,9 +149,7 @@ class MessageFragment : Fragment() {
                 Toast.makeText(getActivity(), "Certains champs sont vides",
                     Toast.LENGTH_LONG).show();
             }
-
         }
-
         return root
     }
 
