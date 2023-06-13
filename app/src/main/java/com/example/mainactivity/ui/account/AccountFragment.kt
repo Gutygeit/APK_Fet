@@ -2,45 +2,31 @@ package com.example.mainactivity.ui.account
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.net.toFile
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainactivity.MainActivity
 import com.example.mainactivity.R
 import com.example.mainactivity.WelcomeActivity
 import com.example.mainactivity.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
 import java.io.File
-import kotlin.time.Duration.Companion.nanoseconds
 
 class AccountFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -57,6 +43,7 @@ class AccountFragment : Fragment() {
     private var imageUri: Uri? = null
     private lateinit var prenom: EditText
     private lateinit var nom: EditText
+    private var isChangingPp : Boolean = false
 
     @SuppressLint("WrongThread", "MissingInflatedId")
     override fun onCreateView(
@@ -89,7 +76,11 @@ class AccountFragment : Fragment() {
 
 
                     val StoRef = FirebaseStorage.getInstance().reference.child(pp)
-                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1],)
+                    val localfile = File.createTempFile(
+                        pp.split("/")[1].split(".")[0],
+                        pp.split("/")[1].split(".")[1]
+                    )
+                    /*
                     StoRef.getFile(localfile).addOnSuccessListener {
                         val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                         binding.imageViewpp.setImageBitmap(bitmap)
@@ -97,13 +88,10 @@ class AccountFragment : Fragment() {
                         Toast.makeText(getActivity(), "Failed to load image!",
                             Toast.LENGTH_LONG).show();
                     }
+                     */
                 }
             }
         }
-
-
-
-
 
         val accountViewModel =
             ViewModelProvider(this).get(AccountViewModel::class.java)
@@ -111,9 +99,44 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
         binding.imageViewpp.setOnClickListener{
+
+            /*
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
+            */
+            if(!isChangingPp){
+                binding.horizontalScroll.layoutParams.height = resources.getDimensionPixelSize(R.dimen.profilPicture);
+                binding.horizontalScroll.requestLayout();
+                isChangingPp = true
+            }
+            else{
+                binding.horizontalScroll.layoutParams.height = 1
+                binding.horizontalScroll.requestLayout();
+                isChangingPp = false
+            }
+        }
+
+        for(i in 0 until binding.scrollLayout.childCount){
+            binding.scrollLayout.children.elementAt(i).setOnClickListener {
+                binding.horizontalScroll.layoutParams.height = 1
+                binding.horizontalScroll.requestLayout();
+                when (i) {
+                    0 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp1)
+                    1 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp2)
+                    2 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp3)
+                    3 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp4)
+                    4 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp5)
+                    5 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp6)
+                    6 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp7)
+                    7 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp8)
+                    8 -> binding.imageViewpp.setBackgroundResource(R.drawable.pp9)
+                }
+                //bdd ici !
+
+
+            }
         }
 
         deconnect = binding.deconnect
@@ -169,13 +192,15 @@ class AccountFragment : Fragment() {
     }
 
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             val storage = Firebase.storage("gs://apk-fet.appspot.com")
             val storageRef = storage.reference
-            imageUri = data?.data
-            binding.imageViewpp.setImageURI(imageUri)
+            //imageUri = data?.data
+            //binding.imageViewpp.setImageURI(imageUri)
             var file = imageUri!!
 
             val docRef = Firebase.firestore.collection("User")

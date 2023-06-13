@@ -21,24 +21,26 @@
         android:id="@+id/imageViewpp"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="120dp"
         android:onClick="parent"
         android:text="pp"
-        android:layout_marginTop="160dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginTop="100dp"
-        tools:src="@tools:sample/avatars" />
+        app:srcCompat="@drawable/apk_fet" />
 
     <EditText
         android:id="@+id/nom"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:text="Nom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewpp"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"></EditText>
 
     <EditText
         android:id="@+id/prenom"
@@ -59,5 +61,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewpp"
+        tools:visibility="invisible">
+
+        <LinearLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="331dp">
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp1" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:layout_editor_absoluteX="681dp"
+                tools:layout_editor_absoluteY="331dp"
+                tools:src="@tools:sample/avatars" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
