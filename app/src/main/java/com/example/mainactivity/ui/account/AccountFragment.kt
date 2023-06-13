@@ -74,24 +74,23 @@ class AccountFragment : Fragment() {
 
                     Thread.sleep(250)
 
+                    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com").reference.child(pp)
 
-                    val StoRef = FirebaseStorage.getInstance().reference.child(pp)
-                    val localfile = File.createTempFile(
-                        pp.split("/")[1].split(".")[0],
-                        pp.split("/")[1].split(".")[1]
-                    )
-                    /*
-                    StoRef.getFile(localfile).addOnSuccessListener {
+                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1])
+                    storage.getFile(localfile).addOnSuccessListener {
                         val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                         binding.imageViewpp.setImageBitmap(bitmap)
                     }.addOnFailureListener{
                         Toast.makeText(getActivity(), "Failed to load image!",
                             Toast.LENGTH_LONG).show();
                     }
-                     */
                 }
             }
         }
+
+
+
+
 
         val accountViewModel =
             ViewModelProvider(this).get(AccountViewModel::class.java)
@@ -99,10 +98,7 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
         binding.imageViewpp.setOnClickListener{
-
-            /*
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
             */
@@ -176,8 +172,7 @@ class AccountFragment : Fragment() {
                         docRef.document(document.id).update("LastName", txtNom.toString())
 
                 }
-                    Toast.makeText(getActivity(), txtPrenom,
-                        Toast.LENGTH_LONG).show();
+
                     //val intent = Intent(activity, MainActivity::class.java)
                     //startActivity(intent)
             }
@@ -197,7 +192,7 @@ class AccountFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
-            val storage = Firebase.storage("gs://apk-fet.appspot.com")
+            val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
             val storageRef = storage.reference
             //imageUri = data?.data
             //binding.imageViewpp.setImageURI(imageUri)

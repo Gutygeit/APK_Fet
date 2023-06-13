@@ -100,7 +100,7 @@ class RegisterFragment : Fragment() {
                     if (verificationTask.isSuccessful) {
                         Toast.makeText(
                             activity,
-                            "Un e-mail de confirmation a été envoyé à votre adresse e-mail.",
+                            "Un e-mail de confirmation a été envoyé à $email",
                             Toast.LENGTH_SHORT,
                         ).show()
 
@@ -153,7 +153,7 @@ class RegisterFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             activity,
-                            "Erreur lors de l'envoi de l'e-mail de confirmation.",
+                            "Erreur lors de l'envoi de l'e-mail de confirmation",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

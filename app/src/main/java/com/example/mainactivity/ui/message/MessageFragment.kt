@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.util.DisplayMetrics
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +35,7 @@ class MessageFragment : Fragment() {
     private val pickImage = 100
     private var imageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
-    val storage = Firebase.storage("gs://apk-fet.appspot.com")
+    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
 
 
     override fun onResume(){
@@ -80,11 +81,9 @@ class MessageFragment : Fragment() {
         }
 
         binding.buttonSendMessage.setOnClickListener{
-
+            if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
-                    Toast.makeText(getActivity(), result.documents[0].id,
-                        Toast.LENGTH_LONG).show();
                     var data = hashMapOf<String,Any>()
                     if(binding.imageViewMessage.drawable != null){
                         val storageRef = storage.reference
@@ -98,8 +97,7 @@ class MessageFragment : Fragment() {
                         riversRef.putFile(imageUri!!)
                     }
                     else {
-                        Toast.makeText(getActivity(), "Sans image",
-                            Toast.LENGTH_LONG).show();
+
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
                             "Content" to binding.textInputEditTextMessage.text.toString(),
@@ -109,11 +107,13 @@ class MessageFragment : Fragment() {
                     }
                     db.collection("Post").add(data)
                 }
-            imageView.setVisibility(View.INVISIBLE)
-            binding.textInputEditTextMessage.setText("")
-
+                imageView.setVisibility(View.INVISIBLE)
+            }
+            else{
+                Toast.makeText(getActivity(), "Certains champs sont vides",
+                    Toast.LENGTH_LONG).show();
+            }
         }
-
         return root
     }
 
