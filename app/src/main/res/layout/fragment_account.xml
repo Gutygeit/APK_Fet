@@ -11,59 +11,68 @@
         android:id="@+id/deconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Se deconnecter"
+        android:text="@string/disconnect"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/imageViewpp"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="120dp"
         android:onClick="parent"
-        android:text="pp"
+        android:text="@string/pictureProfil"
+        android:layout_marginTop="160dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginTop="100dp"
-        app:srcCompat="@drawable/apkfet_icon" />
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/app_name" />
 
     <EditText
         android:id="@+id/nom"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Nom"
+        android:layout_marginTop="60dp"
+        android:autofillHints="name"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/name"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/imageViewpp" />
 
     <EditText
         android:id="@+id/prenom"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Prénom"
+        android:autofillHints="name"
+        android:hint="@string/surname"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/surname"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/nom" />
 
     <Button
         android:id="@+id/confirmer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirmer"
+        android:text="@string/confirm"
         android:textSize="20sp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+  
     <HorizontalScrollView
         android:id="@+id/horizontalScroll"
         android:layout_width="250dp"
@@ -150,5 +159,4 @@
                 tools:layout_editor_absoluteY="331dp" />
         </LinearLayout>
     </HorizontalScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
