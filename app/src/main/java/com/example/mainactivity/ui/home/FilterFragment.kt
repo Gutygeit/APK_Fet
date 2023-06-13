@@ -60,15 +60,14 @@ class FilterFragment: Fragment() {
                         .collection("Tags").get().addOnSuccessListener { tags ->
                             for (tag in tags) {
                                 for (tagdata in tag.data) {
-                                    tagArray.add(tagdata.key)
+                                    tagArray.add(tagdata.key.toString())
                                 }
                                 for(element in tagArray){
                                     val chip = Chip(context)
                                     chip.text = element
                                     chip.setCheckedIconVisible(true)
-                                    //chip.setChipIconResource(R.drawable.)
                                     chip.isCheckable = true
-                                    chip.isChecked = true
+                                    chip.isChecked = tag.data[element] as Boolean
                                     chip.setOnClickListener {
                                         if(chip.isChecked){
                                             model.addTag(chip.text as String)

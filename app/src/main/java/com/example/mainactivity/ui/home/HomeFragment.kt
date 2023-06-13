@@ -128,7 +128,6 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         postList = arrayListOf()
-        
         val tagList = arrayListOf<String>()
 
         Firebase.firestore.collection("User")
@@ -218,6 +217,10 @@ class HomeFragment : Fragment() {
 
 
             }
+        if(tagList.isEmpty()){
+            adapter = PostAdapter(postList)
+            recyclerView.adapter = adapter
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
