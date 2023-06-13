@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".LoginFragment">
+            tools:context=".ui.welcome.LoginFragment">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
