@@ -126,7 +126,9 @@ class HomeFragment : Fragment() {
 
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
+
         postList = arrayListOf()
+        
         val tagList = arrayListOf<String>()
 
         Firebase.firestore.collection("User")
