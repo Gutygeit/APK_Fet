@@ -34,7 +34,7 @@ class ZoomPostFragment : Fragment() {
         imgPost.setImageBitmap(post.Image)
         imgUser.setImageBitmap(post.ProfileP)
         user.text = post.Auteur
-        role.text = "gg"
+        role.text = post.Role
         tag.text = post.Tag
 
         return view

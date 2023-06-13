@@ -3,13 +3,15 @@ package com.example.mainactivity.data
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.compose.ui.semantics.Role
 
 data class Post(
-    var Auteur: String?, var Content: String?, var ProfileP: Bitmap?,
+    var Auteur: String?, var Content: String?,var Role: String?, var ProfileP: Bitmap?,
     var Image:Bitmap? = null, var Tag: String?
 ):
     Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readParcelable(Bitmap::class.java.classLoader),
@@ -23,6 +25,7 @@ data class Post(
         parcel.writeParcelable(Image, flags)
         parcel.writeParcelable(ProfileP, flags)
         parcel.writeString(Tag)
+        parcel.writeString(Role)
     }
 
     override fun describeContents(): Int {
