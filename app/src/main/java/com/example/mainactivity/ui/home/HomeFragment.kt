@@ -1,9 +1,7 @@
 package com.example.mainactivity.ui.home
 
-import android.app.DownloadManager.Query
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.provider.SyncStateContract.Helpers.update
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,12 +46,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val LayoutManager = LinearLayoutManager(context)
-        recyclerView = binding.recyclerFeed;
-        recyclerView.layoutManager = LayoutManager
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = binding.recyclerFeed
+        recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
 
-        model = ViewModelProvider(requireActivity()).get(FilterViewModel::class.java)
+        model = ViewModelProvider(requireActivity())[FilterViewModel::class.java]
 
 
         dataInitialize()
@@ -78,7 +76,7 @@ class HomeFragment : Fragment() {
                                 .collection("Tags").get().addOnSuccessListener { tags ->
                                     for (tag in tags) {
                                         for (tagdata in tag.data) {
-                                            if(!(tagdata.key.toString() in model.getList())){
+                                            if(tagdata.key.toString() !in model.getList()){
                                                 Firebase.firestore.collection("User").document(document.id)
                                                     .collection("Tags").document(tag.id).update(tagdata.key.toString(), false)
                                             }
@@ -108,8 +106,8 @@ class HomeFragment : Fragment() {
 
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
-        postList = arrayListOf<Post>()
-        var tagList = arrayListOf<String>()
+        postList = arrayListOf()
+        val tagList = arrayListOf<String>()
 
         Firebase.firestore.collection("User")
             .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
@@ -129,34 +127,32 @@ class HomeFragment : Fragment() {
                                     postRef.get().addOnSuccessListener { result ->
                                         for (document in result) {
                                             if (document.data["Tag"].toString() in tagList) {
-                                                val id_auteur = document.data["Auteur"].toString()
+                                                val idAuteur = document.data["Auteur"].toString()
                                                 val docRef = Firebase.firestore.collection("User")
-                                                    .document(id_auteur)
+                                                    .document(idAuteur)
                                                 docRef.get().addOnSuccessListener { result ->
 
                                                     val gg = result.data?.get("PP")?.toString()
-                                                    val StoRef =
+                                                    val stoRef =
                                                         storage.reference.child(gg.toString())
                                                     val localfile = File.createTempFile(
-                                                        gg!!.split("/").get(1).split(".").get(0),
-                                                        gg.split("/").get(1).split(".").get(1),
+                                                        gg!!.split("/")[1].split(".")[0],
+                                                        gg.split("/")[1].split(".")[1],
                                                     )
 
-                                                    StoRef.getFile(localfile).addOnSuccessListener {
+                                                    stoRef.getFile(localfile).addOnSuccessListener {
                                                         val image =
                                                             document.data["Image"].toString()
                                                         val bitmap =
                                                             BitmapFactory.decodeFile(localfile.absolutePath)
                                                         if (!(image.contentEquals(""))) {
-                                                            val StoRef2 =
-                                                                storage.reference.child(image.toString())
+                                                            val stoRef2 =
+                                                                storage.reference.child(image)
                                                             val localfile2 = File.createTempFile(
-                                                                image!!.split("/").get(1).split(".")
-                                                                    .get(0),
-                                                                image.split("/").get(1).split(".")
-                                                                    .get(1),
+                                                                image.split("/")[1].split(".")[0],
+                                                                image.split("/")[1].split(".")[1],
                                                             )
-                                                            StoRef2.getFile(localfile2)
+                                                            stoRef2.getFile(localfile2)
                                                                 .addOnSuccessListener {
                                                                     val bitmap2 =
                                                                         BitmapFactory.decodeFile(
@@ -191,25 +187,25 @@ class HomeFragment : Fragment() {
 
                                                     }.addOnFailureListener {
                                                         Toast.makeText(
-                                                            getActivity(), "Failed",
+                                                            activity, "Failed",
                                                             Toast.LENGTH_LONG
-                                                        ).show();
+                                                        ).show()
                                                     }
 
                                                 }.addOnFailureListener {
                                                     Toast.makeText(
-                                                        getActivity(), "Failed",
+                                                        activity, "Failed",
                                                         Toast.LENGTH_LONG
-                                                    ).show();
+                                                    ).show()
                                                 }
                                             }
                                         }
 
                                     }.addOnFailureListener {
                                         Toast.makeText(
-                                            getActivity(), "Failed",
+                                            activity, "Failed",
                                             Toast.LENGTH_LONG
-                                        ).show();
+                                        ).show()
                                     }
                     }
                 }
