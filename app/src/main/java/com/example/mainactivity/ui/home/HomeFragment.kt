@@ -93,6 +93,10 @@ class HomeFragment : Fragment() {
                 binding.filterFragment.isVisible = false
                 Thread.sleep(1000)
                 dataInitialize()
+                Toast.makeText(
+                    activity, model.getList().toString(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
             else{
                 binding.filterFragment.isVisible = true

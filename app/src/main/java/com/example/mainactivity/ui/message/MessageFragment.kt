@@ -142,6 +142,12 @@ class MessageFragment : Fragment() {
                             "Date" to FieldValue.serverTimestamp())
                     }
                     db.collection("Post").add(data)
+                    binding.textInputEditTextMessage.text?.clear()
+                    Toast.makeText(
+                        activity,
+                        "Message posté !",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 imageView.setVisibility(View.INVISIBLE)
             }
