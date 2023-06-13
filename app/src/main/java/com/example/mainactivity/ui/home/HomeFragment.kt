@@ -178,9 +178,11 @@ class HomeFragment : Fragment() {
                                                                         result.data?.get("FirstName")
                                                                             ?.toString()!!,
                                                                         document.data["Content"].toString(),
+                                                                        document.data["Role"].toString(),
                                                                         bitmap,
                                                                         bitmap2,
-                                                                        document.data["Tag"].toString()
+                                                                        document.data["Tag"].toString(),
+                                                                         //TODO
                                                                     )
 
                                                                     postList.add(post)
@@ -192,6 +194,7 @@ class HomeFragment : Fragment() {
                                                                 result.data?.get("FirstName")
                                                                     ?.toString()!!,
                                                                 document.data["Content"].toString(),
+                                                                document.data["Role"].toString(),
                                                                 bitmap,
                                                                 null,
                                                                 document.data["Tag"].toString()
