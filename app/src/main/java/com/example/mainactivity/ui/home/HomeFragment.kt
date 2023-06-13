@@ -21,7 +21,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
-
+/**
+ * This class is used to create a home fragment.
+ * @property _binding The binding of the fragment.
+ * @property feedlayout The layout of the feed.
+ * @property auth The authentication.
+ * @property storage The storage.
+ * @property adapter The post adapter.
+ * @property recyclerView The recycler view.
+ * @property postList The list of posts.
+ * @property model The filter view model.
+ * @constructor Creates a home fragment.
+ * @return Nothing.
+ */
 class HomeFragment : Fragment() {
 
     private lateinit var adapter: PostAdapter
@@ -38,6 +50,10 @@ class HomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
 
+    /**
+     * This function is used to initialize the data.
+     * @return Nothing.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -109,6 +125,10 @@ class HomeFragment : Fragment() {
     }
 
 
+    /**
+     * This function is used to create the post adapter.
+     * @return Nothing.
+     */
     private fun getBitmapPP(strImg : String?) : Bitmap{
 
         var bitmap : Bitmap
@@ -128,6 +148,10 @@ class HomeFragment : Fragment() {
         return bitmap
     }
 
+    /**
+     * This function is used to initialize the data.
+     * @return Nothing.
+     */
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
 
@@ -178,9 +202,11 @@ class HomeFragment : Fragment() {
                                                                         result.data?.get("FirstName")
                                                                             ?.toString()!!,
                                                                         document.data["Content"].toString(),
+                                                                        document.data["Role"].toString(),
                                                                         bitmap,
                                                                         bitmap2,
-                                                                        document.data["Tag"].toString()
+                                                                        document.data["Tag"].toString(),
+                                                                         //TODO
                                                                     )
 
                                                                     postList.add(post)
@@ -192,6 +218,7 @@ class HomeFragment : Fragment() {
                                                                 result.data?.get("FirstName")
                                                                     ?.toString()!!,
                                                                 document.data["Content"].toString(),
+                                                                document.data["Role"].toString(),
                                                                 bitmap,
                                                                 null,
                                                                 document.data["Tag"].toString()
@@ -226,6 +253,11 @@ class HomeFragment : Fragment() {
             recyclerView.adapter = adapter
         }
     }
+
+    /**
+     * This function is used to create the post adapter.
+     * @return Nothing.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

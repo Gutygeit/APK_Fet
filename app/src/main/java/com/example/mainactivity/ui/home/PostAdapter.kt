@@ -13,17 +13,35 @@ import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 
 
+/**
+ * This class is used to create a post adapter.
+ * @property listPost The list of posts.
+ * @constructor Creates a post adapter.
+ * @param listPost The list of posts.
+ */
 class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     private var navController: NavController? = null
 
 
+    /**
+     * This function to create a view holder.
+     * @param parent The parent view group.
+     * @param viewType The view type.
+     * @return The view holder.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         navController = Navigation.findNavController(parent.context as AppCompatActivity, R.id.nav_host_fragment_activity_main)
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.post, parent, false)
         return ViewHolder(itemView)
     }
 
+    /**
+     * This function is used to bind the view holder.
+     * @param holder The view holder.
+     * @param position The position of the item in the list.
+     * @return Nothing.
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = listPost[position]
 
@@ -45,11 +63,20 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
     }
 
 
+    /**
+     * This function returns the number of items in the list.
+     * @return The number of items in the list.
+     */
     override fun getItemCount(): Int {
         return listPost.size
     }
 
 
+    /**
+     * This class is used to create a view holder.
+     * @constructor Creates a view holder.
+     * @param itemView The view.
+     */
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val textPost : TextView = itemView.findViewById(R.id.textPost)
         val imgPost : ImageView = itemView.findViewById(R.id.imgPost)

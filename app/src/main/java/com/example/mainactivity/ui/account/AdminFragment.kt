@@ -7,8 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mainactivity.R
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [AdminFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class AdminFragment : Fragment() {
 
+    /**
+     * This function is called when the fragment is created.
+     * It returns the view of the fragment for admin account.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

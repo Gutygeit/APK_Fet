@@ -26,20 +26,35 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.google.firebase.firestore.FirebaseFirestore
 
+/**
+ * This class is used to create the message fragment.
+ * @property _binding
+ * @property binding
+ * @property pickImage
+ * @property imageUri
+ * @property auth
+ * @property storage
+ * @property db
+ * @constructor Create empty Message fragment
+ */
 class MessageFragment : Fragment() {
 
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var messageViewModel: MessageViewModel
-    private lateinit var buttonAddPicture: Button
-    private lateinit var imageViewMessage: ImageView
     private val pickImage = 100
     private var imageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
     val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
     private val db = FirebaseFirestore.getInstance()
 
-
+    /**
+     * This function is called when the fragment is created.
+     * It returns the view of the fragment for message.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     */
     override fun onResume() {
         super.onResume()
         val tagList = mutableListOf<String>()
@@ -81,6 +96,14 @@ class MessageFragment : Fragment() {
             }
     }
 
+    /**
+     * This function is called when the fragment is created.
+     * It returns the view of the fragment for message.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -117,7 +140,7 @@ class MessageFragment : Fragment() {
         }
 
         binding.buttonSendMessage.setOnClickListener{
-            if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
+            if(!(binding.textInputEditTextMessage.text.isNullOrBlank()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
                     var data = hashMapOf<String,Any>()
@@ -159,11 +182,24 @@ class MessageFragment : Fragment() {
         return root
     }
 
+    /**
+     * This function is called when the fragment is destroyed.
+     * It sets the binding to null.
+     * @return Unit
+      */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * This function is called when the fragment is created.
+     * It returns the view of the fragment for message.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return Unit
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
