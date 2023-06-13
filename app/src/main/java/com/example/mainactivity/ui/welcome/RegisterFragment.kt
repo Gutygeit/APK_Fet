@@ -1,4 +1,4 @@
-package com.example.mainactivity
+package com.example.mainactivity.ui.welcome
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -14,8 +14,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
