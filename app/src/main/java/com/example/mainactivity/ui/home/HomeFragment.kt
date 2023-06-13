@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
         postList = arrayListOf<Post>()
-        var tagList = arrayListOf<String>()
+        val tagList = arrayListOf<String>()
 
         Firebase.firestore.collection("User")
             .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
