@@ -30,13 +30,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginTop="100dp"
-        app:srcCompat="@drawable/apk_fet" />
+        app:srcCompat="@drawable/apkfet_icon" />
 
     <EditText
         android:id="@+id/nom"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="Nom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -68,7 +68,7 @@
         android:id="@+id/horizontalScroll"
         android:layout_width="250dp"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,31 +81,73 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:orientation="horizontal"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="331dp">
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/imagePP1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:src="@drawable/pp1" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/imagePP2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                tools:src="@tools:sample/avatars" />
+                android:src="@drawable/pp2" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/imagePP3"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp3" />
+
+            <ImageButton
+                android:id="@+id/imagePP4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp4" />
+
+            <ImageButton
+                android:id="@+id/imagePP5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp5" />
+
+            <ImageButton
+                android:id="@+id/imagePP6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp6" />
+
+            <ImageButton
+                android:id="@+id/imagePP7"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp7" />
+
+            <ImageButton
+                android:id="@+id/imagePP8"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/pp8" />
+
+            <ImageButton
+                android:id="@+id/imagePP9"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/pp9"
                 tools:layout_editor_absoluteX="681dp"
-                tools:layout_editor_absoluteY="331dp"
-                tools:src="@tools:sample/avatars" />
+                tools:layout_editor_absoluteY="331dp" />
         </LinearLayout>
     </HorizontalScrollView>
 
