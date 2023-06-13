@@ -150,5 +150,4 @@
                 tools:layout_editor_absoluteY="331dp" />
         </LinearLayout>
     </HorizontalScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
