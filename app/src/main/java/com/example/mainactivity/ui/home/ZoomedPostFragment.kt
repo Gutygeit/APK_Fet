@@ -1,5 +1,6 @@
 package com.example.mainactivity.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 
@@ -14,19 +16,14 @@ import com.example.mainactivity.data.Post
 class ZoomPostFragment : Fragment() {
     private lateinit var post: Post
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            post = it.getParcelable(ARG_POST)!!
-        }
-    }
-
-
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_zoomed_post, container, false)
+
+        post = arguments?.getParcelable<Post>("post")!!
 
         val textPost = view.findViewById<TextView>(R.id.zoomedTextPost)
         val imgPost = view.findViewById<ImageView>(R.id.zoomedImgPost)
@@ -43,17 +40,5 @@ class ZoomPostFragment : Fragment() {
         tag.text = post.Tag
 
         return view
-    }
-
-    companion object {
-        private const val ARG_POST = "post"
-
-        @JvmStatic
-        fun newInstance(post: Post) =
-            ZoomPostFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_POST, post)
-                }
-            }
     }
 }

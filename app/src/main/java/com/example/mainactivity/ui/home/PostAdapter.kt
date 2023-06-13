@@ -5,7 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
@@ -26,17 +29,25 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
 
-        holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
-            if (context is AppCompatActivity) {
-                val zoomedPostFragment = ZoomPostFragment.newInstance(currentItem)
-                context.supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, zoomedPostFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
+        var navController: NavController? = null
 
+        holder.apply {
+
+            with(holder.itemView) {
+                itemView.setOnClickListener {
+                    Toast.makeText(
+                        holder.itemView.context,
+                        "Veuillez remplir les champs",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navController = Navigation.findNavController(itemView)
+                    navController!!.navigate(R.id.action_navigation_home_to_zoomPostFragment)
+
+                }
+
+            }
+
+        }
     }
 
     override fun getItemCount(): Int {
