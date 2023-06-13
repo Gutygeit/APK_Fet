@@ -51,7 +51,6 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
 
-
         holder.apply {
             with(holder.itemView) {
                 itemView.setOnClickListener {

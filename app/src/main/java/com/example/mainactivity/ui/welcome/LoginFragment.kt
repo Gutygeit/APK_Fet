@@ -1,4 +1,4 @@
-package com.example.mainactivity
+package com.example.mainactivity.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.mainactivity.MainActivity
+import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
