@@ -2,45 +2,31 @@ package com.example.mainactivity.ui.account
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.net.toFile
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mainactivity.MainActivity
 import com.example.mainactivity.R
 import com.example.mainactivity.WelcomeActivity
 import com.example.mainactivity.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
 import java.io.File
-import kotlin.time.Duration.Companion.nanoseconds
+
 
 class AccountFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -57,6 +43,7 @@ class AccountFragment : Fragment() {
     private var imageUri: Uri? = null
     private lateinit var prenom: EditText
     private lateinit var nom: EditText
+    private var isChangingPp : Boolean = false
 
     @SuppressLint("WrongThread", "MissingInflatedId")
     override fun onCreateView(
@@ -75,7 +62,7 @@ class AccountFragment : Fragment() {
             result->
             for (document in result){
 
-                val gg = document.data["PP"].toString()
+                val gg = document.data["pp"].toString()
                 gg?.let {
                     // Assign the value to the global pp variable
                     pp = it
@@ -85,18 +72,22 @@ class AccountFragment : Fragment() {
                     binding.prenom.setText(p)
                     binding.nom.setText(n)
 
-                    Thread.sleep(250)
 
-                    val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com").reference.child(pp)
+                    var bitmap : Bitmap
+                    bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+                    when (pp) {
 
-                    val localfile = File.createTempFile(pp.split("/")[1].split(".")[0],pp.split("/")[1].split(".")[1])
-                    storage.getFile(localfile).addOnSuccessListener {
-                        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                        binding.imageViewpp.setImageBitmap(bitmap)
-                    }.addOnFailureListener{
-                        Toast.makeText(getActivity(), "Failed to load image!",
-                            Toast.LENGTH_LONG).show();
+                        "1" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+                        "2" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp2)
+                        "3" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp3)
+                        "4" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp4)
+                        "5" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp5)
+                        "6" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp6)
+                        "7" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp7)
+                        "8" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp8)
+                        "9" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp9)
                     }
+                    binding.imageViewpp.setImageBitmap(bitmap)
                 }
             }
         }
@@ -112,8 +103,56 @@ class AccountFragment : Fragment() {
         val root: View = binding.root
 
         binding.imageViewpp.setOnClickListener{
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
+            if(!isChangingPp){
+                binding.scrollLayout.isVisible = true
+                binding.horizontalScroll.layoutParams.height = resources.getDimensionPixelSize(R.dimen.profilPicture);
+                binding.horizontalScroll.requestLayout();
+                isChangingPp = true
+            }
+            else{
+                binding.scrollLayout.isVisible = false
+                binding.horizontalScroll.layoutParams.height = 1
+                binding.horizontalScroll.requestLayout();
+                isChangingPp = false
+            }
+        }
+
+        for(i in 0 until binding.scrollLayout.childCount){
+            binding.scrollLayout.children.elementAt(i).setOnClickListener {
+                binding.horizontalScroll.layoutParams.height = 1
+                binding.scrollLayout.isVisible = false
+                binding.horizontalScroll.requestLayout();
+                var bitmap : Bitmap
+                bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+
+                when (i) {
+
+
+                    //binding.imageViewpp.setImageBitmap(bitmap)
+                    0 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+                    1 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp2)
+                    2 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp3)
+                    3 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp4)
+                    4 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp5)
+                    5 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp6)
+                    6 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp7)
+                    7 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp8)
+                    8 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp9)
+                }
+
+                binding.imageViewpp.setImageBitmap(bitmap)
+
+                val docRef = Firebase.firestore.collection("User")
+                docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener { result ->
+                    for (document in result) {
+                        docRef.document(document.id).update("pp", i+1)
+                    }
+                }
+
+                //bdd ici !
+
+
+            }
         }
 
         deconnect = binding.deconnect
@@ -166,43 +205,6 @@ class AccountFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com")
-            val storageRef = storage.reference
-            imageUri = data?.data
-            binding.imageViewpp.setImageURI(imageUri)
-            var file = imageUri!!
-
-            val docRef = Firebase.firestore.collection("User")
-            docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener { result ->
-                for (document in result) {
-                    val desertRef = storageRef.child(document.data["PP"].toString())
-                    if (document.data["PP"].toString().contentEquals("images/tele.jpeg"))
-                        Toast.makeText(getActivity(), "Image de base non supprimée",
-                            Toast.LENGTH_LONG).show();
-                    else{
-                        desertRef.delete()
-                    }
-                    docRef.document(document.id).update("PP", "images/${file.lastPathSegment}.jpeg")
-                }
-            }
-
-            val riversRef = storageRef.child("images/${file.lastPathSegment}.jpeg")
-            var uploadTask = riversRef.putFile(file)
-            uploadTask.addOnFailureListener {
-
-            }.addOnSuccessListener { taskSnapshot ->
-
-            }
-
-
-        }
-    }
-
 
 
 }

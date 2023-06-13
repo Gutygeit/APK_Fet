@@ -110,7 +110,7 @@ class RegisterFragment : Fragment() {
                             "Mail" to auth.currentUser?.email.toString(),
                             "FirstName" to prenom,
                             "LastName" to nom,
-                            "PP" to "images/tele.jpeg",
+                            "pp" to 1,
                             "Role" to db.collection("Role").document("role_Student")
                         )
                         val datatags = hashMapOf(
