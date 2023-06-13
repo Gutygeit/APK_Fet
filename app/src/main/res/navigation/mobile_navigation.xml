@@ -29,5 +29,10 @@
     <fragment
         android:id="@+id/zoomPostFragment"
         android:name="com.example.mainactivity.ui.home.ZoomPostFragment"
-        android:label="ZoomPostFragment" />
+        android:label="ZoomPostFragment" >
+        <argument android:name="post"
+            app:argType="com.example.mainactivity.data.Post"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
