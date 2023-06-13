@@ -117,7 +117,7 @@ class MessageFragment : Fragment() {
         }
 
         binding.buttonSendMessage.setOnClickListener{
-            if(!(binding.textInputLayoutMessage.isEmpty()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
+            if(!(binding.textInputEditTextMessage.text.isNullOrBlank()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
                     var data = hashMapOf<String,Any>()
