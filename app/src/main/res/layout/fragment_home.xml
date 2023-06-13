@@ -31,9 +31,11 @@
         android:id="@+id/topBtn"
         android:layout_width="60dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/up_button"
         android:src="@android:drawable/arrow_up_float"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/textView"
@@ -41,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Your Feed"
+        android:text="@string/feed"
         app:layout_constraintEnd_toStartOf="@+id/filter"
         app:layout_constraintStart_toEndOf="@+id/topBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +54,8 @@
         android:layout_height="50dp"
         android:src="@android:drawable/ic_menu_search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/tag_button" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/filterFragment"

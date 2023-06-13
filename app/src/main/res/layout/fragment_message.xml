@@ -33,12 +33,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputEditTextMessage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="50dp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:hint="Message"
+                    android:hint="@string/message"
                     android:inputType="textMultiLine"
+                    android:maxHeight="220dp"
+                    android:minHeight="50dp"
                     android:textColor="#FF808080"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,21 +55,23 @@
                 android:hint="Tags"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMessage">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMessage"
+                tools:ignore="HardcodedText">
 
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:inputType="none"
-                    android:text="Sélectionner un tag"
+                    android:text="@string/tagSelection"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout
@@ -93,17 +96,19 @@
                         android:scaleType="fitCenter"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/app_name" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </FrameLayout>
 
             <Button
                 android:id="@+id/buttonAddPicture"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Ajouter Image"
+                android:text="@string/addPicture"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +121,7 @@
                 android:id="@+id/buttonSendMessage"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:text="Envoyer Message"
+                android:text="@string/sendMessage"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/buttonAddPicture"

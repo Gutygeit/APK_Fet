@@ -8,11 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,7 +29,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bienvenue sur APK'FET"
+                    android:text="@string/welcome"
                     android:textSize="34sp" />
 
                 <Space
@@ -52,7 +48,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/apkfet_icon_round" />
+                        app:srcCompat="@drawable/apkfet_icon_round"
+                        android:contentDescription="@string/app_name" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -72,9 +69,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:ems="10"
-                    android:hint="E-mail (@uha.fr)"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="@string/email" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -85,9 +83,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Mot de passe"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="password" />
             </LinearLayout>
 
             <LinearLayout
@@ -104,7 +103,7 @@
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Se connecter"
+                    android:text="@string/login"
                     android:textSize="20sp" />
 
                 <Space
@@ -115,7 +114,7 @@
                     android:id="@+id/change"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Créer un compte"
+                    android:text="@string/register"
                     android:textSize="20sp" />
 
                 <Space
@@ -127,11 +126,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="true"
                     android:padding="20dp"
-                    android:text="Mot de passe oublié ?"
+                    android:text="@string/forgotPassword"
                     android:textAlignment="center"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:focusable="true" />
 
             </LinearLayout>
 
