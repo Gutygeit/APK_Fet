@@ -1,10 +1,32 @@
 <resources>
     <string name="app_name">APK\'FET</string>
+    <string name="up_button">Bouton</string>
+    <string name="tag_button">Bouton</string>
+    <string name="welcome">Bienvenue sur APK\'FET</string>
     <string name="title_home">Accueil</string>
     <string name="title_message">Message</string>
     <string name="title_account">Compte</string>
     <string name="connexion_message">Connexion</string>
     <string name="register_message">Inscription</string>
+    <string name="register">S\'inscrire</string>
+    <string name="login">Se connecter</string>
+    <string name="email">E-mail (@uha.fr)</string>
+    <string name="password">Mot de passe</string>
+    <string name="confirmed_password">Confirmer le mot de passe</string>
+    <string name="name">Nom</string>
+    <string name="surname">Prénom</string>
+    <string name="changePassword">Changer le mot de passe</string>
+    <string name="forgotPassword">Mot de passe oublié ?</string>
+    <string name="resetPassword">Réinitialiser</string>
+    <string name="sendMessage">Envoyer</string>
+    <string name="addPicture">Ajouter une photo</string>
+    <string name="message">Message</string>
+    <string name="tagSelection">Sélectionner un tag</string>
+    <string name="tag">Tag</string>
+    <string name="confirm">Confirmer</string>
+    <string name="disconnect">Se déconnecter</string>
+    <string name="pictureProfil">Photo de profil</string>
+    <string name="feed">Fil d\'actualité</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

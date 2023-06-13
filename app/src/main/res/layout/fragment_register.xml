@@ -29,9 +29,10 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Inscrivez-vous :"
+                    android:text="@string/register_message"
                     android:textColor="#FFE7FF"
-                    android:textSize="34sp" />
+                    android:textSize="34sp"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -49,11 +50,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Prénom"
+                    android:hint="@string/surname"
                     android:inputType="text"
                     android:textColor="#FFE7FF"
                     android:textSize="20sp"
-                    android:autofillHints="@uha.fr" />
+                    android:autofillHints="GivenName"
+                    tools:ignore="HardcodedText" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -64,10 +66,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Nom"
+                    android:hint="@string/name"
                     android:inputType="text"
                     android:textColor="#FFE7FF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="Name" />
 
             </LinearLayout>
 
@@ -86,10 +89,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="E-mail (@uha.fr)"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:textColor="#FFE7FF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="emailAddress" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -100,10 +104,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Mot de passe"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:textColor="#FFE7FF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="password" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -114,10 +119,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Mot de passe"
+                    android:hint="@string/confirmed_password"
                     android:inputType="textPassword"
                     android:textColor="#FFE7FF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:autofillHints="password" />
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +140,7 @@
                     android:id="@+id/register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="S'enregister"
+                    android:text="@string/register"
                     android:textSize="20sp" />
 
             </LinearLayout>

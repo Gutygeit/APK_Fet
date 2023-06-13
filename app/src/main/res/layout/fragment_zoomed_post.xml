@@ -3,76 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
 
+    <!-- Affichage du message -->
     <TextView
         android:id="@+id/zoomedTextPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:textSize="20sp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toTopOf="@+id/zoomedImgPost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zoomedImgUser"
         app:layout_constraintVertical_bias="0.5" />
 
+    <!-- Affichage du nom d'utilisateur -->
     <TextView
         android:id="@+id/zoomedUser"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="15sp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,MissingConstraints"
         tools:layout_editor_absoluteX="111dp" />
 
+    <!-- Affichage du rôle -->
     <TextView
         android:id="@+id/zoomedRole"
         android:layout_width="75dp"
         android:layout_height="30dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="35dp"
         android:text="TextView"
         android:textSize="12sp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintTop_toTopOf="@id/zoomedUser"
         tools:ignore="HardcodedText,MissingConstraints"
         tools:layout_editor_absoluteX="111dp" />
 
+    <!-- Affichage du tag(filtre) -->
     <TextView
         android:id="@+id/zoomedTag"
         android:layout_width="50dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="5dp"
         android:text="TextView"
         android:textSize="12sp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,TextSizeCheck" />
 
+
+    <!-- Section commentaires -->
     <TextView
         android:id="@+id/zoomedComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="15sp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintTop_toBottomOf="@+id/zoomedImgPost"
         tools:layout_editor_absoluteX="0dp"
         tools:ignore="HardcodedText" />
 
+    <!-- Section likes -->
     <TextView
         android:id="@+id/zoomedLikes"
-        android:layout_width="40dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="60dp"
         android:text="TextView"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/zoomedComments"
-        tools:ignore="HardcodedText,MissingConstraints,TextSizeCheck" />
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toTopOf="@+id/zoomedComments"
+        app:layout_constraintTop_toBottomOf="@+id/zoomedImgPost"
+        tools:ignore="HardcodedText,MissingConstraints,TextSizeCheck"
+        tools:layout_editor_absoluteX="372dp" />
 
-
-
+    <!-- Photo de profil -->
     <ImageView
         android:id="@+id/zoomedImgUser"
         android:layout_width="100dp"
@@ -85,11 +101,12 @@
         app:srcCompat="@mipmap/ic_launcher_round"
         tools:ignore="ImageContrastCheck" />
 
+    <!-- Photo du post -->
     <ImageView
         android:id="@+id/zoomedImgPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="256dp"
+        android:layout_marginBottom="250dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
