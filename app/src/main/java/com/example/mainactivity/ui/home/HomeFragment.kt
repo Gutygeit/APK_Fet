@@ -1,5 +1,6 @@
 package com.example.mainactivity.ui.home
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -108,9 +109,30 @@ class HomeFragment : Fragment() {
     }
 
 
+    private fun getBitmapPP(strImg : String?) : Bitmap{
+
+        var bitmap : Bitmap
+        bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+        when (strImg) {
+
+            "1" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+            "2" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp2)
+            "3" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp3)
+            "4" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp4)
+            "5" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp5)
+            "6" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp6)
+            "7" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp7)
+            "8" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp8)
+            "9" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp9)
+        }
+        return bitmap
+    }
+
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
+
         postList = arrayListOf()
+        
         val tagList = arrayListOf<String>()
 
         Firebase.firestore.collection("User")
@@ -136,19 +158,10 @@ class HomeFragment : Fragment() {
                                                     .document(idAuteur)
                                                 docRef.get().addOnSuccessListener { result ->
 
-                                                    val gg = result.data?.get("PP")?.toString()
-                                                    val stoRef =
-                                                        storage.reference.child(gg.toString())
-                                                    val localfile = File.createTempFile(
-                                                        gg!!.split("/")[1].split(".")[0],
-                                                        gg.split("/")[1].split(".")[1],
-                                                    )
-
-                                                    stoRef.getFile(localfile).addOnSuccessListener {
+                                                    val gg = result.data?.get("pp")?.toString()
+                                                    val bitmap = getBitmapPP(gg)
                                                         val image =
                                                             document.data["Image"].toString()
-                                                        val bitmap =
-                                                            BitmapFactory.decodeFile(localfile.absolutePath)
                                                         if (!(image.contentEquals(""))) {
                                                             val stoRef2 =
                                                                 storage.reference.child(image)
@@ -195,13 +208,6 @@ class HomeFragment : Fragment() {
                                                             Toast.LENGTH_LONG
                                                         ).show()
                                                     }
-
-                                                }.addOnFailureListener {
-                                                    Toast.makeText(
-                                                        activity, "Failed",
-                                                        Toast.LENGTH_LONG
-                                                    ).show()
-                                                }
                                             }
                                         }
 
