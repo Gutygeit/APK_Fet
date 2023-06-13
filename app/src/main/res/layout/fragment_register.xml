@@ -8,7 +8,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,8 +56,7 @@
                     android:hint="Prénom"
                     android:inputType="text"
                     android:textColor="#FFE7FF"
-                    android:textSize="20sp"
-                    android:autofillHints="@uha.fr" />
+                    android:textSize="20sp" />
 
                 <Space
                     android:layout_width="match_parent"

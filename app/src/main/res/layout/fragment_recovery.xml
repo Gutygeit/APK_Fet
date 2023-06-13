@@ -44,8 +44,7 @@
             android:ems="10"
             android:hint="E-mail (@uha.fr)"
             android:inputType="textEmailAddress"
-            android:textSize="20sp"
-            android:autofillHints="@uha.fr" />
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="match_parent"
