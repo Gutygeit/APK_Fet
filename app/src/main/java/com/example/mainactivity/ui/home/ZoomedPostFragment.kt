@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 
-
 class ZoomPostFragment : Fragment() {
     private lateinit var post: Post
 
