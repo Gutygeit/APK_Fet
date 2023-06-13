@@ -18,6 +18,7 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.mainactivity.R
 import com.example.mainactivity.WelcomeActivity
 import com.example.mainactivity.databinding.FragmentAccountBinding
@@ -38,6 +39,7 @@ class AccountFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var deconnect : Button
     private lateinit var confirmer : Button
+    private lateinit var admin : Button
 
     private val pickImage = 100
     private var imageUri: Uri? = null
@@ -196,6 +198,11 @@ class AccountFragment : Fragment() {
                     //val intent = Intent(activity, MainActivity::class.java)
                     //startActivity(intent)
             }
+        }
+
+        admin = binding.admin
+        admin.setOnClickListener {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main).navigate(R.id.action_navigation_account_to_adminFragment)
         }
 
         return root
