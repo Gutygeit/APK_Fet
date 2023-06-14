@@ -11,7 +11,7 @@
     <color name="colorError">#A72B79</color>
     <color name="colorOnPrimary">#FFE7FF</color>
     <color name="colorOnSecondary">#334B49</color>
-    <color name="colorOnBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#FFE7FF</color>
     <color name="colorOnSurface">#FFFFFF</color>
     <color name="colorOnError">#FFE4FB</color>
 </resources>
