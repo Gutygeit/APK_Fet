@@ -50,6 +50,7 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
+        holder.date.text = currentItem.date.toString()
 
         holder.apply {
             with(holder.itemView) {
@@ -83,6 +84,7 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
         val user : TextView = itemView.findViewById(R.id.user)
         val tag : TextView = itemView.findViewById(R.id.tag)
+        val date : TextView = itemView.findViewById(R.id.date)
     }
 
 
