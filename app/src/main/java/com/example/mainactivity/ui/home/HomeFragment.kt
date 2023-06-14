@@ -204,8 +204,9 @@ class HomeFragment : Fragment() {
                                                                             localfile2.absolutePath
                                                                         )
                                                                     val post = Post(
-                                                                        result.data?.get("FirstName")
-                                                                            ?.toString()!!,
+                                                                        "${result.data?.get("FirstName")
+                                                                            ?.toString()!!} ${result.data?.get("LastName")
+                                                                            ?.toString()!!}",
                                                                         document.data["Content"].toString(),
                                                                         result.data?.get("Role")
                                                                             ?.toString()!!,
@@ -221,8 +222,9 @@ class HomeFragment : Fragment() {
                                                                     recyclerView.adapter = adapter
                                                                 }
                                                         } else {
-                                                            val post = Post(
-                                                                result.data?.get("FirstName")?.toString()!!,
+                                                            val post = Post("${result.data?.get("FirstName")
+                                                                ?.toString()!!} ${result.data?.get("LastName")
+                                                                ?.toString()!!}",
                                                                 document.data["Content"].toString(),
                                                                 result.data?.get("Role")?.toString()!!,
                                                                 bitmap,
