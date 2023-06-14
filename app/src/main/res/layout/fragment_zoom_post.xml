@@ -142,16 +142,67 @@
                     tools:ignore="ImageContrastCheck"
                     tools:srcCompat="@tools:sample/avatars" />
 
-                <TextView
-                    android:id="@+id/zoomedComments"
+                <LinearLayout
+                    android:id="@+id/linearLayoutComment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_background"
-                    android:text="TextView"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@+id/zoomedImgPost"
-                    tools:ignore="HardcodedText"
-                    tools:layout_editor_absoluteX="0dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/zoomedImgPost">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutMessage"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:maxHeight="120dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sendButton"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/textInputEditTextMessage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:hint="Commentaire"
+                                android:inputType="textMultiLine"
+                                android:maxHeight="220dp"
+                                android:minHeight="50dp"
+                                android:textColor="#FF808080"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/sendButton"
+                            android:layout_width="55dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/baseline_send_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerFeedComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutComment"
+                    tools:listitem="@layout/post" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
