@@ -1,90 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp"
-    tools:context=".ui.home.ZoomPostFragment">
-
-    <!-- Affichage du message -->
+    android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/linearLayoutPost"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_background_post"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayoutHeader"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:id="@+id/linearLayoutPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_background_post"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/zoomedImgUser"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="@string/app_name"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@mipmap/ic_launcher_round"
-                        tools:ignore="ImageContrastCheck" />
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutNameTag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/zoomedImgUser"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:id="@+id/linearLayoutHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/zoomedUser"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_background"
-                                android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="TextView"
-                                android:textSize="16sp"
+                            <ImageView
+                                android:id="@+id/zoomedImgUser"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:contentDescription="@string/app_name"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="HardcodedText,MissingConstraints" />
+                                app:srcCompat="@mipmap/ic_launcher_round"
+                                tools:ignore="ImageContrastCheck" />
 
-                            <TextView
-                                android:id="@+id/zoomedRole"
+                            <LinearLayout
+                                android:id="@+id/linearLayoutNameTag"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginStart="16dp"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/zoomedImgUser"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:id="@+id/zoomedUser"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/rounded_background"
+                                        android:gravity="center"
+                                        android:paddingLeft="10dp"
+                                        android:paddingTop="5dp"
+                                        android:paddingRight="10dp"
+                                        android:paddingBottom="5dp"
+                                        android:text="TextView"
+                                        android:textSize="16sp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:ignore="HardcodedText,MissingConstraints" />
+
+                                    <TextView
+                                        android:id="@+id/zoomedRole"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:background="@drawable/rounded_background"
+                                        android:gravity="center"
+                                        android:paddingLeft="10dp"
+                                        android:paddingTop="5dp"
+                                        android:paddingRight="10dp"
+                                        android:paddingBottom="5dp"
+                                        android:text="TextView"
+                                        android:textSize="12sp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/zoomedUser"
+                                        tools:ignore="HardcodedText,MissingConstraints" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/zoomedTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_background"
                                 android:gravity="center"
                                 android:paddingLeft="10dp"
@@ -93,189 +116,100 @@
                                 android:paddingBottom="5dp"
                                 android:text="TextView"
                                 android:textSize="12sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/zoomedUser"
-                                tools:ignore="HardcodedText,MissingConstraints" />
-
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="HardcodedText,TextSizeCheck" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/zoomedTag"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/zoomedTextPost"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="16dp"
+                        android:autoLink="web"
                         android:background="@drawable/rounded_background"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="5dp"
+                        android:linksClickable="true"
+                        android:padding="20dp"
                         android:text="TextView"
-                        android:textSize="12sp"
+                        android:textColorLink="@color/colorSecondary"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutPic"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/zoomedTextPost">
+
+                        <ImageView
+                            android:id="@+id/zoomedImgPost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/app_name"
+                            tools:ignore="ImageContrastCheck" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutFooter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="HardcodedText,TextSizeCheck" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPic">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/zoomedDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/zoomedTextPost"
+            <LinearLayout
+                android:id="@+id/linearLayoutComment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:autoLink="web"
-                android:background="@drawable/rounded_background"
-                android:linksClickable="true"
-                android:padding="20dp"
-                android:text="TextView"
-                android:textColorLink="@color/colorSecondary"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutPic"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zoomedTextPost">
-
-                <ImageView
-                    android:id="@+id/zoomedImgPost"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:contentDescription="@string/app_name"
-                    tools:ignore="ImageContrastCheck" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutFooter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal"
+                android:background="@drawable/rounded_background_post"
+                android:orientation="vertical"
+                android:padding="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutPic">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/linearLayoutComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/zoomedDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPost">
-
-        <LinearLayout
-            android:id="@+id/linearLayoutComment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rounded_background_post"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="LES COMMENTAIRES ICI !" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutMessage"
-                            android:layout_width="350dp"
-                            android:layout_height="wrap_content"
-                            android:maxHeight="120dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/sendButton"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputEditTextMessage"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:hint="Commentaire"
-                                android:inputType="textMultiLine"
-                                android:maxHeight="220dp"
-                                android:minHeight="50dp"
-                                android:textColor="#FF808080"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <ImageButton
-                            android:id="@+id/sendButton"
-                            android:layout_width="55dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/baseline_send_24"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:contentDescription="Submit Comment" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutPost">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerFeedComment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutComment"
-                    tools:listitem="@layout/post" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
