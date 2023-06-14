@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -56,7 +57,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         holder.apply {
             with(holder.acceptbtn) {
                 acceptbtn.setOnClickListener {
-                    Firebase.firestore.collection("PendingPost").document(currentItem.Id!!).get()
+                    Firebase.firestore.collection("Pending_Post").document(currentItem.Id!!).get()
                         .addOnSuccessListener {
                             var data = hashMapOf<String, Any>()
                             var img = ""
@@ -90,12 +91,27 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                             "Image" to img,
                                             "Date" to FieldValue.serverTimestamp()
                                         )
-
-
+                                        Toast.makeText(
+                                            context, "Failed",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         db.collection("Post").add(data)
+                                        Toast.makeText(
+                                            context, "passed",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
+                                    Toast.makeText(
+                                        context, currentItem.Id,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    Firebase.firestore.collection("Pending_Post").document(
+                                        currentItem.Id.toString()
+                                    ).delete()
+
+
                                 }
-                            db.collection("PendingPost").document(currentItem.Id!!).delete()
+
                         }
                     }
                 }
@@ -103,7 +119,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         holder.apply {
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
-                    db.collection("PendingPost").document(currentItem.Id!!).delete()
+                    db.collection("Pending_Post").document(currentItem.Id!!).delete()
                 }
             }
 
