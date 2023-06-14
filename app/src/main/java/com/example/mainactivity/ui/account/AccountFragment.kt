@@ -89,7 +89,7 @@ class AccountFragment : Fragment() {
         docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
             result->
             for (document in result){
-                if(document.data["Role"].toString()!="/Role/role_Dev"){
+                if(!document.data["Role"].toString().contentEquals("/Role/role_Dev")){
                     binding.admin.setVisibility(INVISIBLE)
                 }
                 val gg = document.data["pp"].toString()
