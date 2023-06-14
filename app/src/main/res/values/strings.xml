@@ -2,6 +2,7 @@
     <string name="app_name">APK\'FET</string>
     <string name="up_button">Bouton</string>
     <string name="tag_button">Bouton</string>
+    <string name="send_button">Bouton</string>
     <string name="welcome">Bienvenue sur APK\'FET</string>
     <string name="title_home">Accueil</string>
     <string name="title_message">Message</string>
@@ -21,6 +22,7 @@
     <string name="sendMessage">Envoyer</string>
     <string name="addPicture">Ajouter une photo</string>
     <string name="message">Message</string>
+    <string name="comment">Commentaire</string>
     <string name="tagSelection">Sélectionner un tag</string>
     <string name="tag">Tag</string>
     <string name="confirm">Confirmer</string>
