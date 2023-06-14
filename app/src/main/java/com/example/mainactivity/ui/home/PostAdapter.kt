@@ -1,3 +1,5 @@
+@file:Suppress("RedundantWith")
+
 package com.example.mainactivity.ui.home
 
 import android.view.LayoutInflater

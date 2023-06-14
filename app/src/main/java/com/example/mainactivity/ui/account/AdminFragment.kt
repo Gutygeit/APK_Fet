@@ -1,3 +1,5 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.example.mainactivity.ui.account
 
 import android.graphics.Bitmap
@@ -8,26 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mainactivity.R
 import com.example.mainactivity.data.PendingPost
-import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentAdminBinding
-import com.example.mainactivity.ui.home.FilterViewModel
-import com.example.mainactivity.ui.home.PendingPostAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AdminFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class AdminFragment : Fragment() {
     private lateinit var adapter: PendingPostAdapter
     private lateinit var recyclerView: RecyclerView
@@ -49,7 +42,7 @@ class AdminFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val layoutManager = LinearLayoutManager(context)
