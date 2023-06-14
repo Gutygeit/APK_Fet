@@ -104,22 +104,6 @@
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/zoomedTag"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_background"
-                                android:gravity="center"
-                                android:paddingLeft="10dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="TextView"
-                                android:textSize="12sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="HardcodedText,TextSizeCheck" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>
@@ -173,6 +157,23 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/zoomedTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_background"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                android:text="TextView"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="HardcodedText,TextSizeCheck" />
 
                             <TextView
                                 android:id="@+id/zoomedDate"
@@ -264,6 +265,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutTextAreaComment">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>

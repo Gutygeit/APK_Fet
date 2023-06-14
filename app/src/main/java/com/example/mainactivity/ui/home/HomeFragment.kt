@@ -217,7 +217,8 @@ class HomeFragment : Fragment() {
                                                                         bitmap,
                                                                         bitmap2,
                                                                         document.data["Tag"].toString(),
-                                                                        dateString
+                                                                        dateString,
+                                                                        document.id
                                                                          //TODO
                                                                     )
 
@@ -234,7 +235,8 @@ class HomeFragment : Fragment() {
                                                                 bitmap,
                                                                 null,
                                                                 document.data["Tag"].toString(),
-                                                                dateString
+                                                                dateString,
+                                                                document.id
                                                             )
                                                             postList.add(post)
                                                             adapter = PostAdapter(postList)
