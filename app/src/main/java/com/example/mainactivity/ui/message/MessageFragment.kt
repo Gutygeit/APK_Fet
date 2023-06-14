@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.mainactivity.databinding.FragmentMessageBinding
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -16,8 +15,7 @@ import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.util.DisplayMetrics
 import android.widget.Toast
-import androidx.core.view.isEmpty
-import androidx.core.view.isVisible
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -50,9 +48,6 @@ class MessageFragment : Fragment() {
     /**
      * This function is called when the fragment is created.
      * It returns the view of the fragment for message.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
      * @return View
      */
     override fun onResume() {
@@ -113,7 +108,7 @@ class MessageFragment : Fragment() {
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val db = Firebase.firestore
-        var user = auth.currentUser
+        val user = auth.currentUser
         val buttonAddPicture: Button = binding.buttonAddPicture
         val imageView: ImageView = binding.imageViewMessage
 
@@ -134,16 +129,29 @@ class MessageFragment : Fragment() {
             true
         }
 
+        val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // Result is successful
+                val data: Intent? = result.data
+                // Process the data
+                if (data != null) {
+                    imageUri = data.data
+                    binding.imageViewMessage.setImageURI(imageUri)
+                    binding.imageViewMessage.visibility = View.VISIBLE
+                }
+            }
+        }
+
         buttonAddPicture.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
+            pickImage.launch(gallery)
         }
 
         binding.buttonSendMessage.setOnClickListener{
-            if(!(binding.textInputEditTextMessage.text.isNullOrBlank()) && !(binding.autoCompleteTextView.text.toString()=="Sélectionner un tag")){
+            if(!(binding.textInputEditTextMessage.text.isNullOrBlank()) && binding.autoCompleteTextView.text.toString() != "Sélectionner un tag"){
                 val docRef = Firebase.firestore.collection("User")
                 docRef.whereEqualTo("Mail",user?.email.toString()).get().addOnSuccessListener { result ->
-                    var data = hashMapOf<String,Any>()
+                    val data: HashMap<String, Any>
                     if(binding.imageViewMessage.drawable != null){
                         val storageRef = storage.reference
                         data = hashMapOf(
@@ -168,15 +176,16 @@ class MessageFragment : Fragment() {
                     binding.textInputEditTextMessage.text?.clear()
                     Toast.makeText(
                         activity,
-                        "Message posté !",
+                        "Message soumis à la modération, en attente de publication",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                imageView.setVisibility(View.INVISIBLE)
+                imageView.visibility = View.INVISIBLE
             }
             else{
-                Toast.makeText(getActivity(), "Certains champs sont vides",
-                    Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                    activity, "Certains champs sont vides",
+                    Toast.LENGTH_LONG).show()
             }
         }
         return root
@@ -205,7 +214,7 @@ class MessageFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
             binding.imageViewMessage.setImageURI(imageUri)
-            binding.imageViewMessage.setVisibility(View.VISIBLE)
+            binding.imageViewMessage.visibility = View.VISIBLE
         }
     }
 }
