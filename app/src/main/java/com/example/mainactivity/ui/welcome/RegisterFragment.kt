@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.mainactivity.ui.welcome
 
 import android.content.ContentValues

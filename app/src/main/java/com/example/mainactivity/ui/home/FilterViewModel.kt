@@ -1,8 +1,6 @@
 package com.example.mainactivity.ui.home
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mainactivity.data.Post
 
 /**
  * This class is used to create a filter view model.

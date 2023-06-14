@@ -223,8 +223,6 @@
                             android:id="@+id/textInputEditTextMessage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
                             android:hint="@string/comment"
                             android:inputType="textMultiLine"
                             android:maxHeight="120dp"
