@@ -161,10 +161,6 @@ class MessageFragment : Fragment() {
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "images/${imageUri!!.lastPathSegment}.jpeg",
                             "Date" to FieldValue.serverTimestamp())
-                        println(data)
-                        println(data)
-                        println(data)
-                        println(data)
                         val riversRef = storageRef.child("images/${imageUri!!.lastPathSegment}.jpeg")
                         riversRef.putFile(imageUri!!)
                     }
@@ -176,8 +172,7 @@ class MessageFragment : Fragment() {
                             "Content" to binding.textInputEditTextMessage.text.toString(),
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "",
-                            "Date" to "test")
-                                    //FieldValue.serverTimestamp())
+                            "Date" to FieldValue.serverTimestamp())
                     }
                     db.collection("Pending_Post").add(data)
                     binding.textInputEditTextMessage.text?.clear()

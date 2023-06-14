@@ -1,0 +1,9 @@
+
+=kotlin:S1253"Remove this commented out code.(«Ğ©ğ8…’’œ‹1
+Jkotlin:S1481;"+Remove this unused "tagRef" local variable.(Î×²˜8’’œ‹1
+Kkotlin:S14817",Remove this unused "userRef" local variable.(Ïğë¡8’’œ‹1
+7kotlin:S1128"Remove this unused import.(Éè¨ûÿÿÿÿ
+2kotlin:S1128"Remove this unused import.(´Ùí
+7kotlin:S1128"Remove this unused import.(Ã¾¤†øÿÿÿÿ
+qkotlin:S3776#"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(©Àùè8”’’œ‹1
+Pkotlin:S65182",Replace function call with indexed accessor.(Ç¶üÿÿÿÿ8—’’œ‹1
