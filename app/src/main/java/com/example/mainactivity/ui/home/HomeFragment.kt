@@ -207,7 +207,8 @@ class HomeFragment : Fragment() {
                                                                         result.data?.get("FirstName")
                                                                             ?.toString()!!,
                                                                         document.data["Content"].toString(),
-                                                                        document.data["Role"].toString(),
+                                                                        result.data?.get("Role")
+                                                                            ?.toString()!!,
                                                                         bitmap,
                                                                         bitmap2,
                                                                         document.data["Tag"].toString(),
@@ -223,7 +224,7 @@ class HomeFragment : Fragment() {
                                                             val post = Post(
                                                                 result.data?.get("FirstName")?.toString()!!,
                                                                 document.data["Content"].toString(),
-                                                                document.data["Role"].toString(),
+                                                                result.data?.get("Role")?.toString()!!,
                                                                 bitmap,
                                                                 null,
                                                                 document.data["Tag"].toString(),
