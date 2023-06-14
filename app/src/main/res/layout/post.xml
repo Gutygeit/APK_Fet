@@ -8,8 +8,9 @@
     android:padding="15dp">
 
     <!-- Affichage du message -->
+
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayoutPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_background_post"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/linearLayout6"
+                android:id="@+id/linearLayoutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -71,21 +72,11 @@
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
-                        android:text="TextView"
+                        android:text="Tag"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_background"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        tools:layout_editor_absoluteX="96dp"
-                        tools:layout_editor_absoluteY="67dp" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,27 +93,23 @@
                 android:autoLink="web"
                 android:background="@drawable/rounded_background"
                 android:linksClickable="true"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp"
-                android:text="TextView"
+                android:padding="20dp"
+                android:text="Message du post"
                 android:textColorLink="@color/colorSecondary"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
+                android:id="@+id/linearLayoutPic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textPost">
@@ -133,6 +120,79 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/app_name"
                     tools:ignore="ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutFooter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutPic">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/baseline_thumb_up_off_alt_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorOnPrimary" />
+
+                    <TextView
+                        android:id="@+id/likeNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="like_num"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/like"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/baseline_comment_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/likeNumber"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorOnPrimary" />
+
+                    <TextView
+                        android:id="@+id/commentNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="comment_num"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/comment"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/zoomedDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
