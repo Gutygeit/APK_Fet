@@ -25,7 +25,7 @@ class CommentAdapter(private val listPost : ArrayList<Comment>) : RecyclerView.A
     private var navController: NavController? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.post, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.comment, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -38,46 +38,21 @@ class CommentAdapter(private val listPost : ArrayList<Comment>) : RecyclerView.A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = listPost[position]
 
-        holder.textPost.text = currentItem.Content
-        holder.imgPost.setImageBitmap(currentItem.Image)
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
+        holder.textComment.text = currentItem.Content
         holder.user.text = currentItem.Auteur
-        holder.tag.text = currentItem.Tag
-        holder.date.text = currentItem.date.toString()
 
-        holder.apply {
-            with(holder.itemView) {
-                itemView.setOnClickListener {
-                    navController = Navigation.findNavController(itemView)
-                    val action = HomeFragmentDirections.actionNavigationHomeToZoomPostFragment(currentItem)
-                    navController?.navigate(action)
-                }
-            }
-        }
     }
 
-
-    /**
-     * This function returns the number of items in the list.
-     * @return The number of items in the list.
-     */
     override fun getItemCount(): Int {
         return listPost.size
     }
 
 
-    /**
-     * This class is used to create a view holder.
-     * @constructor Creates a view holder.
-     * @param itemView The view.
-     */
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val textPost : TextView = itemView.findViewById(R.id.textPost)
-        val imgPost : ImageView = itemView.findViewById(R.id.imgPost)
-        val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
         val user : TextView = itemView.findViewById(R.id.user)
-        val tag : TextView = itemView.findViewById(R.id.tag)
-        val date : TextView = itemView.findViewById(R.id.zoomedDate)
+        val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
+        val textComment : TextView = itemView.findViewById(R.id.textComment)
     }
 
 

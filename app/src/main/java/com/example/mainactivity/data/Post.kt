@@ -22,7 +22,7 @@ import java.util.Date
  */
 data class Post(
     var Auteur: String?, var Content: String?,var Role: String?, var ProfileP: Bitmap?,
-    var Image:Bitmap? = null, var Tag: String?, var date: String? = null
+    var Image:Bitmap? = null, var Tag: String?, var date: String? = null, var id : String?
 ):
 
 /**
@@ -38,7 +38,8 @@ data class Post(
         parcel.readParcelable(Bitmap::class.java.classLoader),
         parcel.readParcelable(Bitmap::class.java.classLoader),
         parcel.readString(),
-        parcel.readSerializable() as String?
+        parcel.readSerializable() as String?,
+        parcel.readString()
 
     )
 

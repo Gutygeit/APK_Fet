@@ -156,10 +156,15 @@ class MessageFragment : Fragment() {
                         val storageRef = storage.reference
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
+                            "Comments" to "feur",
                             "Content" to binding.textInputEditTextMessage.text.toString(),
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "images/${imageUri!!.lastPathSegment}.jpeg",
                             "Date" to FieldValue.serverTimestamp())
+                        println(data)
+                        println(data)
+                        println(data)
+                        println(data)
                         val riversRef = storageRef.child("images/${imageUri!!.lastPathSegment}.jpeg")
                         riversRef.putFile(imageUri!!)
                     }
@@ -167,10 +172,12 @@ class MessageFragment : Fragment() {
 
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
+                            "Comments" to "test",
                             "Content" to binding.textInputEditTextMessage.text.toString(),
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "",
-                            "Date" to FieldValue.serverTimestamp())
+                            "Date" to "test")
+                                    //FieldValue.serverTimestamp())
                     }
                     db.collection("Pending_Post").add(data)
                     binding.textInputEditTextMessage.text?.clear()
