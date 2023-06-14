@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
+import com.example.mainactivity.data.PendingPost
 import com.example.mainactivity.data.Post
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.net.URI
 
 
-class PendingPostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter<PendingPostAdapter.ViewHolder>() {
+class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : RecyclerView.Adapter<PendingPostAdapter.ViewHolder>() {
 
     private var navController: NavController? = null
     private val db = FirebaseFirestore.getInstance()
@@ -55,46 +56,54 @@ class PendingPostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.
         holder.apply {
             with(holder.acceptbtn) {
                 acceptbtn.setOnClickListener {
-                    Firebase.firestore.collection("User")
-                        .whereEqualTo("FirstName", currentItem.Auteur).get()
-                        .addOnSuccessListener{
-                            users ->
-                            for(user in users){
-                                var data = hashMapOf<String,Any>()
-                                var img = ""
-                                val storageRef = storage.reference
-                                var imageURI : URI
-                                if(currentItem.Image != null){
+                    Firebase.firestore.collection("PendingPost").document(currentItem.Id!!).get()
+                        .addOnSuccessListener {
+                            var data = hashMapOf<String, Any>()
+                            var img = ""
+                            val storageRef = storage.reference
+                            var imageURI: URI
+                            if (currentItem.Image != null) {
 
-                                    val bytes = ByteArrayOutputStream()
-                                    currentItem.Image?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-                                    val path = MediaStore.Images.Media.insertImage(context.contentResolver, currentItem.Image, "Title", null)
-                                    var imageURI = Uri.parse(path.toString())
-                                    val riversRef = storageRef.child("images/${imageURI!!.lastPathSegment}.jpeg")
-                                    riversRef.putFile(imageURI!!)
-                                    }
-                                else{
-                                }
-
-                                data = hashMapOf(
-                                    "Auteur" to user.id,
-                                    "Content" to holder.textPost.text.toString(),
-                                    "Tag" to holder.tag.text.toString(),
-                                    "Image" to img,
-                                    "Date" to FieldValue.serverTimestamp())
-
-
-                                db.collection("Post").add(data)
-                                db.collection("PendingPost").whereEqualTo("Images", "c")
+                                val bytes = ByteArrayOutputStream()
+                                currentItem.Image?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+                                val path = MediaStore.Images.Media.insertImage(
+                                    context.contentResolver,
+                                    currentItem.Image,
+                                    "Title",
+                                    null
+                                )
+                                var imageURI = Uri.parse(path.toString())
+                                val riversRef =
+                                    storageRef.child("images/${imageURI!!.lastPathSegment}.jpeg")
+                                riversRef.putFile(imageURI!!)
+                            } else {
                             }
+                            Firebase.firestore.collection("User")
+                                .whereEqualTo("FirstName", currentItem.Auteur).get()
+                                .addOnSuccessListener() {
+                                    use->
+                                    for(user in use){
+                                        data = hashMapOf(
+                                            "Auteur" to user.id,
+                                            "Content" to holder.textPost.text.toString(),
+                                            "Tag" to holder.tag.text.toString(),
+                                            "Image" to img,
+                                            "Date" to FieldValue.serverTimestamp()
+                                        )
+
+
+                                        db.collection("Post").add(data)
+                                    }
+                                }
+                            db.collection("PendingPost").document(currentItem.Id!!).delete()
                         }
+                    }
                 }
             }
-        }
         holder.apply {
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
-
+                    db.collection("PendingPost").document(currentItem.Id!!).delete()
                 }
             }
 
