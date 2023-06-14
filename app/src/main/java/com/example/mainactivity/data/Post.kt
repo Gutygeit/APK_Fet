@@ -3,7 +3,7 @@ package com.example.mainactivity.data
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.compose.ui.semantics.Role
+import java.util.Date
 
 
 /**
@@ -22,7 +22,7 @@ import androidx.compose.ui.semantics.Role
  */
 data class Post(
     var Auteur: String?, var Content: String?,var Role: String?, var ProfileP: Bitmap?,
-    var Image:Bitmap? = null, var Tag: String?
+    var Image:Bitmap? = null, var Tag: String?, var date: String? = null
 ):
 
 /**
@@ -37,7 +37,9 @@ data class Post(
         parcel.readString(),
         parcel.readParcelable(Bitmap::class.java.classLoader),
         parcel.readParcelable(Bitmap::class.java.classLoader),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readSerializable() as String?
+
     )
 
     /**
@@ -52,6 +54,7 @@ data class Post(
         parcel.writeParcelable(ProfileP, flags)
         parcel.writeString(Tag)
         parcel.writeString(Role)
+        parcel.writeSerializable(date)
     }
 
     /**

@@ -20,6 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
+import java.text.SimpleDateFormat
 
 /**
  * This class is used to create a home fragment.
@@ -176,6 +177,10 @@ class HomeFragment : Fragment() {
                                     postRef.get().addOnSuccessListener { result ->
                                         for (document in result) {
                                             if (document.data["Tag"].toString() in tagList) {
+                                                val timestamp = document.data["Date"] as com.google.firebase.Timestamp
+                                                val date = timestamp.toDate()
+                                                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                                                val dateString: String? = dateFormat.format(date)
                                                 val idAuteur = document.data["Auteur"].toString()
                                                 val docRef = Firebase.firestore.collection("User")
                                                     .document(idAuteur)
@@ -206,6 +211,7 @@ class HomeFragment : Fragment() {
                                                                         bitmap,
                                                                         bitmap2,
                                                                         document.data["Tag"].toString(),
+                                                                        dateString
                                                                          //TODO
                                                                     )
 
@@ -221,7 +227,8 @@ class HomeFragment : Fragment() {
                                                                 document.data["Role"].toString(),
                                                                 bitmap,
                                                                 null,
-                                                                document.data["Tag"].toString()
+                                                                document.data["Tag"].toString(),
+                                                                dateString
                                                             )
                                                             postList.add(post)
                                                             adapter = PostAdapter(postList)
