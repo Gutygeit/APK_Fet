@@ -55,7 +55,7 @@
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
-                        android:text="TextView"
+                        android:text="@string/username"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imgUser"
@@ -76,6 +76,18 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_background"
+                        android:text="TextView"
+                        android:textSize="12sp"
+                        tools:layout_editor_absoluteX="96dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
