@@ -56,7 +56,7 @@
                     android:textSize="20sp"
                     android:autofillHints="GivenName"
                     tools:ignore="HardcodedText"
-                    android:maxLength="10"/>
+                    android:maxLength="12"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:textColor="#FFE7FF"
                     android:textSize="20sp"
                     android:autofillHints="Name"
-                    android:maxLength="10"/>
+                    android:maxLength="12"/>
 
             </LinearLayout>
 

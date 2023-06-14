@@ -174,7 +174,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"
-                        android:maxLength="10"/>
+                        android:maxLength="12"/>
 
                     <EditText
                         android:id="@+id/prenom"
@@ -189,7 +189,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/nom"
-                        android:maxLength="10"/>
+                        android:maxLength="12"/>
 
                     <Button
                         android:id="@+id/confirmer"
