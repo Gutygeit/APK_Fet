@@ -158,6 +158,7 @@ class MessageFragment : Fragment() {
                         val storageRef = storage.reference
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
+                            "Comments" to "feur",
                             "Content" to binding.textInputEditTextMessage.text.toString(),
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "images/${imageUri!!.lastPathSegment}.jpeg",
@@ -169,6 +170,7 @@ class MessageFragment : Fragment() {
 
                         data = hashMapOf(
                             "Auteur" to result.documents[0].id,
+                            "Comments" to "test",
                             "Content" to binding.textInputEditTextMessage.text.toString(),
                             "Tag" to binding.autoCompleteTextView.text.toString(),
                             "Image" to "",

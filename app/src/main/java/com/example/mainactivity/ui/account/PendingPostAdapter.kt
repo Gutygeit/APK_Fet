@@ -85,6 +85,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                         data = hashMapOf(
                                             "Auteur" to user.id,
                                             "Content" to holder.textPost.text.toString(),
+                                            "Comments" to listOf<String>(),
                                             "Tag" to holder.tag.text.toString(),
                                             "Image" to img,
                                             "Date" to FieldValue.serverTimestamp()

@@ -265,6 +265,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutTextAreaComment">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
