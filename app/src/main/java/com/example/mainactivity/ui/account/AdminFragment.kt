@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
+import com.example.mainactivity.data.PendingPost
 import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentAdminBinding
 import com.example.mainactivity.ui.home.FilterViewModel
@@ -30,7 +31,7 @@ import java.io.File
 class AdminFragment : Fragment() {
     private lateinit var adapter: PendingPostAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var postList : ArrayList<Post>
+    private lateinit var postList : ArrayList<PendingPost>
     private lateinit var auth: FirebaseAuth
     private val storage = Firebase.storage("gs://apkfet-a63e3.appspot.com/")
     private var _binding: FragmentAdminBinding? = null
@@ -131,13 +132,14 @@ class AdminFragment : Fragment() {
                                                             BitmapFactory.decodeFile(
                                                                 localfile2.absolutePath
                                                             )
-                                                        val post = Post(
+                                                        val post = PendingPost(
                                                             result.data?.get("FirstName")
                                                                 ?.toString()!!,
                                                             document.data["Content"].toString(),
                                                             bitmap,
                                                             bitmap2,
-                                                            document.data["Tag"].toString()
+                                                            document.data["Tag"].toString(),
+                                                            document.id
                                                         )
 
                                                         postList.add(post)
@@ -145,13 +147,14 @@ class AdminFragment : Fragment() {
                                                         recyclerView.adapter = adapter
                                                     }
                                             } else {
-                                                val post = Post(
+                                                val post = PendingPost(
                                                     result.data?.get("FirstName")
                                                         ?.toString()!!,
                                                     document.data["Content"].toString(),
                                                     bitmap,
                                                     null,
-                                                    document.data["Tag"].toString()
+                                                    document.data["Tag"].toString(),
+                                                    document.id
                                                 )
                                                 postList.add(post)
                                                 adapter = PendingPostAdapter(postList)
