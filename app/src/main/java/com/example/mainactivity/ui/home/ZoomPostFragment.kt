@@ -43,6 +43,7 @@ class ZoomPostFragment : Fragment() {
         val user = view.findViewById<TextView>(R.id.zoomedUser)
         val role = view.findViewById<TextView>(R.id.zoomedRole)
         val tag = view.findViewById<TextView>(R.id.zoomedTag)
+        val date = view.findViewById<TextView>(R.id.zoomedDate)
 
         textPost.text = post.Content
         imgPost.setImageBitmap(post.Image)
@@ -50,6 +51,7 @@ class ZoomPostFragment : Fragment() {
         user.text = post.Auteur
         role.text = post.Role
         tag.text = post.Tag
+        date.text = post.date
 
         return view
     }

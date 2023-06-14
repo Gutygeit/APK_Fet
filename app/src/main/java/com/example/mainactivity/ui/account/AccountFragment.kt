@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -88,7 +89,9 @@ class AccountFragment : Fragment() {
         docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
             result->
             for (document in result){
-
+                if(!document.data["Role"].toString().contentEquals("/Role/role_Dev")){
+                    binding.admin.setVisibility(INVISIBLE)
+                }
                 val gg = document.data["pp"].toString()
                 gg?.let {
                     // Assign the value to the global pp variable
