@@ -26,6 +26,8 @@
                 android:id="@+id/textInputLayoutMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -34,8 +36,6 @@
                     android:id="@+id/textInputEditTextMessage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:hint="@string/message"
                     android:inputType="textMultiLine"
                     android:maxHeight="220dp"
@@ -51,6 +51,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:hint="Tags"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,8 +64,6 @@
                     android:id="@+id/autoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:inputType="none"
                     android:text="@string/tagSelection"
@@ -105,8 +104,8 @@
 
             <Button
                 android:id="@+id/buttonAddPicture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/addPicture"
                 android:textSize="20sp"
@@ -119,7 +118,7 @@
 
             <Button
                 android:id="@+id/buttonSendMessage"
-                android:layout_width="200dp"
+                android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:text="@string/sendMessage"
                 android:textSize="20sp"
