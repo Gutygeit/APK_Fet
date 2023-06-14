@@ -1,11 +1,9 @@
 package com.example.mainactivity.ui.account
 
 import android.annotation.SuppressLint
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,7 +16,6 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.mainactivity.R
 import com.example.mainactivity.WelcomeActivity
@@ -26,28 +23,9 @@ import com.example.mainactivity.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import java.io.File
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountFragment.newInstance] factory method to
- * create an instance of this fragment.
- * @param pp : String that contains the path of the profile picture
- * @param auth : FirebaseAuth that contains the current user information (mail, password, etc.)
- * @param _binding : FragmentAccountBinding that contains the binding of the fragment
- * @param binding : FragmentAccountBinding that contains the binding of the fragment
- * @param deconnect : Button that allows the user to disconnect
- * @param confirmer : Button that allows the user to confirm the changes he made
- * @param admin : Button that allows the user to access the admin fragment
- * @param pickImage : Int that contains the code of the image picked
- * @param imageUri : Uri that contains the uri of the image picked
- * @param prenom : EditText that contains the first name of the user
- * @param nom : EditText that contains the last name of the user
- * @param isChangingPp : Boolean that indicates if the user is changing his profile picture
- * @return A new instance of fragment AccountFragment.
- */
+
 class AccountFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var _binding: FragmentAccountBinding? = null
@@ -60,17 +38,14 @@ class AccountFragment : Fragment() {
     private lateinit var confirmer : Button
     private lateinit var admin : Button
 
-    private val pickImage = 100
-    private var imageUri: Uri? = null
+    //private val pickImage = 100
+    //private var imageUri: Uri? = null
     private lateinit var prenom: EditText
     private lateinit var nom: EditText
     private var isChangingPp : Boolean = false
 
     /**
      * This function is called when the user wants to change his profile picture
-     * @param requestCode : Int that contains the code of the image picked
-     * @param resultCode : Int that contains the code of the result
-     * @param data : Intent that contains the data of the image picked
      * @return A new instance of fragment AccountFragment.
      */
     @SuppressLint("WrongThread", "MissingInflatedId")
@@ -85,37 +60,37 @@ class AccountFragment : Fragment() {
         nom = view.findViewById(R.id.nom)
 
 
-        val docRef = Firebase.firestore.collection("User")
-        docRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
+        val userDocRef = Firebase.firestore.collection("User")
+        userDocRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
             result->
             for (document in result){
                 if(!document.data["Role"].toString().contentEquals("/Role/role_Dev")){
-                    binding.admin.setVisibility(INVISIBLE)
+                    binding.admin.visibility = INVISIBLE
                 }
                 val gg = document.data["pp"].toString()
-                gg?.let {
+                gg.let {
                     // Assign the value to the global pp variable
                     pp = it
 
-                    var n = document.data["LastName"].toString()
-                    var p = document.data["FirstName"].toString()
+                    val n = document.data["LastName"].toString()
+                    val p = document.data["FirstName"].toString()
                     binding.prenom.setText(p)
                     binding.nom.setText(n)
 
 
                     var bitmap : Bitmap
-                    bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+                    bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp1)
                     when (pp) {
 
-                        "1" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
-                        "2" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp2)
-                        "3" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp3)
-                        "4" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp4)
-                        "5" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp5)
-                        "6" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp6)
-                        "7" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp7)
-                        "8" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp8)
-                        "9" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp9)
+                        "1" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp1)
+                        "2" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp2)
+                        "3" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp3)
+                        "4" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp4)
+                        "5" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp5)
+                        "6" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp6)
+                        "7" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp7)
+                        "8" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp8)
+                        "9" -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp9)
                     }
                     binding.imageViewpp.setImageBitmap(bitmap)
                 }
@@ -125,9 +100,11 @@ class AccountFragment : Fragment() {
 
 
 
-
+        /*
         val accountViewModel =
-            ViewModelProvider(this).get(AccountViewModel::class.java)
+            ViewModelProvider(this)[AccountViewModel::class.java]
+
+         */
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -135,14 +112,14 @@ class AccountFragment : Fragment() {
         binding.imageViewpp.setOnClickListener{
             if(!isChangingPp){
                 binding.scrollLayout.isVisible = true
-                binding.horizontalScroll.layoutParams.height = resources.getDimensionPixelSize(R.dimen.profilPicture);
-                binding.horizontalScroll.requestLayout();
+                binding.horizontalScroll.layoutParams.height = resources.getDimensionPixelSize(R.dimen.profilPicture)
+                binding.horizontalScroll.requestLayout()
                 isChangingPp = true
             }
             else{
                 binding.scrollLayout.isVisible = false
                 binding.horizontalScroll.layoutParams.height = 1
-                binding.horizontalScroll.requestLayout();
+                binding.horizontalScroll.requestLayout()
                 isChangingPp = false
             }
         }
@@ -151,23 +128,23 @@ class AccountFragment : Fragment() {
             binding.scrollLayout.children.elementAt(i).setOnClickListener {
                 binding.horizontalScroll.layoutParams.height = 1
                 binding.scrollLayout.isVisible = false
-                binding.horizontalScroll.requestLayout();
+                binding.horizontalScroll.requestLayout()
                 var bitmap : Bitmap
-                bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
+                bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp1)
 
                 when (i) {
 
 
                     //binding.imageViewpp.setImageBitmap(bitmap)
-                    0 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp1)
-                    1 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp2)
-                    2 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp3)
-                    3 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp4)
-                    4 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp5)
-                    5 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp6)
-                    6 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp7)
-                    7 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp8)
-                    8 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, com.example.mainactivity.R.drawable.pp9)
+                    0 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp1)
+                    1 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp2)
+                    2 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp3)
+                    3 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp4)
+                    4 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp5)
+                    5 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp6)
+                    6 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp7)
+                    7 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp8)
+                    8 -> bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.pp9)
                 }
 
                 binding.imageViewpp.setImageBitmap(bitmap)
