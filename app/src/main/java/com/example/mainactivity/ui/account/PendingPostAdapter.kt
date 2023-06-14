@@ -91,20 +91,11 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                             "Image" to img,
                                             "Date" to FieldValue.serverTimestamp()
                                         )
-                                        Toast.makeText(
-                                            context, "Failed",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+
                                         db.collection("Post").add(data)
-                                        Toast.makeText(
-                                            context, "passed",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+
                                     }
-                                    Toast.makeText(
-                                        context, currentItem.Id,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+
                                     Firebase.firestore.collection("Pending_Post").document(
                                         currentItem.Id.toString()
                                     ).delete()
