@@ -6,18 +6,13 @@ import android.os.Parcelable
 
 data class Post(
     var Auteur: String?, var Content: String?, var ProfileP: Bitmap?,
-    var Image:Bitmap? = null, var Tag: String?
+    var Image:Bitmap? = null, var Tag: String?,
+    val likeCount: Boolean?
 ):
-    Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readParcelable(Bitmap::class.java.classLoader),
-        parcel.readParcelable(Bitmap::class.java.classLoader),
-        parcel.readString()
-    )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+
+fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(Auteur)
         parcel.writeString(Content)
         parcel.writeParcelable(Image, flags)

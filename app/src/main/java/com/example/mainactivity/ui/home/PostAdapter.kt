@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
+import com.example.mainactivity.ui.home.ZoomPostFragment
 
 
 class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
@@ -17,14 +18,15 @@ class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int ) {
         val currentItem = listPost[position]
+        var isLiked: Boolean = true
         holder.textPost.text = currentItem.Content
         holder.imgPost.setImageBitmap(currentItem.Image)
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
-        holder.likeButton.setImageResource(if (currentItem.isLiked) R.drawable.ic_like_filled else R.drawable.ic_like_empty)
+        holder.likeButton.setImageResource(if (isLiked==true) R.drawable.ic_like_filled else R.drawable.ic_like_empty)
         holder.likeCount.text = currentItem.likeCount.toString()
 
         holder.itemView.setOnClickListener {
@@ -37,14 +39,17 @@ class PostAdapter(private val listPost: ArrayList<Post>) : RecyclerView.Adapter<
                     .commit()
             }
         }
-
+3
         holder.likeButton.setOnClickListener {
-            currentItem.isLiked = !currentItem.isLiked
-            if (currentItem.isLiked) {
-                currentItem.likeCount++
+            val like: String = holder.likeCount.text as String
+            var likeInt: Int = like.toInt()
+            if (isLiked) {
+                likeInt++
             } else {
-                currentItem.likeCount--
+                likeInt--
             }
+            isLiked=!isLiked
+
             notifyItemChanged(position)
         }
     }
