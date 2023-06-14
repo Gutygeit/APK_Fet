@@ -3,7 +3,6 @@ package com.example.mainactivity.data
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.Date
 
 
 /**
@@ -20,16 +19,13 @@ import java.util.Date
  * @param ProfileP The profile picture of the author of the post.
  * @param Tag The tag of the post.
  */
+@Suppress("DEPRECATION")
 data class Post(
     var Auteur: String?, var Content: String?,var Role: String?, var ProfileP: Bitmap?,
     var Image:Bitmap? = null, var Tag: String?, var date: String? = null
 ):
 
-/**
- * This function is used to create a parcel from this object.
- * @param parcel The parcel to create from this object.
- * @return The parcel created from this object.
- */
+
     Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -65,13 +61,7 @@ data class Post(
         return 0
     }
 
-    /**
-     * This companion object is used to create a parcel from this object.
-     * @property CREATOR The parcel creator.
-     * @constructor Creates a companion object.
-     * @param CREATOR The parcel creator.
-     * @return The parcel created from this object.
-     */
+
     companion object CREATOR : Parcelable.Creator<Post> {
         /**
          * This function is used to create a parcel from this object.

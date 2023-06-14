@@ -1,5 +1,6 @@
-package com.example.mainactivity.ui.home
+package com.example.mainactivity.ui.account
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
@@ -9,24 +10,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.R
 import com.example.mainactivity.data.PendingPost
-import com.example.mainactivity.data.Post
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import com.google.firebase.auth.FirebaseAuth
-import java.net.URI
 
 
+@Suppress("RedundantWith", "DEPRECATION")
 class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : RecyclerView.Adapter<PendingPostAdapter.ViewHolder>() {
 
     private var navController: NavController? = null
@@ -40,6 +39,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         return ViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = listPost[position]
         auth = FirebaseAuth.getInstance()
@@ -59,10 +59,9 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                 acceptbtn.setOnClickListener {
                     Firebase.firestore.collection("Pending_Post").document(currentItem.Id!!).get()
                         .addOnSuccessListener {
-                            var data = hashMapOf<String, Any>()
-                            var img = ""
+                            var data: HashMap<String, Any>
+                            val img = ""
                             val storageRef = storage.reference
-                            var imageURI: URI
                             if (currentItem.Image != null) {
 
                                 val bytes = ByteArrayOutputStream()
@@ -73,15 +72,14 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                     "Title",
                                     null
                                 )
-                                var imageURI = Uri.parse(path.toString())
+                                val imageURI = Uri.parse(path.toString())
                                 val riversRef =
                                     storageRef.child("images/${imageURI!!.lastPathSegment}.jpeg")
-                                riversRef.putFile(imageURI!!)
-                            } else {
+                                riversRef.putFile(imageURI)
                             }
                             Firebase.firestore.collection("User")
                                 .whereEqualTo("FirstName", currentItem.Auteur).get()
-                                .addOnSuccessListener() {
+                                .addOnSuccessListener {
                                     use->
                                     for(user in use){
                                         data = hashMapOf(

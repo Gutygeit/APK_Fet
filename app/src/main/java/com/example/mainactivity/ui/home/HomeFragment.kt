@@ -1,5 +1,8 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.example.mainactivity.ui.home
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -86,7 +89,7 @@ class HomeFragment : Fragment() {
         binding.filter.setOnClickListener{
             if(binding.filterFragment.isVisible) {
                 model.getList()
-                val userRef = Firebase.firestore.collection("User")
+                Firebase.firestore.collection("User")
                     .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
                     .addOnSuccessListener { userGotten ->
                         for (document in userGotten) {
@@ -153,6 +156,7 @@ class HomeFragment : Fragment() {
      * This function is used to initialize the data.
      * @return Nothing.
      */
+    @SuppressLint("SimpleDateFormat")
     private fun dataInitialize() {
         auth = FirebaseAuth.getInstance()
 

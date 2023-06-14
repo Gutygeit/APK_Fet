@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.mainactivity.ui.home
 
 import android.os.Bundle
@@ -15,7 +17,6 @@ import com.example.mainactivity.data.Post
  * This class is used to create a zoom post fragment.
  * @property post The post.
  * @constructor Creates a zoom post fragment.
- * @param post The post.
  * @return Nothing.
  */
 class ZoomPostFragment : Fragment() {
@@ -35,7 +36,7 @@ class ZoomPostFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_zoom_post, container, false)
 
 
-        post = arguments?.getParcelable<Post>("post")!!
+        post = arguments?.getParcelable("post")!!
 
         val textPost = view.findViewById<TextView>(R.id.zoomedTextPost)
         val imgPost = view.findViewById<ImageView>(R.id.zoomedImgPost)

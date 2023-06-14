@@ -4,19 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.mainactivity.databinding.PostBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FeedFragment.newInstance] factory method to
- * create an instance of this fragment.
- * @param binding The binding object containing the fragment's UI
- * @return A new instance of fragment FeedFragment.
- */
-class FeedFragment : Fragment() {
+
+ class FeedFragment : Fragment() {
 
     private var _binding: PostBinding? = null
 
@@ -39,10 +31,9 @@ class FeedFragment : Fragment() {
 
 
         _binding = PostBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
 
-        return root
+        return binding.root
     }
 
     /**
