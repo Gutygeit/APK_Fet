@@ -1,4 +1,4 @@
-package com.example.mainactivity
+package com.example.mainactivity.ui.welcome
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.mainactivity.R
 import com.google.firebase.auth.FirebaseAuth
 
 class RecoveryFragment : Fragment() {

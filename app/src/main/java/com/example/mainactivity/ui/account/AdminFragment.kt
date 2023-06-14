@@ -22,6 +22,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
+/**
+ * A simple [Fragment] subclass.
+ * Use the [AdminFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class AdminFragment : Fragment() {
     private lateinit var adapter: PendingPostAdapter
     private lateinit var recyclerView: RecyclerView
@@ -31,6 +36,14 @@ class AdminFragment : Fragment() {
     private var _binding: FragmentAdminBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * This function is called when the fragment is created.
+     * It returns the view of the fragment for admin account.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return View
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

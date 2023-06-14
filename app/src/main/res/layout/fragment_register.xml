@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".RegisterFragment">
+            tools:context=".ui.welcome.RegisterFragment">
 
             <LinearLayout
                 android:id="@+id/linearLayout1"

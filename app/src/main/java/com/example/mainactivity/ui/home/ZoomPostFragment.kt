@@ -1,6 +1,5 @@
 package com.example.mainactivity.ui.home
 
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,20 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import com.example.mainactivity.R
 import com.example.mainactivity.data.Post
 
 
+/**
+ * This class is used to create a zoom post fragment.
+ * @property post The post.
+ * @constructor Creates a zoom post fragment.
+ * @param post The post.
+ * @return Nothing.
+ */
 class ZoomPostFragment : Fragment() {
     private lateinit var post: Post
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    /**
+     * This function is used to create the view.
+     * @param inflater The layout inflater.
+     * @param container The view group container.
+     * @param savedInstanceState The saved instance state.
+     * @return The view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_zoomed_post, container, false)
+        val view = inflater.inflate(R.layout.fragment_zoom_post, container, false)
+
 
         post = arguments?.getParcelable<Post>("post")!!
 
@@ -36,7 +48,7 @@ class ZoomPostFragment : Fragment() {
         imgPost.setImageBitmap(post.Image)
         imgUser.setImageBitmap(post.ProfileP)
         user.text = post.Auteur
-        role.text = "gg"
+        role.text = post.Role
         tag.text = post.Tag
 
         return view

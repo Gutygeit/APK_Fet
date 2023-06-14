@@ -16,4 +16,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textColor">@color/colorOnPrimary</item>
     </style>
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
+    </style>
 </resources>
