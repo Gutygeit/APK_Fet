@@ -111,7 +111,7 @@ class RegisterFragment : Fragment() {
                             "FirstName" to prenom,
                             "LastName" to nom,
                             "pp" to 1,
-                            "Role" to db.collection("Role").document("role_Student")
+                            "Role" to "Etudiant",
                         )
                         val datatags = hashMapOf(
                             "Entre Etudiants" to true,
