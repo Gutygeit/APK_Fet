@@ -1,173 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.account.AccountFragment">
+    android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/deconnect"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/disconnect"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:text="Admin"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.account.AccountFragment">
 
-    <ImageView
-        android:id="@+id/imageViewpp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:onClick="parent"
-        android:text="@string/pictureProfil"
-        android:layout_marginTop="160dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginTop="100dp"
-        tools:src="@tools:sample/avatars"
-        android:contentDescription="@string/app_name" />
 
-    <EditText
-        android:id="@+id/nom"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:autofillHints="name"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="@string/name"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewpp" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/prenom"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:autofillHints="name"
-        android:hint="@string/surname"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="@string/surname"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/confirmer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:textSize="20sp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-  
-    <HorizontalScrollView
-        android:id="@+id/horizontalScroll"
-        android:layout_width="250dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewpp"
-        tools:visibility="invisible">
+                    <Button
+                        android:id="@+id/admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Admin"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/scrollLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:orientation="horizontal"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="81dp"
-            tools:layout_editor_absoluteY="331dp">
+                    <Button
+                        android:id="@+id/deconnect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/disconnect"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/imagePP1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp1" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/imagePP2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp2" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <ImageButton
-                android:id="@+id/imagePP3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp3" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/imagePP4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp4" />
+                    <ImageView
+                        android:id="@+id/imageViewpp"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:contentDescription="@string/app_name"
+                        android:onClick="parent"
+                        android:text="@string/pictureProfil"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
 
-            <ImageButton
-                android:id="@+id/imagePP5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp5" />
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScroll"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:scrollbars="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageViewpp"
+                        tools:visibility="invisible">
 
-            <ImageButton
-                android:id="@+id/imagePP6"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp6" />
+                        <LinearLayout
+                            android:id="@+id/scrollLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:orientation="horizontal"
+                            android:visibility="invisible"
+                            tools:layout_editor_absoluteX="81dp"
+                            tools:layout_editor_absoluteY="331dp">
 
-            <ImageButton
-                android:id="@+id/imagePP7"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp7" />
+                            <ImageButton
+                                android:id="@+id/imagePP1"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp1" />
 
-            <ImageButton
-                android:id="@+id/imagePP8"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/pp8" />
+                            <ImageButton
+                                android:id="@+id/imagePP2"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp2" />
 
-            <ImageButton
-                android:id="@+id/imagePP9"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/pp9"
-                tools:layout_editor_absoluteX="681dp"
-                tools:layout_editor_absoluteY="331dp" />
-        </LinearLayout>
-    </HorizontalScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageButton
+                                android:id="@+id/imagePP3"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp3" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP4"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp4" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP5"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp5" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP6"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp6" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP7"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp7" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP8"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/pp8" />
+
+                            <ImageButton
+                                android:id="@+id/imagePP9"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/pp9"
+                                tools:layout_editor_absoluteX="681dp"
+                                tools:layout_editor_absoluteY="331dp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <EditText
+                        android:id="@+id/nom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:autofillHints="name"
+                        android:hint="@string/name"
+                        android:inputType="textPersonName"
+                        android:text="@string/name"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"
+                        android:maxLength="10"/>
+
+                    <EditText
+                        android:id="@+id/prenom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:autofillHints="name"
+                        android:hint="@string/surname"
+                        android:inputType="textPersonName"
+                        android:text="@string/surname"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nom"
+                        android:maxLength="10"/>
+
+                    <Button
+                        android:id="@+id/confirmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/confirm"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/prenom" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
