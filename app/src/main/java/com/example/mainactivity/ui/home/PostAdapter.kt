@@ -84,7 +84,7 @@ class PostAdapter(private val listPost : ArrayList<Post>) : RecyclerView.Adapter
         val imgUser : ImageView = itemView.findViewById(R.id.imgUser)
         val user : TextView = itemView.findViewById(R.id.user)
         val tag : TextView = itemView.findViewById(R.id.tag)
-        val date : TextView = itemView.findViewById(R.id.date)
+        val date : TextView = itemView.findViewById(R.id.zoomedDate)
     }
 
 

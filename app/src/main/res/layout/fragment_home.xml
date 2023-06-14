@@ -9,7 +9,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutPost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,17 +25,16 @@
                 android:id="@+id/topBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="#00FFFFFF"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/up_button"
                 android:src="@drawable/baseline_keyboard_double_arrow_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorOnBackground"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                app:tint="@color/colorOnBackground"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -54,15 +53,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="#00FFFFFF"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/tag_button"
                 android:src="@drawable/baseline_manage_search_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorOnBackground" />
+                app:tint="@color/colorOnBackground"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,7 +76,7 @@
         android:elevation="3dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPost" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
@@ -86,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPost"
         tools:visibility="visible">
 
         <androidx.recyclerview.widget.RecyclerView
