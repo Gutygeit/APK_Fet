@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -56,7 +57,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         holder.apply {
             with(holder.acceptbtn) {
                 acceptbtn.setOnClickListener {
-                    Firebase.firestore.collection("PendingPost").document(currentItem.Id!!).get()
+                    Firebase.firestore.collection("Pending_Post").document(currentItem.Id!!).get()
                         .addOnSuccessListener {
                             var data = hashMapOf<String, Any>()
                             var img = ""
@@ -91,11 +92,17 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                             "Date" to FieldValue.serverTimestamp()
                                         )
 
-
                                         db.collection("Post").add(data)
+
                                     }
+
+                                    Firebase.firestore.collection("Pending_Post").document(
+                                        currentItem.Id.toString()
+                                    ).delete()
+
+
                                 }
-                            db.collection("PendingPost").document(currentItem.Id!!).delete()
+
                         }
                     }
                 }
@@ -103,7 +110,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         holder.apply {
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
-                    db.collection("PendingPost").document(currentItem.Id!!).delete()
+                    db.collection("Pending_Post").document(currentItem.Id!!).delete()
                 }
             }
 
