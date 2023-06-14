@@ -164,7 +164,7 @@ class MessageFragment : Fragment() {
                             "Image" to "",
                             "Date" to FieldValue.serverTimestamp())
                     }
-                    db.collection("Post").add(data)
+                    db.collection("Pending_Post").add(data)
                     binding.textInputEditTextMessage.text?.clear()
                     Toast.makeText(
                         activity,

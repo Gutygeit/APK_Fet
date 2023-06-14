@@ -215,8 +215,7 @@ class HomeFragment : Fragment() {
                                                                 }
                                                         } else {
                                                             val post = Post(
-                                                                result.data?.get("FirstName")
-                                                                    ?.toString()!!,
+                                                                result.data?.get("FirstName")?.toString()!!,
                                                                 document.data["Content"].toString(),
                                                                 document.data["Role"].toString(),
                                                                 bitmap,
