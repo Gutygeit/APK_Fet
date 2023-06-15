@@ -88,6 +88,7 @@ class HomeFragment : Fragment() {
 
         binding.filter.setOnClickListener{
             if(binding.filterFragment.isVisible) {
+                binding.filterFragment.isVisible = false
                 model.getList()
                 Firebase.firestore.collection("User")
                     .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
@@ -110,9 +111,8 @@ class HomeFragment : Fragment() {
                                 }
                         }
                     }
-                binding.filterFragment.isVisible = false
-                Thread.sleep(1000)
-                dataInitialize()
+                //Thread.sleep(1000)
+                //dataInitialize()
                 Toast.makeText(
                     activity, model.getList().toString(),
                     Toast.LENGTH_LONG

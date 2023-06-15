@@ -60,7 +60,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                     Firebase.firestore.collection("Pending_Post").document(currentItem.Id!!).get()
                         .addOnSuccessListener {
                             var data: HashMap<String, Any>
-                            val img = ""
+                            var img = ""
                             val storageRef = storage.reference
                             if (currentItem.Image != null) {
 
@@ -76,6 +76,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                 val riversRef =
                                     storageRef.child("images/${imageURI!!.lastPathSegment}.jpeg")
                                 riversRef.putFile(imageURI)
+                                img = "images/${imageURI!!.lastPathSegment}.jpeg"
                             }
                             Firebase.firestore.collection("User")
                                 .whereEqualTo("FirstName", currentItem.Auteur).get()
