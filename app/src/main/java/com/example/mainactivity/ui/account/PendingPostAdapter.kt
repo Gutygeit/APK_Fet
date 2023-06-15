@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -49,8 +50,6 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
         holder.imgUser.setImageBitmap(currentItem.ProfileP)
         holder.user.text = currentItem.Auteur
         holder.tag.text = currentItem.Tag
-        holder.acceptbtn.text = "accept"
-        holder.rejectbtn.text = "reject"
 
 
 
@@ -104,6 +103,8 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                 }
 
                         }
+                    holder.acceptbtn.visibility = View.GONE
+                    holder.rejectbtn.visibility = View.GONE
                     }
                 }
             }
@@ -111,6 +112,8 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
                     db.collection("Pending_Post").document(currentItem.Id!!).delete()
+                    holder.rejectbtn.visibility = View.GONE
+                    holder.rejectbtn.visibility = View.GONE
                 }
             }
 
