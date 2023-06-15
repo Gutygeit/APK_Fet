@@ -112,7 +112,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
                     db.collection("Pending_Post").document(currentItem.Id!!).delete()
-                    holder.rejectbtn.visibility = View.GONE
+                    holder.acceptbtn.visibility = View.GONE
                     holder.rejectbtn.visibility = View.GONE
                 }
             }
