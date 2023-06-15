@@ -1,9 +1,12 @@
 package com.example.mainactivity.ui.home
 
 import android.os.Bundle
+import android.service.autofill.OnClickAction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mainactivity.databinding.FragmentFilterBinding
@@ -55,9 +58,7 @@ class FilterFragment: Fragment() {
 
         val root: View = binding.root
 
-
-
-        val model = ViewModelProvider(requireActivity())[FilterViewModel::class.java]
+        var model = ViewModelProvider(requireActivity())[FilterViewModel::class.java]
         //val allTag = model.getAll()
 
         val chipGroup: ChipGroup = binding.chipGroup
@@ -78,6 +79,9 @@ class FilterFragment: Fragment() {
                                     chip.isCheckedIconVisible = true
                                     chip.isCheckable = true
                                     chip.isChecked = tag.data[element] as Boolean
+                                    if(tag.data[element] as Boolean){
+                                        model.addTag(chip.text as String)
+                                    }
                                     chip.setOnClickListener {
                                         if(chip.isChecked){
                                             model.addTag(chip.text as String)
@@ -86,7 +90,6 @@ class FilterFragment: Fragment() {
                                             model.removeTag(chip.text as String)
                                         }
                                     }
-
                                     chipGroup.addView(chip)
                                 }
                             }
@@ -99,5 +102,7 @@ class FilterFragment: Fragment() {
 
         return root
     }
+
+
 
 }
