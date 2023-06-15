@@ -107,7 +107,6 @@ class AdminFragment : Fragment() {
                                         val docRef = Firebase.firestore.collection("User")
                                             .document(idAuteur)
                                         docRef.get().addOnSuccessListener { result ->
-
                                             val gg = result.data?.get("pp")?.toString()
                                             val bitmap = getBitmapPP(gg)
                                             val image =
