@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mainactivity.data.Post
 import com.example.mainactivity.databinding.FragmentHomeBinding
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -113,12 +115,39 @@ class HomeFragment : Fragment() {
                     }
                 //Thread.sleep(1000)
                 //dataInitialize()
-                Toast.makeText(
-                    activity, model.getList().toString(),
-                    Toast.LENGTH_LONG
-                ).show()
+
             }
             else{
+                val tagArray = arrayListOf<String>()
+                Firebase.firestore.collection("User")
+                    .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
+                    .addOnSuccessListener { userGotten ->
+                        for (document in userGotten) {
+                            Firebase.firestore.collection("User").document(document.id)
+                                .collection("Tags").get().addOnSuccessListener { tags ->
+                                    for (tag in tags) {
+                                        for (tagdata in tag.data) {
+                                            tagArray.add(tagdata.key.toString())
+                                        }
+                                        for(element in tagArray){
+                                            val chip = Chip(context)
+                                            chip.text = element
+                                            chip.isCheckedIconVisible = true
+                                            chip.isCheckable = true
+                                            chip.isChecked = tag.data[element] as Boolean
+                                            chip.setOnClickListener {
+                                                if(chip.isChecked){
+                                                    model.addTag(chip.text as String)
+                                                }
+                                                else{
+                                                    model.removeTag(chip.text as String)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                    }
                 binding.filterFragment.isVisible = true
             }
         }
