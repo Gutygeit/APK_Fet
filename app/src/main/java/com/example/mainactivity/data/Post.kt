@@ -52,6 +52,7 @@ data class Post(
         parcel.writeString(Tag)
         parcel.writeString(Role)
         parcel.writeSerializable(date)
+        parcel.writeString(id)
     }
 
     /**

@@ -79,13 +79,16 @@ class ZoomPostFragment : Fragment() {
         val tag = view.findViewById<TextView>(R.id.zoomedTag)
         val date = view.findViewById<TextView>(R.id.zoomedDate)
 
-        textPost.text = post.Content
-        imgPost.setImageBitmap(post.Image)
-        imgUser.setImageBitmap(post.ProfileP)
-        user.text = post.Auteur
-        role.text = post.Role
-        tag.text = post.Tag
-        date.text = post.date
+
+
+        binding.zoomedTextPost.text = post.Content
+        binding.zoomedImgPost.setImageBitmap(post.Image)
+        binding.zoomedImgUser.setImageBitmap(post.ProfileP)
+        binding.zoomedUser.text = post.Auteur
+        binding.zoomedRole.text = post.Role
+        binding.zoomedTag.text = post.Tag
+        binding.zoomedDate.text = post.date
+
 
 
         id = post.id.toString()
@@ -148,7 +151,7 @@ class ZoomPostFragment : Fragment() {
 
                         var prenom =  infos.split(" ")[1]
                         var nom =  infos.split(" ")[2]
-                        var comment = Comment(prenom + nom, content, bitmap)
+                        var comment = Comment("$prenom $nom", content, bitmap)
                         commentList.add(comment)
                     }
                 }
