@@ -138,36 +138,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageButton
-                        android:id="@+id/like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/baseline_thumb_up_off_alt_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/colorOnPrimary" />
-
-                    <TextView
-                        android:id="@+id/likeNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="like_num"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/like"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <ImageView
                         android:id="@+id/comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
                         android:background="#00FFFFFF"
                         android:src="@drawable/baseline_comment_24"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/likeNumber"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/colorOnPrimary" />
 
