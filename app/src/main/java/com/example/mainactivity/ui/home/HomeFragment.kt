@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.tasks.await
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -85,6 +86,7 @@ class HomeFragment : Fragment() {
 
         binding.filter.setOnClickListener{
             if(binding.filterFragment.isVisible) {
+                binding.filterFragment.isVisible = false
                 model.getList()
                 val userRef = Firebase.firestore.collection("User")
                     .whereEqualTo("Mail", auth.currentUser?.email.toString()).get()
@@ -107,9 +109,8 @@ class HomeFragment : Fragment() {
                                 }
                         }
                     }
-                binding.filterFragment.isVisible = false
-                Thread.sleep(1000)
-                dataInitialize()
+                //Thread.sleep(1000)
+                //dataInitialize()
                 Toast.makeText(
                     activity, model.getList().toString(),
                     Toast.LENGTH_LONG
@@ -212,7 +213,6 @@ class HomeFragment : Fragment() {
                                                                         bitmap2,
                                                                         document.data["Tag"].toString(),
                                                                         dateString
-                                                                         //TODO
                                                                     )
 
                                                                     postList.add(post)

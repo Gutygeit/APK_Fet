@@ -1,5 +1,6 @@
 package com.example.mainactivity.ui.home
 
+import android.app.PendingIntent.getActivity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
@@ -77,6 +78,7 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                                 val riversRef =
                                     storageRef.child("images/${imageURI!!.lastPathSegment}.jpeg")
                                 riversRef.putFile(imageURI!!)
+                                img = "images/${imageURI!!.lastPathSegment}.jpeg"
                             } else {
                             }
                             Firebase.firestore.collection("User")
