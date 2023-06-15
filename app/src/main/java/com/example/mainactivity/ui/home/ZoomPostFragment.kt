@@ -106,6 +106,8 @@ class ZoomPostFragment : Fragment() {
 
                 val refPost = db.collection("Post").document(id)
                 refPost.update("Comments", FieldValue.arrayUnion(toSend))
+
+                binding.textInputEditTextMessage.text = null
             }
 
 

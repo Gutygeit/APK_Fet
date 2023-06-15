@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -64,8 +65,8 @@ class AccountFragment : Fragment() {
         userDocRef.whereEqualTo("Mail",auth.currentUser?.email.toString()).get().addOnSuccessListener {
             result->
             for (document in result){
-                if(!document.data["Role"].toString().contentEquals("/Role/role_Dev")){
-                    binding.admin.visibility = INVISIBLE
+                if(document.data["Role"].toString().contentEquals("/Role/role_Dev")){
+                    binding.admin.visibility = View.VISIBLE
                 }
                 val gg = document.data["pp"].toString()
                 gg.let {

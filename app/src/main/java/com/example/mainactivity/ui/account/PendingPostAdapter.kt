@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.navigation.NavController
@@ -105,6 +106,11 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
                         }
                     holder.acceptbtn.visibility = View.GONE
                     holder.rejectbtn.visibility = View.GONE
+                    Toast.makeText(
+                        itemView.context,
+                        "Le post a bien été accepté",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     }
                 }
             }
@@ -112,8 +118,13 @@ class PendingPostAdapter(private val listPost : ArrayList<PendingPost>) : Recycl
             with(holder.rejectbtn) {
                 rejectbtn.setOnClickListener {
                     db.collection("Pending_Post").document(currentItem.Id!!).delete()
+                    holder.acceptbtn.visibility = View.GONE
                     holder.rejectbtn.visibility = View.GONE
-                    holder.rejectbtn.visibility = View.GONE
+                    Toast.makeText(
+                        itemView.context,
+                        "Le post a bien été refusé",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
